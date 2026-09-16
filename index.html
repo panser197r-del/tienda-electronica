@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrónica Salcedo</title>
+    <title>KD Tech Electronics</title>
     <!-- Cargamos la librería de Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -12,7 +12,7 @@
         .precio { color: #2ecc71; font-weight: bold; font-size: 1.2em; }
         .btn-comprar { 
             display: inline-block; 
-            background-color: #25D366; /* Verde WhatsApp */
+            background-color: #25D366; 
             color: white; 
             padding: 10px 15px; 
             text-decoration: none; 
@@ -20,56 +20,62 @@
             margin-top: 10px; 
             font-weight: bold; 
         }
+        /* Estilo para que la foto se vea bien y no se deforme */
+        .img-producto { 
+            width: 100%; 
+            height: 200px; 
+            object-fit: contain; 
+            border-radius: 5px; 
+            margin-bottom: 10px; 
+        }
     </style>
 </head>
 <body>
 
-    <h1>Catálogo de Electrónica</h1>
+    <h1>Catálogo - KD Tech Electronics</h1>
     <div id="lista-productos">Cargando inventario...</div>
 
     <script>
-        // 1. Configura tus llaves aquí
         const supabaseUrl = 'https://odxdplbpzjntlejufpyu.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9keGRwbGJwempudGxlanVmcHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTQ5MzUsImV4cCI6MjEwNTE3MDkzNX0.aXOZKInAkWO2R6ktxYY4kUqNnXNCWSEiI-RUiDE5lcM';
         
-        // ¡Comando de inicialización!
         const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // 2. Función para traer los productos
         async function cargarProductos() {
             const { data, error } = await clienteSupabase.from('productos').select('*');
             
             const contenedor = document.getElementById('lista-productos');
-            contenedor.innerHTML = ''; // Limpiamos el texto de "Cargando..."
+            contenedor.innerHTML = ''; 
 
             if (error) {
-                contenedor.innerHTML = '<p>Error al cargar los productos. Revisa la consola.</p>';
-                console.error("Error de Supabase:", error);
+                contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
                 return;
             }
 
-            // Si no hay productos, mostrar un mensaje
             if (data.length === 0) {
                  contenedor.innerHTML = '<p>No hay productos registrados aún.</p>';
                  return;
             }
 
-            // 3. Dibujar cada producto en la pantalla, INCLUYENDO el botón
             data.forEach(producto => {
                 const div = document.createElement('div');
                 div.className = 'producto';
+                
+                // Si el producto tiene un enlace en la columna 'imagen', crea la foto. Si está vacío, no pone nada.
+                const imagenHtml = producto.imagen ? `<img src="${producto.imagen}" class="img-producto" alt="Imagen de ${producto.nombre}">` : '';
+
                 div.innerHTML = `
                     <h2>${producto.nombre}</h2>
+                    ${imagenHtml}
                     <p>${producto.descripcion}</p>
                     <p class="precio">$${producto.precio}</p>
                     <p>Stock disponible: ${producto.stock}</p>
-                    <a href="https://wa.me/593998329213?text=Hola,%20me%20interesa%20comprar%20el%20${encodeURIComponent(producto.nombre)}" class="btn-comprar" target="_blank">Comprar por WhatsApp</a>
+                    <a href="https://wa.me/593XXXXXXXXX?text=Hola,%20me%20interesa%20comprar%20el%20${encodeURIComponent(producto.nombre)}" class="btn-comprar" target="_blank">Comprar por WhatsApp</a>
                 `;
                 contenedor.appendChild(div);
             });
         }
 
-        // Ejecutar la función al abrir la página
         cargarProductos();
     </script>
 </body>
