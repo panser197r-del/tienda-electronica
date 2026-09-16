@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrónica Salcedo</title>
+    <!-- Cargamos la librería de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .producto { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .precio { color: #2ecc71; font-weight: bold; font-size: 1.2em; }
+        .btn-comprar { 
+            display: inline-block; 
+            background-color: #25D366; /* Verde WhatsApp */
+            color: white; 
+            padding: 10px 15px; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            margin-top: 10px; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Catálogo de Electrónica</h1>
+    <div id="lista-productos">Cargando inventario...</div>
+
+    <script>
+        // 1. Configura tus llaves aquí
+        const supabaseUrl = 'https://odxdplbpzjntlejufpyu.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9keGRwbGJwempudGxlanVmcHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTQ5MzUsImV4cCI6MjEwNTE3MDkzNX0.aXOZKInAkWO2R6ktxYY4kUqNnXNCWSEiI-RUiDE5lcM';
+        
+        // ¡Comando de inicialización!
+        const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        // 2. Función para traer los productos
+        async function cargarProductos() {
+            const { data, error } = await clienteSupabase.from('productos').select('*');
+            
+            const contenedor = document.getElementById('lista-productos');
+            contenedor.innerHTML = ''; // Limpiamos el texto de "Cargando..."
+
+            if (error) {
+                contenedor.innerHTML = '<p>Error al cargar los productos. Revisa la consola.</p>';
+                console.error("Error de Supabase:", error);
+                return;
+            }
+
+            // Si no hay productos, mostrar un mensaje
+            if (data.length === 0) {
+                 contenedor.innerHTML = '<p>No hay productos registrados aún.</p>';
+                 return;
+            }
+
+            // 3. Dibujar cada producto en la pantalla, INCLUYENDO el botón
+            data.forEach(producto => {
+                const div = document.createElement('div');
+                div.className = 'producto';
+                div.innerHTML = `
+                    <h2>${producto.nombre}</h2>
+                    <p>${producto.descripcion}</p>
+                    <p class="precio">$${producto.precio}</p>
+                    <p>Stock disponible: ${producto.stock}</p>
+                    <a href="https://wa.me/593XXXXXXXXX?text=Hola,%20me%20interesa%20comprar%20el%20${encodeURIComponent(producto.nombre)}" class="btn-comprar" target="_blank">Comprar por WhatsApp</a>
+                `;
+                contenedor.appendChild(div);
+            });
+        }
+
+        // Ejecutar la función al abrir la página
+        cargarProductos();
+    </script>
+</body>
+</html>
