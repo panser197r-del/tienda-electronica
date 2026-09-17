@@ -1,82 +1,497 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KD Tech Electronics</title>
-    <!-- Cargamos la librería de Supabase -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
-        .producto { background: white; padding: 15px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .precio { color: #2ecc71; font-weight: bold; font-size: 1.2em; }
-        .btn-comprar { 
-            display: inline-block; 
-            background-color: #25D366; 
-            color: white; 
-            padding: 10px 15px; 
-            text-decoration: none; 
-            border-radius: 5px; 
-            margin-top: 10px; 
-            font-weight: bold; 
-        }
-        /* Estilo para que la foto se vea bien y no se deforme */
-        .img-producto { 
-            width: 100%; 
-            height: 200px; 
-            object-fit: contain; 
-            border-radius: 5px; 
-            margin-bottom: 10px; 
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KD Tech Electronics — Componentes y módulos electrónicos</title>
+<meta name="description" content="Catálogo de módulos, placas y componentes electrónicos. Stock actualizado y pedidos por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@500;700;900&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{
+  --board:#0C3B31;
+  --board-deep:#082A23;
+  --copper:#B4623A;
+  --copper-soft:#E9D2C5;
+  --paper:#EDF1EF;
+  --card:#FFFFFF;
+  --ink:#13211D;
+  --ink-soft:#5B6B66;
+  --line:#D6DEDA;
+  --ok:#1C7A4E;
+  --warn:#9A6414;
+  --off:#8A8F8D;
+  --radius:10px;
+}
+:root:not([data-theme="light"]){
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --board:#0A322A;
+    --board-deep:#061E19;
+    --copper:#D9835A;
+    --copper-soft:#3A2A22;
+    --paper:#0E1513;
+    --card:#151F1C;
+    --ink:#E8EEEB;
+    --ink-soft:#9BAAA5;
+    --line:#26332F;
+    --ok:#4FBF87;
+    --warn:#D9A441;
+    --off:#7C8884;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --board:#0A322A; --board-deep:#061E19; --copper:#D9835A; --copper-soft:#3A2A22;
+  --paper:#0E1513; --card:#151F1C; --ink:#E8EEEB; --ink-soft:#9BAAA5; --line:#26332F;
+  --ok:#4FBF87; --warn:#D9A441; --off:#7C8884; color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%}
+a{color:inherit}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+
+/* ---------- Cabecera ---------- */
+.topbar{
+  background:var(--board-deep);
+  color:#CFE0DA;
+  font-size:13px;
+}
+.topbar .wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px}
+.topbar a{text-decoration:none}
+.topbar a:hover{color:#fff}
+
+.masthead{
+  position:relative;
+  background:var(--board);
+  color:#F1F7F4;
+  overflow:hidden;
+}
+.traces{position:absolute;inset:0;opacity:.28;pointer-events:none}
+.masthead .wrap{position:relative;padding-top:26px;padding-bottom:34px}
+.brandline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:13px;min-width:0}
+.mono-mark{
+  width:52px;height:52px;flex:none;
+  display:grid;place-items:center;
+  background:var(--copper);
+  color:#fff;
+  border-radius:12px;
+  font-family:'Chivo',sans-serif;font-weight:900;font-size:22px;letter-spacing:-.04em;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.18);
+}
+.brand h1{
+  font-family:'Chivo',sans-serif;
+  font-weight:900;letter-spacing:-.035em;
+  font-size:clamp(24px,4.4vw,34px);
+  margin:0;line-height:1.05;
+}
+.brand p{margin:2px 0 0;font-size:13.5px;color:#A9C6BC}
+.contact-pill{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  color:#F1F7F4;text-decoration:none;
+  padding:9px 14px;border-radius:999px;font-size:14px;font-weight:500;
+}
+.contact-pill:hover{background:rgba(255,255,255,.15)}
+.contact-pill span{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.01em}
+
+.pitch{
+  margin:26px 0 0;
+  max-width:52ch;
+  font-size:clamp(16px,2.2vw,19px);
+  color:#C8DED6;
+}
+
+/* ---------- Buscador ---------- */
+.searchbar{
+  margin-top:22px;
+  display:flex;gap:10px;flex-wrap:wrap;
+}
+.field{
+  position:relative;flex:1 1 280px;min-width:0;
+}
+.field svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
+#buscar,#orden{
+  font-family:inherit;font-size:15px;color:var(--ink);
+  background:var(--card);
+  border:1px solid transparent;
+  border-radius:var(--radius);
+  padding:13px 14px;
+  width:100%;
+}
+#buscar{padding-left:42px}
+#orden{flex:0 0 auto;width:auto;cursor:pointer}
+#buscar:focus,#orden:focus{outline:3px solid var(--copper);outline-offset:1px}
+#buscar::placeholder{color:var(--ink-soft)}
+
+/* ---------- Barra de resultados ---------- */
+.results-bar{
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:26px 0 14px;
+  border-bottom:1px solid var(--line);
+  margin-bottom:22px;
+}
+.results-bar h2{
+  font-family:'Chivo',sans-serif;font-weight:700;letter-spacing:-.02em;
+  font-size:20px;margin:0;
+}
+.count{font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--ink-soft)}
+
+/* ---------- Rejilla ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:18px;
+  padding-bottom:54px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  display:flex;flex-direction:column;
+  overflow:hidden;
+}
+.thumb{
+  position:relative;
+  aspect-ratio:4/3;
+  background:
+    linear-gradient(0deg,rgba(0,0,0,.02),rgba(0,0,0,.02)),
+    var(--card);
+  border-bottom:1px solid var(--line);
+  display:grid;place-items:center;
+  padding:14px;
+}
+.thumb img{width:100%;height:100%;object-fit:contain}
+.thumb .noimg{display:grid;place-items:center;gap:8px;color:var(--off);font-size:12.5px;text-align:center}
+.chip{
+  position:absolute;top:10px;left:10px;
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
+  padding:4px 8px;border-radius:6px;
+  background:var(--card);border:1px solid var(--line);
+}
+.chip.ok{color:var(--ok)}
+.chip.warn{color:var(--warn)}
+.chip.off{color:var(--off)}
+
+.body{padding:15px 16px 16px;display:flex;flex-direction:column;flex:1;gap:8px}
+.body h3{
+  font-family:'Chivo',sans-serif;font-weight:700;letter-spacing:-.015em;
+  font-size:17px;margin:0;line-height:1.25;
+}
+.desc{
+  margin:0;font-size:14px;color:var(--ink-soft);
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+}
+.meta{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);
+}
+.price{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  font-size:21px;letter-spacing:-.02em;color:var(--ink);
+}
+.units{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
+.buy{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:12px;padding:11px 14px;
+  background:var(--copper);color:#fff;text-decoration:none;
+  border-radius:8px;font-weight:600;font-size:14.5px;
+  border:1px solid rgba(0,0,0,.06);
+}
+.buy:hover{background:#9C5230}
+.buy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.buy.disabled{background:transparent;color:var(--off);border:1px dashed var(--line);pointer-events:none}
+
+/* ---------- Estados ---------- */
+.skeleton .sk-img{aspect-ratio:4/3;background:var(--line)}
+.skeleton .sk-line{height:12px;border-radius:4px;background:var(--line);margin:12px 16px}
+.skeleton .sk-line.short{width:45%}
+.skeleton{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@media (prefers-reduced-motion:reduce){.skeleton{animation:none}}
+
+.state{
+  grid-column:1/-1;
+  border:1px dashed var(--line);border-radius:var(--radius);
+  padding:40px 24px;text-align:center;color:var(--ink-soft);
+}
+.state strong{display:block;color:var(--ink);font-family:'Chivo',sans-serif;font-size:18px;margin-bottom:6px}
+.state a{color:var(--copper);font-weight:600}
+
+.demo-note{
+  background:var(--copper-soft);color:var(--ink);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:12px 15px;font-size:14px;margin:0 0 20px;
+}
+
+/* ---------- Pie ---------- */
+footer{background:var(--board-deep);color:#B9D0C9;padding:38px 0 46px;font-size:14.5px}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px}
+footer h4{font-family:'Chivo',sans-serif;color:#fff;font-size:15px;margin:0 0 8px;font-weight:700}
+footer a{color:#B9D0C9}
+footer a:hover{color:#fff}
+footer p{margin:0 0 4px}
+.legal{margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:#8FA9A2}
+
+/* ---------- Botón flotante ---------- */
+.float-wa{
+  position:fixed;right:18px;bottom:18px;z-index:40;
+  width:56px;height:56px;border-radius:50%;
+  background:#25D366;display:grid;place-items:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
+  text-decoration:none;
+}
+.float-wa:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@media (max-width:520px){
+  .float-wa{width:50px;height:50px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .body{padding:12px 13px 13px}
+  .body h3{font-size:15.5px}
+  .price{font-size:18px}
+}
+</style>
 </head>
 <body>
 
-    <h1>Catálogo - KD Tech Electronics</h1>
-    <div id="lista-productos">Cargando inventario...</div>
+<div class="topbar">
+  <div class="wrap">
+    <span>Entregas en Ambato y envíos a todo el Ecuador</span>
+    <a href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20consultar%20disponibilidad" target="_blank" rel="noopener">Escríbenos: 099 832 9213</a>
+  </div>
+</div>
 
-    <script>
-        const supabaseUrl = 'https://odxdplbpzjntlejufpyu.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9keGRwbGJwempudGxlanVmcHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTQ5MzUsImV4cCI6MjEwNTE3MDkzNX0.aXOZKInAkWO2R6ktxYY4kUqNnXNCWSEiI-RUiDE5lcM';
-        
-        const clienteSupabase = supabase.createClient(supabaseUrl, supabaseKey);
+<header class="masthead">
+  <svg class="traces" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1200 260">
+    <g fill="none" stroke="#5FA48F" stroke-width="1.6">
+      <path d="M-10 40 H180 L230 90 H420"/>
+      <path d="M-10 150 H120 L170 100 H360 L400 140 H560"/>
+      <path d="M1210 60 H1040 L990 110 H820"/>
+      <path d="M1210 190 H1090 L1040 140 H900 L860 180 H700"/>
+      <path d="M620 -10 V60 L660 100 V270"/>
+      <path d="M980 270 V210 L1020 170 V-10"/>
+    </g>
+    <g fill="#5FA48F">
+      <circle cx="420" cy="90" r="4.5"/><circle cx="560" cy="140" r="4.5"/>
+      <circle cx="820" cy="110" r="4.5"/><circle cx="700" cy="180" r="4.5"/>
+      <circle cx="660" cy="100" r="4.5"/><circle cx="1020" cy="170" r="4.5"/>
+    </g>
+  </svg>
 
-        async function cargarProductos() {
-            const { data, error } = await clienteSupabase.from('productos').select('*');
-            
-            const contenedor = document.getElementById('lista-productos');
-            contenedor.innerHTML = ''; 
+  <div class="wrap">
+    <div class="brandline">
+      <div class="brand">
+        <div class="mono-mark" aria-hidden="true">KD</div>
+        <div>
+          <h1>KD Tech Electronics</h1>
+          <p>Módulos, placas y componentes para tus proyectos</p>
+        </div>
+      </div>
+      <a class="contact-pill" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
+        <span>+593 99 832 9213</span>
+      </a>
+    </div>
 
-            if (error) {
-                contenedor.innerHTML = '<p>Error al cargar los productos.</p>';
-                return;
-            }
+    <p class="pitch">Busca lo que necesitas, revisa el stock real y haz tu pedido por WhatsApp en un mensaje.</p>
 
-            if (data.length === 0) {
-                 contenedor.innerHTML = '<p>No hay productos registrados aún.</p>';
-                 return;
-            }
+    <div class="searchbar">
+      <div class="field">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="buscar" type="search" placeholder="Buscar: ESP32, Arduino, sensor, resistencia…" aria-label="Buscar productos">
+      </div>
+      <select id="orden" aria-label="Ordenar productos">
+        <option value="nombre">Ordenar: A–Z</option>
+        <option value="precio-asc">Precio: menor a mayor</option>
+        <option value="precio-desc">Precio: mayor a menor</option>
+        <option value="stock">Más disponibles</option>
+      </select>
+    </div>
+  </div>
+</header>
 
-            data.forEach(producto => {
-                const div = document.createElement('div');
-                div.className = 'producto';
-                
-                // Si el producto tiene un enlace en la columna 'imagen', crea la foto. Si está vacío, no pone nada.
-                const imagenHtml = producto.imagen ? `<img src="${producto.imagen}" class="img-producto" alt="Imagen de ${producto.nombre}">` : '';
+<main class="wrap">
+  <div id="aviso"></div>
 
-                div.innerHTML = `
-                    <h2>${producto.nombre}</h2>
-                    ${imagenHtml}
-                    <p>${producto.descripcion}</p>
-                    <p class="precio">$${producto.precio}</p>
-                    <p>Stock disponible: ${producto.stock}</p>
-                    <a href="https://wa.me/593XXXXXXXXX?text=Hola,%20me%20interesa%20comprar%20el%20${encodeURIComponent(producto.nombre)}" class="btn-comprar" target="_blank">Comprar por WhatsApp</a>
-                `;
-                contenedor.appendChild(div);
-            });
-        }
+  <div class="results-bar">
+    <h2>Catálogo</h2>
+    <span class="count" id="contador">Cargando…</span>
+  </div>
 
-        cargarProductos();
-    </script>
+  <div class="grid" id="lista-productos"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>KD Tech Electronics</h4>
+        <p>Componentes, módulos de desarrollo y sensores para estudiantes, técnicos y makers.</p>
+      </div>
+      <div>
+        <h4>Pedidos</h4>
+        <p><a href="https://wa.me/593998329213" target="_blank" rel="noopener">WhatsApp +593 99 832 9213</a></p>
+        <p>Lunes a sábado, 9:00 – 19:00</p>
+      </div>
+      <div>
+        <h4>Cómo comprar</h4>
+        <p>Elige el producto, toca “Pedir por WhatsApp” y confirmamos disponibilidad, pago y envío por el chat.</p>
+      </div>
+    </div>
+    <p class="legal">© <span id="anio"></span> KD Tech Electronics · Precios en dólares (USD) · Stock sujeto a disponibilidad</p>
+  </div>
+</footer>
+
+<a class="float-wa" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
+</a>
+
+<script>
+const TELEFONO = '593998329213';
+const supabaseUrl = 'https://odxdplbpzjntlejufpyu.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9keGRwbGJwempudGxlanVmcHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTQ5MzUsImV4cCI6MjEwNTE3MDkzNX0.aXOZKInAkWO2R6ktxYY4kUqNnXNCWSEiI-RUiDE5lcM';
+
+const $lista = document.getElementById('lista-productos');
+const $contador = document.getElementById('contador');
+const $buscar = document.getElementById('buscar');
+const $orden = document.getElementById('orden');
+const $aviso = document.getElementById('aviso');
+document.getElementById('anio').textContent = new Date().getFullYear();
+
+let PRODUCTOS = [];
+
+const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+const precio = v => num(v).toFixed(2);
+
+function esqueletos(n = 8){
+  $lista.innerHTML = Array.from({length:n}, () => `
+    <div class="card skeleton" aria-hidden="true">
+      <div class="sk-img"></div>
+      <div class="sk-line"></div>
+      <div class="sk-line short"></div>
+    </div>`).join('');
+}
+
+function tarjeta(p){
+  const stock = Math.max(0, parseInt(p.stock, 10) || 0);
+  const chip = stock === 0
+    ? '<span class="chip off">Agotado</span>'
+    : stock <= 3
+      ? `<span class="chip warn">Últimas ${stock}</span>`
+      : '<span class="chip ok">En stock</span>';
+
+  const imagen = p.imagen
+    ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'noimg',textContent:'Sin foto'}))">`
+    : `<div class="noimg">
+         <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M7 7V5h10v2M8 12h8M8 15h5"/></svg>
+         Sin foto
+       </div>`;
+
+  const texto = encodeURIComponent(`Hola KD Tech Electronics, quiero comprar: ${p.nombre} ($${precio(p.precio)}). ¿Sigue disponible?`);
+  const boton = stock === 0
+    ? '<span class="buy disabled">Sin stock por ahora</span>'
+    : `<a class="buy" href="https://wa.me/${TELEFONO}?text=${texto}" target="_blank" rel="noopener">
+         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
+         Pedir por WhatsApp
+       </a>`;
+
+  return `
+    <article class="card">
+      <div class="thumb">${chip}${imagen}</div>
+      <div class="body">
+        <h3>${esc(p.nombre)}</h3>
+        ${p.descripcion ? `<p class="desc">${esc(p.descripcion)}</p>` : ''}
+        <div class="meta">
+          <span class="price">$${precio(p.precio)}</span>
+          <span class="units">${stock} ${stock === 1 ? 'unidad' : 'unidades'}</span>
+        </div>
+        ${boton}
+      </div>
+    </article>`;
+}
+
+function pintar(){
+  const q = $buscar.value.trim().toLowerCase();
+  let items = PRODUCTOS.filter(p =>
+    !q || `${p.nombre ?? ''} ${p.descripcion ?? ''}`.toLowerCase().includes(q)
+  );
+
+  const modo = $orden.value;
+  items.sort((a, b) =>
+    modo === 'precio-asc'  ? num(a.precio) - num(b.precio) :
+    modo === 'precio-desc' ? num(b.precio) - num(a.precio) :
+    modo === 'stock'       ? num(b.stock) - num(a.stock)   :
+    String(a.nombre ?? '').localeCompare(String(b.nombre ?? ''), 'es')
+  );
+
+  $contador.textContent = `${items.length} de ${PRODUCTOS.length} productos`;
+
+  if (!items.length){
+    $lista.innerHTML = `
+      <div class="state">
+        <strong>No encontramos “${esc($buscar.value.trim())}”</strong>
+        Prueba con otra palabra o
+        <a href="https://wa.me/${TELEFONO}?text=${encodeURIComponent('Hola, busco: ' + $buscar.value.trim())}" target="_blank" rel="noopener">pídelo por WhatsApp</a>: lo conseguimos.
+      </div>`;
+    return;
+  }
+  $lista.innerHTML = items.map(tarjeta).join('');
+}
+
+// Datos de muestra: solo se usan si la base de datos no responde (por ejemplo, en una vista previa sin conexión).
+const MUESTRA = [
+  {nombre:'ESP32 DevKit V1', descripcion:'Placa de desarrollo con WiFi y Bluetooth, 30 pines. Ideal para IoT y domótica.', precio:10, stock:1, imagen:''},
+  {nombre:'Arduino Uno R3', descripcion:'Placa clásica con ATmega328P. Perfecta para empezar en electrónica y automatización.', precio:12, stock:2, imagen:''},
+  {nombre:'Sensor ultrasónico HC-SR04', descripcion:'Medición de distancia de 2 cm a 4 m. Compatible con Arduino y ESP32.', precio:3.5, stock:14, imagen:''},
+  {nombre:'Módulo relé 2 canales 5V', descripcion:'Control de cargas AC/DC con optoacoplador incluido.', precio:4.25, stock:6, imagen:''},
+  {nombre:'Protoboard 830 puntos', descripcion:'Placa de pruebas sin soldadura con buses de alimentación.', precio:5, stock:9, imagen:''},
+  {nombre:'Kit de 120 cables Dupont', descripcion:'Macho-macho, macho-hembra y hembra-hembra de 20 cm.', precio:4, stock:3, imagen:''}
+];
+
+async function cargarProductos(){
+  esqueletos();
+  try{
+    const cliente = supabase.createClient(supabaseUrl, supabaseKey);
+    const { data, error } = await cliente.from('productos').select('*');
+    if (error) throw error;
+
+    PRODUCTOS = data || [];
+    if (!PRODUCTOS.length){
+      $contador.textContent = '0 productos';
+      $lista.innerHTML = `
+        <div class="state">
+          <strong>El catálogo está vacío</strong>
+          Agrega productos en la tabla <code>productos</code> de Supabase y aparecerán aquí.
+        </div>`;
+      return;
+    }
+    pintar();
+  }catch(e){
+    PRODUCTOS = MUESTRA;
+    $aviso.innerHTML = '<p class="demo-note">Vista de demostración: no se pudo conectar con la base de datos, así que se muestran productos de ejemplo. Al subir esta página a tu hosting cargará tu inventario real.</p>';
+    pintar();
+  }
+}
+
+$buscar.addEventListener('input', pintar);
+$orden.addEventListener('change', pintar);
+cargarProductos();
+</script>
 </body>
 </html>
