@@ -11,18 +11,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
-  --board:#0C3B31;
-  --board-deep:#082A23;
-  --copper:#B4623A;
-  --copper-soft:#E9D2C5;
-  --paper:#EDF1EF;
+  --board:#2E2A72;
+  --board-deep:#211D57;
+  --copper:#FF6A3D;
+  --copper-soft:#FFE3D6;
+  --paper:#F6F5FC;
   --card:#FFFFFF;
-  --ink:#13211D;
-  --ink-soft:#5B6B66;
-  --line:#D6DEDA;
-  --ok:#1C7A4E;
-  --warn:#9A6414;
-  --off:#8A8F8D;
+  --ink:#221F3B;
+  --ink-soft:#68638C;
+  --line:#E4E1F6;
+  --ok:#16A34A;
+  --warn:#D97706;
+  --off:#8B87A8;
   --radius:10px;
 }
 :root:not([data-theme="light"]){
@@ -30,25 +30,25 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --board:#0A322A;
-    --board-deep:#061E19;
-    --copper:#D9835A;
-    --copper-soft:#3A2A22;
-    --paper:#0E1513;
-    --card:#151F1C;
-    --ink:#E8EEEB;
-    --ink-soft:#9BAAA5;
-    --line:#26332F;
-    --ok:#4FBF87;
-    --warn:#D9A441;
-    --off:#7C8884;
+    --board:#211D4F;
+    --board-deep:#16132F;
+    --copper:#FF8A63;
+    --copper-soft:#3D2A22;
+    --paper:#131126;
+    --card:#1D1A3A;
+    --ink:#EDEBFC;
+    --ink-soft:#A9A4CC;
+    --line:#332E5C;
+    --ok:#4ADE80;
+    --warn:#F2B84B;
+    --off:#7D78A0;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --board:#0A322A; --board-deep:#061E19; --copper:#D9835A; --copper-soft:#3A2A22;
-  --paper:#0E1513; --card:#151F1C; --ink:#E8EEEB; --ink-soft:#9BAAA5; --line:#26332F;
-  --ok:#4FBF87; --warn:#D9A441; --off:#7C8884; color-scheme:dark;
+  --board:#211D4F; --board-deep:#16132F; --copper:#FF8A63; --copper-soft:#3D2A22;
+  --paper:#131126; --card:#1D1A3A; --ink:#EDEBFC; --ink-soft:#A9A4CC; --line:#332E5C;
+  --ok:#4ADE80; --warn:#F2B84B; --off:#7D78A0; color-scheme:dark;
 }
 
 *{box-sizing:border-box}
@@ -130,6 +130,15 @@ a{color:inherit}
   display:grid;place-items:center;
   border:2px solid var(--board);
 }
+
+/* ---------- Barra de confianza ---------- */
+.trust-bar{background:var(--card);border-bottom:1px solid var(--line)}
+.trust-bar .wrap{
+  display:flex;flex-wrap:wrap;gap:22px;justify-content:center;
+  padding:14px 20px;
+}
+.trust-item{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-soft);font-weight:500}
+.trust-item svg{flex:none;color:var(--copper)}
 
 .pitch{
   margin:26px 0 0;
@@ -408,7 +417,7 @@ footer p{margin:0 0 4px}
 
 <header class="masthead">
   <svg class="traces" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1200 260">
-    <g fill="none" stroke="#5FA48F" stroke-width="1.6">
+    <g fill="none" stroke="#8D89E0" stroke-width="1.6">
       <path d="M-10 40 H180 L230 90 H420"/>
       <path d="M-10 150 H120 L170 100 H360 L400 140 H560"/>
       <path d="M1210 60 H1040 L990 110 H820"/>
@@ -416,7 +425,7 @@ footer p{margin:0 0 4px}
       <path d="M620 -10 V60 L660 100 V270"/>
       <path d="M980 270 V210 L1020 170 V-10"/>
     </g>
-    <g fill="#5FA48F">
+    <g fill="#8D89E0">
       <circle cx="420" cy="90" r="4.5"/><circle cx="560" cy="140" r="4.5"/>
       <circle cx="820" cy="110" r="4.5"/><circle cx="700" cy="180" r="4.5"/>
       <circle cx="660" cy="100" r="4.5"/><circle cx="1020" cy="170" r="4.5"/>
@@ -460,6 +469,15 @@ footer p{margin:0 0 4px}
     </div>
   </div>
 </header>
+
+<div class="trust-bar">
+  <div class="wrap">
+    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8Z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Envíos a todo el Ecuador</span>
+    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg>Pedidos y pagos por WhatsApp</span>
+    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/></svg>Garantía en todos los productos</span>
+    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>Atención personalizada</span>
+  </div>
+</div>
 
 <main class="wrap">
   <div id="aviso"></div>
@@ -555,6 +573,7 @@ let VISIBLES = [];
 const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
 const precio = v => num(v).toFixed(2);
+const normalizar = t => String(t ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 const idDe = p => String(p.id ?? p.nombre);
 const buscarProducto = id => PRODUCTOS.find(p => idDe(p) === id);
 
@@ -746,18 +765,21 @@ function abrirDetalle(p){
 }
 
 function pintar(){
-  const q = $buscar.value.trim().toLowerCase();
-  let items = PRODUCTOS.filter(p =>
-    !q || `${p.nombre ?? ''} ${p.descripcion ?? ''}`.toLowerCase().includes(q)
-  );
-
+  const palabras = normalizar($buscar.value.trim()).split(/\s+/).filter(Boolean);
   const modo = $orden.value;
-  items.sort((a, b) =>
+  const compararOrden = (a, b) =>
     modo === 'precio-asc'  ? num(a.precio) - num(b.precio) :
     modo === 'precio-desc' ? num(b.precio) - num(a.precio) :
     modo === 'stock'       ? num(b.stock) - num(a.stock)   :
-    String(a.nombre ?? '').localeCompare(String(b.nombre ?? ''), 'es')
-  );
+    String(a.nombre ?? '').localeCompare(String(b.nombre ?? ''), 'es');
+
+  let items = PRODUCTOS.map(p => {
+    const texto = normalizar(`${p.nombre ?? ''} ${p.descripcion ?? ''}`);
+    return { p, rel: palabras.length ? palabras.filter(w => texto.includes(w)).length : 1 };
+  }).filter(x => x.rel > 0);
+
+  items.sort((a, b) => (b.rel - a.rel) || compararOrden(a.p, b.p));
+  items = items.map(x => x.p);
 
   $contador.textContent = `${items.length} de ${PRODUCTOS.length} productos`;
 
