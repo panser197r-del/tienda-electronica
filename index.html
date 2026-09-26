@@ -11,18 +11,18 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{
-  --board:#2E2A72;
-  --board-deep:#211D57;
-  --copper:#FF6A3D;
-  --copper-soft:#FFE3D6;
-  --paper:#F6F5FC;
+  --board:#2F6FED;
+  --board-deep:#1E4FC4;
+  --copper:#FF7A29;
+  --copper-soft:#FFE8D2;
+  --paper:#F5F8FF;
   --card:#FFFFFF;
-  --ink:#221F3B;
-  --ink-soft:#68638C;
-  --line:#E4E1F6;
+  --ink:#16213E;
+  --ink-soft:#5B6B8C;
+  --line:#E1E8F7;
   --ok:#16A34A;
   --warn:#D97706;
-  --off:#8B87A8;
+  --off:#8993AC;
   --radius:10px;
 }
 :root:not([data-theme="light"]){
@@ -30,25 +30,25 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --board:#211D4F;
-    --board-deep:#16132F;
-    --copper:#FF8A63;
-    --copper-soft:#3D2A22;
-    --paper:#131126;
-    --card:#1D1A3A;
-    --ink:#EDEBFC;
-    --ink-soft:#A9A4CC;
-    --line:#332E5C;
+    --board:#1E3A8A;
+    --board-deep:#142B66;
+    --copper:#FF9152;
+    --copper-soft:#3D2A1C;
+    --paper:#0F1729;
+    --card:#16213E;
+    --ink:#EAF0FF;
+    --ink-soft:#9FB0D9;
+    --line:#26365C;
     --ok:#4ADE80;
     --warn:#F2B84B;
-    --off:#7D78A0;
+    --off:#7C89AC;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --board:#211D4F; --board-deep:#16132F; --copper:#FF8A63; --copper-soft:#3D2A22;
-  --paper:#131126; --card:#1D1A3A; --ink:#EDEBFC; --ink-soft:#A9A4CC; --line:#332E5C;
-  --ok:#4ADE80; --warn:#F2B84B; --off:#7D78A0; color-scheme:dark;
+  --board:#1E3A8A; --board-deep:#142B66; --copper:#FF9152; --copper-soft:#3D2A1C;
+  --paper:#0F1729; --card:#16213E; --ink:#EAF0FF; --ink-soft:#9FB0D9; --line:#26365C;
+  --ok:#4ADE80; --warn:#F2B84B; --off:#7C89AC; color-scheme:dark;
 }
 
 *{box-sizing:border-box}
@@ -417,7 +417,7 @@ footer p{margin:0 0 4px}
 
 <header class="masthead">
   <svg class="traces" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1200 260">
-    <g fill="none" stroke="#8D89E0" stroke-width="1.6">
+    <g fill="none" stroke="#FFFFFF" stroke-width="1.6">
       <path d="M-10 40 H180 L230 90 H420"/>
       <path d="M-10 150 H120 L170 100 H360 L400 140 H560"/>
       <path d="M1210 60 H1040 L990 110 H820"/>
@@ -425,7 +425,7 @@ footer p{margin:0 0 4px}
       <path d="M620 -10 V60 L660 100 V270"/>
       <path d="M980 270 V210 L1020 170 V-10"/>
     </g>
-    <g fill="#8D89E0">
+    <g fill="#FFFFFF">
       <circle cx="420" cy="90" r="4.5"/><circle cx="560" cy="140" r="4.5"/>
       <circle cx="820" cy="110" r="4.5"/><circle cx="700" cy="180" r="4.5"/>
       <circle cx="660" cy="100" r="4.5"/><circle cx="1020" cy="170" r="4.5"/>
@@ -773,12 +773,25 @@ function pintar(){
     modo === 'stock'       ? num(b.stock) - num(a.stock)   :
     String(a.nombre ?? '').localeCompare(String(b.nombre ?? ''), 'es');
 
-  let items = PRODUCTOS.map(p => {
-    const texto = normalizar(`${p.nombre ?? ''} ${p.descripcion ?? ''}`);
-    return { p, rel: palabras.length ? palabras.filter(w => texto.includes(w)).length : 1 };
-  }).filter(x => x.rel > 0);
+  const frase = normalizar($buscar.value.trim());
+  const fraseCompacta = frase.replace(/\s+/g, '');
 
-  items.sort((a, b) => (b.rel - a.rel) || compararOrden(a.p, b.p));
+  let items = PRODUCTOS.map(p => {
+    if (!palabras.length) return { p, pts: 1 };
+    const nombre = normalizar(p.nombre ?? '').replace(/\s+/g, ' ');
+    const nombreCompacto = nombre.replace(/\s+/g, '');
+    const desc = normalizar(p.descripcion ?? '');
+    let pts = 0;
+    if (fraseCompacta && nombreCompacto.startsWith(fraseCompacta)) pts += 100;
+    else if (fraseCompacta && nombreCompacto.includes(fraseCompacta)) pts += 60;
+    palabras.forEach(w => {
+      if (nombre.includes(w)) pts += 10;
+      if (desc.includes(w)) pts += 1;
+    });
+    return { p, pts };
+  }).filter(x => x.pts > 0);
+
+  items.sort((a, b) => (b.pts - a.pts) || compararOrden(a.p, b.p));
   items = items.map(x => x.p);
 
   $contador.textContent = `${items.length} de ${PRODUCTOS.length} productos`;
