@@ -111,6 +111,26 @@ a{color:inherit}
 .contact-pill:hover{background:rgba(255,255,255,.15)}
 .contact-pill span{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.01em}
 
+.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cart-btn{
+  position:relative;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:46px;height:46px;border-radius:50%;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  color:#F1F7F4;cursor:pointer;
+}
+.cart-btn:hover{background:rgba(255,255,255,.15)}
+.cart-btn:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+.cart-badge{
+  position:absolute;top:-3px;right:-3px;
+  min-width:19px;height:19px;padding:0 4px;
+  border-radius:999px;background:#E0483B;color:#fff;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
+  display:grid;place-items:center;
+  border:2px solid var(--board);
+}
+
 .pitch{
   margin:26px 0 0;
   max-width:52ch;
@@ -158,8 +178,21 @@ a{color:inherit}
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
   gap:18px;
-  padding-bottom:54px;
+  padding-bottom:28px;
 }
+.paginacion{
+  display:flex;align-items:center;justify-content:center;gap:16px;
+  padding:4px 0 50px;
+}
+.paginacion button{
+  font:inherit;font-size:14px;font-weight:600;
+  background:var(--card);border:1px solid var(--line);color:var(--ink);
+  padding:9px 16px;border-radius:8px;cursor:pointer;
+}
+.paginacion button:hover:not(:disabled){background:var(--paper)}
+.paginacion button:disabled{opacity:.4;cursor:not-allowed}
+.paginacion button:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
+#pag-indicador{font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--ink-soft)}
 .card{
   background:var(--card);
   border:1px solid var(--line);
@@ -241,6 +274,63 @@ dialog#detalle::backdrop{background:rgba(6,30,25,.62)}
 @media (max-width:520px){
   dialog#detalle{width:100vw;max-width:100vw;max-height:92vh;border-radius:14px 14px 0 0;margin:auto auto 0}
   .dlg-body h3{font-size:20px}
+}
+
+/* ---------- Modal del carrito ---------- */
+dialog#carrito-modal{
+  width:min(480px,calc(100vw - 32px));
+  max-height:min(86vh,660px);
+  padding:0;border:1px solid var(--line);border-radius:14px;
+  background:var(--card);color:var(--ink);
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+  overflow:hidden;
+}
+dialog#carrito-modal::backdrop{background:rgba(6,30,25,.62)}
+.cart-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid var(--line);
+}
+.cart-header h3{font-family:'Chivo',sans-serif;font-weight:900;font-size:18px;margin:0}
+.cart-header .cerrar{position:static}
+#carrito-contenido{padding:6px 20px;max-height:min(50vh,380px);overflow-y:auto}
+.carrito-vacio{padding:38px 6px;text-align:center;color:var(--ink-soft);font-size:14.5px}
+.item-carrito{
+  display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;
+  padding:13px 0;border-bottom:1px dashed var(--line);
+}
+.item-carrito:last-child{border-bottom:none}
+.ic-nombre{margin:0;font-weight:600;font-size:14px;line-height:1.3}
+.ic-precio{margin:2px 0 0;font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
+.ic-cantidad{display:flex;align-items:center;gap:7px}
+.ic-cantidad button{
+  width:25px;height:25px;border-radius:6px;border:1px solid var(--line);
+  background:var(--paper);color:var(--ink);font-size:15px;line-height:1;cursor:pointer;
+}
+.ic-cantidad button:hover:not(:disabled){background:var(--line)}
+.ic-cantidad button:disabled{opacity:.35;cursor:not-allowed}
+.ic-cantidad span{font-family:'IBM Plex Mono',monospace;min-width:16px;text-align:center;font-size:13.5px}
+.ic-fila-derecha{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.ic-subtotal{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13.5px;white-space:nowrap}
+.ic-quitar{background:none;border:none;color:var(--off);cursor:pointer;font-size:12.5px;text-decoration:underline;padding:0}
+.ic-quitar:hover{color:#C0392B}
+.carrito-total{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0 4px;margin-top:4px;border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:17px;
+}
+.cart-footer{
+  display:flex;gap:10px;flex-wrap:wrap;padding:16px 20px 20px;border-top:1px solid var(--line);
+}
+.btn-secundario{
+  flex:1;min-width:130px;
+  background:transparent;border:1px solid var(--line);color:var(--ink-soft);
+  padding:11px 12px;border-radius:8px;font-weight:600;font-size:13.5px;cursor:pointer;font-family:inherit;
+}
+.btn-secundario:hover:not(:disabled){background:var(--paper);color:var(--ink)}
+.cart-footer .buy{flex:2;min-width:190px;margin-top:0;border:none;cursor:pointer;font-family:inherit}
+.cart-footer button:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
+@media (max-width:520px){
+  dialog#carrito-modal{width:100vw;max-width:100vw;max-height:92vh;border-radius:14px 14px 0 0;margin:auto auto 0}
 }
 .price{
   font-family:'IBM Plex Mono',monospace;font-weight:600;
@@ -342,10 +432,16 @@ footer p{margin:0 0 4px}
           <p>Módulos, placas y componentes para tus proyectos</p>
         </div>
       </div>
-      <a class="contact-pill" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
-        <span>+593 99 832 9213</span>
-      </a>
+      <div class="header-actions">
+        <a class="contact-pill" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
+          <span>+593 99 832 9213</span>
+        </a>
+        <button class="cart-btn" id="btn-carrito" type="button" aria-label="Ver carrito de compras" aria-haspopup="dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-badge" id="cart-badge" hidden>0</span>
+        </button>
+      </div>
     </div>
 
     <p class="pitch">Busca lo que necesitas, revisa el stock real y haz tu pedido por WhatsApp en un mensaje.</p>
@@ -374,6 +470,12 @@ footer p{margin:0 0 4px}
   </div>
 
   <div class="grid" id="lista-productos"></div>
+
+  <div class="paginacion" id="paginacion" hidden>
+    <button type="button" id="pag-anterior">← Anterior</button>
+    <span id="pag-indicador">Página 1 de 1</span>
+    <button type="button" id="pag-siguiente">Siguiente →</button>
+  </div>
 </main>
 
 <footer>
@@ -386,7 +488,7 @@ footer p{margin:0 0 4px}
       <div>
         <h4>Pedidos</h4>
         <p><a href="https://wa.me/593998329213" target="_blank" rel="noopener">WhatsApp +593 99 832 9213</a></p>
-        <p>Lunes a Domingo, 9:00 – 19:00</p>
+        <p>Lunes a sábado, 9:00 – 19:00</p>
       </div>
       <div>
         <h4>Cómo comprar</h4>
@@ -399,6 +501,18 @@ footer p{margin:0 0 4px}
 
 <dialog id="detalle" aria-label="Detalle del producto">
   <div class="dlg-scroll" id="detalle-contenido"></div>
+</dialog>
+
+<dialog id="carrito-modal" aria-label="Carrito de compras">
+  <div class="cart-header">
+    <h3>Tu carrito</h3>
+    <button class="cerrar" type="button" id="cerrar-carrito" aria-label="Cerrar">&times;</button>
+  </div>
+  <div id="carrito-contenido"></div>
+  <div class="cart-footer">
+    <button class="btn-secundario" type="button" id="btn-vaciar">Vaciar carrito</button>
+    <button class="buy" type="button" id="btn-pedido-wa">Generar pedido por WhatsApp</button>
+  </div>
 </dialog>
 
 <a class="float-wa" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
@@ -418,6 +532,22 @@ const $aviso = document.getElementById('aviso');
 document.getElementById('anio').textContent = new Date().getFullYear();
 
 const $detalle = document.getElementById('detalle');
+const $carritoModal = document.getElementById('carrito-modal');
+const $btnCarrito = document.getElementById('btn-carrito');
+const $cerrarCarrito = document.getElementById('cerrar-carrito');
+const $carritoContenido = document.getElementById('carrito-contenido');
+const $badge = document.getElementById('cart-badge');
+const $btnVaciar = document.getElementById('btn-vaciar');
+const $btnPedidoWa = document.getElementById('btn-pedido-wa');
+const $paginacion = document.getElementById('paginacion');
+const $pagAnterior = document.getElementById('pag-anterior');
+const $pagSiguiente = document.getElementById('pag-siguiente');
+const $pagIndicador = document.getElementById('pag-indicador');
+
+const ITEMS_POR_PAGINA = 10;
+const CARRITO_KEY = 'kd-tech-carrito';
+let paginaActual = 1;
+let carrito = [];
 
 let PRODUCTOS = [];
 let VISIBLES = [];
@@ -425,6 +555,8 @@ let VISIBLES = [];
 const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const num = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
 const precio = v => num(v).toFixed(2);
+const idDe = p => String(p.id ?? p.nombre);
+const buscarProducto = id => PRODUCTOS.find(p => idDe(p) === id);
 
 function esqueletos(n = 8){
   $lista.innerHTML = Array.from({length:n}, () => `
@@ -436,6 +568,7 @@ function esqueletos(n = 8){
 }
 
 const ICONO_WA = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>';
+const ICONO_CARRITO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
 const SIN_FOTO = `<div class="noimg">
   <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M7 7V5h10v2M8 12h8M8 15h5"/></svg>
   Sin foto
@@ -457,8 +590,7 @@ function imagenDe(p){
 
 function botonDe(p, stock){
   if (stock === 0) return '<span class="buy disabled">Sin stock por ahora</span>';
-  const texto = encodeURIComponent(`Hola KD Tech Electronics, quiero comprar: ${p.nombre} ($${precio(p.precio)}). ¿Sigue disponible?`);
-  return `<a class="buy" href="https://wa.me/${TELEFONO}?text=${texto}" target="_blank" rel="noopener">${ICONO_WA} Pedir por WhatsApp</a>`;
+  return `<button class="buy" type="button" data-add="${esc(idDe(p))}">${ICONO_CARRITO} Agregar al carrito</button>`;
 }
 
 function tarjeta(p, i){
@@ -487,6 +619,110 @@ function marcarRecortadas(){
     if (!btn) return;
     btn.hidden = !(desc && desc.scrollHeight > desc.clientHeight + 2);
   });
+}
+
+/* ---------- Carrito de compras ---------- */
+function cargarCarrito(){
+  try{
+    const guardado = JSON.parse(localStorage.getItem(CARRITO_KEY) || '[]');
+    carrito = Array.isArray(guardado) ? guardado : [];
+  }catch(e){
+    carrito = [];
+  }
+}
+
+function guardarCarrito(){
+  try{ localStorage.setItem(CARRITO_KEY, JSON.stringify(carrito)); }catch(e){ /* almacenamiento no disponible */ }
+}
+
+function actualizarBadge(){
+  const total = carrito.reduce((s, i) => s + i.cantidad, 0);
+  $badge.textContent = total;
+  $badge.hidden = total === 0;
+}
+
+function agregarAlCarrito(p){
+  const id = idDe(p);
+  const stock = stockDe(p);
+  const item = carrito.find(i => i.id === id);
+  if (item){
+    if (item.cantidad < stock) item.cantidad++;
+  } else if (stock > 0){
+    carrito.push({ id, nombre: p.nombre, precio: num(p.precio), cantidad: 1 });
+  }
+  guardarCarrito();
+  actualizarBadge();
+  pintarCarrito();
+}
+
+function cambiarCantidad(id, delta){
+  const item = carrito.find(i => i.id === id);
+  if (!item) return;
+  const prod = buscarProducto(id);
+  const max = prod ? stockDe(prod) : 99;
+  item.cantidad = Math.min(max, item.cantidad + delta);
+  if (item.cantidad <= 0) carrito = carrito.filter(i => i.id !== id);
+  guardarCarrito();
+  actualizarBadge();
+  pintarCarrito();
+}
+
+function quitarDelCarrito(id){
+  carrito = carrito.filter(i => i.id !== id);
+  guardarCarrito();
+  actualizarBadge();
+  pintarCarrito();
+}
+
+function vaciarCarrito(){
+  carrito = [];
+  guardarCarrito();
+  actualizarBadge();
+  pintarCarrito();
+}
+
+const totalCarrito = () => carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+
+function pintarCarrito(){
+  if (!carrito.length){
+    $carritoContenido.innerHTML = '<p class="carrito-vacio">Tu carrito está vacío.<br>Agrega productos para armar tu pedido.</p>';
+    $btnVaciar.disabled = true;
+    $btnPedidoWa.disabled = true;
+    return;
+  }
+
+  const filas = carrito.map(i => {
+    const prod = buscarProducto(i.id);
+    const tope = prod ? stockDe(prod) : 99;
+    return `
+      <div class="item-carrito">
+        <div>
+          <p class="ic-nombre">${esc(i.nombre)}</p>
+          <p class="ic-precio">$${i.precio.toFixed(2)} c/u</p>
+        </div>
+        <div class="ic-cantidad">
+          <button type="button" data-accion="menos" data-id="${esc(i.id)}" aria-label="Quitar una unidad de ${esc(i.nombre)}">−</button>
+          <span>${i.cantidad}</span>
+          <button type="button" data-accion="mas" data-id="${esc(i.id)}" aria-label="Agregar una unidad de ${esc(i.nombre)}" ${i.cantidad >= tope ? 'disabled' : ''}>+</button>
+        </div>
+        <div class="ic-fila-derecha">
+          <span class="ic-subtotal">$${(i.precio * i.cantidad).toFixed(2)}</span>
+          <button class="ic-quitar" type="button" data-accion="quitar" data-id="${esc(i.id)}">Quitar</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  $carritoContenido.innerHTML = filas + `<div class="carrito-total"><span>Total</span><span>$${totalCarrito().toFixed(2)}</span></div>`;
+  $btnVaciar.disabled = false;
+  $btnPedidoWa.disabled = false;
+}
+
+function generarPedidoWhatsApp(){
+  if (!carrito.length) return;
+  const lineas = carrito.map(i => `- ${i.cantidad}x ${i.nombre} ($${(i.precio * i.cantidad).toFixed(2)})`).join('\n');
+  const mensaje =
+    `Hola KD Tech Electronics, deseo realizar este pedido:\n${lineas}\n-----------------------\nTotal a pagar: $${totalCarrito().toFixed(2)}`;
+  window.open(`https://wa.me/${TELEFONO}?text=${encodeURIComponent(mensaje)}`, '_blank');
 }
 
 function abrirDetalle(p){
@@ -532,11 +768,23 @@ function pintar(){
         Prueba con otra palabra o
         <a href="https://wa.me/${TELEFONO}?text=${encodeURIComponent('Hola, busco: ' + $buscar.value.trim())}" target="_blank" rel="noopener">pídelo por WhatsApp</a>: lo conseguimos.
       </div>`;
+    $paginacion.hidden = true;
     return;
   }
-  VISIBLES = items;
-  $lista.innerHTML = items.map((p, i) => tarjeta(p, i)).join('');
+
+  const totalPaginas = Math.max(1, Math.ceil(items.length / ITEMS_POR_PAGINA));
+  paginaActual = Math.min(Math.max(paginaActual, 1), totalPaginas);
+  const inicio = (paginaActual - 1) * ITEMS_POR_PAGINA;
+  const pagina = items.slice(inicio, inicio + ITEMS_POR_PAGINA);
+
+  VISIBLES = pagina;
+  $lista.innerHTML = pagina.map((p, i) => tarjeta(p, i)).join('');
   marcarRecortadas();
+
+  $paginacion.hidden = totalPaginas <= 1;
+  $pagIndicador.textContent = `Página ${paginaActual} de ${totalPaginas}`;
+  $pagAnterior.disabled = paginaActual <= 1;
+  $pagSiguiente.disabled = paginaActual >= totalPaginas;
 }
 
 // Datos de muestra: solo se usan si la base de datos no responde (por ejemplo, en una vista previa sin conexión).
@@ -546,7 +794,14 @@ const MUESTRA = [
   {nombre:'Sensor ultrasónico HC-SR04', descripcion:'Medición de distancia de 2 cm a 4 m. Compatible con Arduino y ESP32.', precio:3.5, stock:14, imagen:''},
   {nombre:'Módulo relé 2 canales 5V', descripcion:'Control de cargas AC/DC con optoacoplador incluido.', precio:4.25, stock:6, imagen:''},
   {nombre:'Protoboard 830 puntos', descripcion:'Placa de pruebas sin soldadura con buses de alimentación.', precio:5, stock:9, imagen:''},
-  {nombre:'Kit de 120 cables Dupont', descripcion:'Macho-macho, macho-hembra y hembra-hembra de 20 cm.', precio:4, stock:3, imagen:''}
+  {nombre:'Kit de 120 cables Dupont', descripcion:'Macho-macho, macho-hembra y hembra-hembra de 20 cm.', precio:4, stock:3, imagen:''},
+  {nombre:'Módulo Bluetooth HC-05', descripcion:'Comunicación serial inalámbrica para Arduino, alcance de hasta 10 m.', precio:5.5, stock:7, imagen:''},
+  {nombre:'Pantalla LCD 16x2 con I2C', descripcion:'Módulo de visualización con adaptador I2C, requiere solo 2 pines de datos.', precio:6.5, stock:5, imagen:''},
+  {nombre:'Servomotor SG90', descripcion:'Micro servo de 180°, ideal para robótica y proyectos con Arduino.', precio:3, stock:12, imagen:''},
+  {nombre:'Sensor de temperatura DHT22', descripcion:'Mide temperatura y humedad con buena precisión.', precio:5, stock:8, imagen:''},
+  {nombre:'Módulo cargador de batería TP4056', descripcion:'Carga baterías de litio 3.7V vía USB-C con protección incluida.', precio:1.5, stock:20, imagen:''},
+  {nombre:'Potenciómetro rotativo 10K', descripcion:'Control analógico para volumen, brillo o velocidad.', precio:0.6, stock:30, imagen:''},
+  {nombre:'Regulador de voltaje LM2596', descripcion:'Módulo step-down ajustable, entrada hasta 40V.', precio:2.2, stock:10, imagen:''}
 ];
 
 async function cargarProductos(){
@@ -584,13 +839,53 @@ $detalle.addEventListener('click', e => {
   if (e.target.closest('.cerrar') || e.target === $detalle) $detalle.close();
 });
 
+// Agregar al carrito: funciona tanto en las tarjetas como en la ventana de detalle
+document.body.addEventListener('click', e => {
+  const addBtn = e.target.closest('[data-add]');
+  if (!addBtn) return;
+  const producto = buscarProducto(addBtn.dataset.add);
+  if (!producto) return;
+  agregarAlCarrito(producto);
+  const original = addBtn.innerHTML;
+  addBtn.innerHTML = '✓ Agregado';
+  addBtn.disabled = true;
+  setTimeout(() => { addBtn.innerHTML = original; addBtn.disabled = false; }, 900);
+});
+
+$btnCarrito.addEventListener('click', () => { pintarCarrito(); $carritoModal.showModal(); });
+$cerrarCarrito.addEventListener('click', () => $carritoModal.close());
+$carritoModal.addEventListener('click', e => {
+  if (e.target === $carritoModal) $carritoModal.close();
+});
+$carritoContenido.addEventListener('click', e => {
+  const btn = e.target.closest('button[data-accion]');
+  if (!btn) return;
+  const { accion, id } = btn.dataset;
+  if (accion === 'mas') cambiarCantidad(id, 1);
+  if (accion === 'menos') cambiarCantidad(id, -1);
+  if (accion === 'quitar') quitarDelCarrito(id);
+});
+$btnVaciar.addEventListener('click', vaciarCarrito);
+$btnPedidoWa.addEventListener('click', generarPedidoWhatsApp);
+
+$pagAnterior.addEventListener('click', () => {
+  paginaActual--; pintar();
+  document.querySelector('.results-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+$pagSiguiente.addEventListener('click', () => {
+  paginaActual++; pintar();
+  document.querySelector('.results-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
 window.addEventListener('resize', () => { if (VISIBLES.length) marcarRecortadas(); });
-$buscar.addEventListener('input', pintar);
-$orden.addEventListener('change', pintar);
+$buscar.addEventListener('input', () => { paginaActual = 1; pintar(); });
+$orden.addEventListener('change', () => { paginaActual = 1; pintar(); });
 if (document.fonts && document.fonts.ready){
   document.fonts.ready.then(() => { if (VISIBLES.length) marcarRecortadas(); });
 }
 
+cargarCarrito();
+actualizarBadge();
 cargarProductos();
 </script>
 </body>
