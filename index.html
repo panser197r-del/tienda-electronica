@@ -1,933 +1,3959 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KD Tech Electronics — Componentes y módulos electrónicos</title>
-<meta name="description" content="Catálogo de módulos, placas y componentes electrónicos. Stock actualizado y pedidos por WhatsApp.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@500;700;900&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<style>
-:root{
-  --board:#111111;
-  --board-deep:#000000;
-  --copper:#FF7A29;
-  --copper-soft:#FFE8D2;
-  --paper:#FFFFFF;
-  --card:#FFFFFF;
-  --ink:#141414;
-  --ink-soft:#5B5B5B;
-  --line:#E4E4E4;
-  --ok:#16A34A;
-  --warn:#D97706;
-  --off:#9A9A9A;
-  --radius:10px;
-}
-:root:not([data-theme="light"]){
-  color-scheme:light;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --board:#000000;
-    --board-deep:#000000;
-    --copper:#FF9152;
-    --copper-soft:#3D2A1C;
-    --paper:#0B0B0B;
-    --card:#161616;
-    --ink:#F2F2F2;
-    --ink-soft:#A6A6A6;
-    --line:#2A2A2A;
-    --ok:#4ADE80;
-    --warn:#F2B84B;
-    --off:#7A7A7A;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --board:#000000; --board-deep:#000000; --copper:#FF9152; --copper-soft:#3D2A1C;
-  --paper:#0B0B0B; --card:#161616; --ink:#F2F2F2; --ink-soft:#A6A6A6; --line:#2A2A2A;
-  --ok:#4ADE80; --warn:#F2B84B; --off:#7A7A7A; color-scheme:dark;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KD Tech Electronics — Componentes, Placas de Desarrollo, Sensores e IoT en Ecuador</title>
+  <meta name="description" content="Tienda especializada en componentes electrónicos, módulos ESP32, Arduino, sensores, robótica e instrumentación. Entregas en Ambato y envíos a todo el Ecuador.">
+  <meta name="theme-color" content="#111111">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@500;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* ==========================================================================
+       1. VARIABLES DEL SISTEMA DE DISEÑO Y TEMAS (LIGHT / DARK / PCB LAB)
+       ========================================================================== */
+    :root {
+      --board: #0F1115;
+      --board-deep: #07080A;
+      --board-elevated: #171A21;
+      --copper: #FF7A29;
+      --copper-hover: #E56312;
+      --copper-soft: #FFF0E5;
+      --copper-glow: rgba(255, 122, 41, 0.22);
+      --accent-cyan: #0EA5E9;
+      --accent-purple: #8B5CF6;
+      --paper: #F6F7F9;
+      --card: #FFFFFF;
+      --card-alt: #F0F2F5;
+      --ink: #111827;
+      --ink-soft: #4B5563;
+      --ink-muted: #6B7280;
+      --line: #E2E8F0;
+      --line-strong: #CBD5E1;
+      --ok: #16A34A;
+      --ok-soft: rgba(22, 163, 74, 0.12);
+      --warn: #D97706;
+      --warn-soft: rgba(217, 119, 6, 0.14);
+      --danger: #DC2626;
+      --danger-soft: rgba(220, 38, 38, 0.12);
+      --off: #94A3B8;
+      --radius-xs: 6px;
+      --radius-sm: 8px;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 4px 10px -3px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 20px 45px -10px rgba(0, 0, 0, 0.18), 0 8px 18px -6px rgba(0, 0, 0, 0.08);
+      --shadow-glow: 0 0 25px rgba(255, 122, 41, 0.28);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-display: 'Chivo', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 240ms cubic-bezier(0.4, 0, 0.2, 1);
+      color-scheme: light;
+    }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  font-size:16px;
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
-}
-img{max-width:100%}
-a{color:inherit}
-.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+    :root[data-theme="dark"] {
+      --board: #090A0F;
+      --board-deep: #040507;
+      --board-elevated: #12151E;
+      --copper: #FF853A;
+      --copper-hover: #FF9B5E;
+      --copper-soft: #2B1B12;
+      --copper-glow: rgba(255, 133, 58, 0.25);
+      --accent-cyan: #38BDF8;
+      --accent-purple: #A78BFA;
+      --paper: #0B0D13;
+      --card: #131722;
+      --card-alt: #1A1F2E;
+      --ink: #F3F4F6;
+      --ink-soft: #9CA3AF;
+      --ink-muted: #6B7280;
+      --line: #222838;
+      --line-strong: #323B52;
+      --ok: #4ADE80;
+      --ok-soft: rgba(74, 222, 128, 0.14);
+      --warn: #FBBF24;
+      --warn-soft: rgba(251, 191, 36, 0.15);
+      --danger: #F87171;
+      --danger-soft: rgba(248, 113, 113, 0.15);
+      --off: #64748B;
+      --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.65);
+      color-scheme: dark;
+    }
 
-/* ---------- Cabecera ---------- */
-.topbar{
-  background:var(--board-deep);
-  color:#C7C7C7;
-  font-size:13px;
-}
-.topbar .wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between;padding-top:8px;padding-bottom:8px}
-.topbar a{text-decoration:none}
-.topbar a:hover{color:#fff}
+    :root[data-theme="pcb"] {
+      --board: #062115;
+      --board-deep: #03140C;
+      --board-elevated: #0A2E1E;
+      --copper: #F5B041;
+      --copper-hover: #F8C471;
+      --copper-soft: #2C2410;
+      --copper-glow: rgba(245, 176, 65, 0.28);
+      --accent-cyan: #2ECC71;
+      --accent-purple: #F39C12;
+      --paper: #041910;
+      --card: #08291B;
+      --card-alt: #0D3826;
+      --ink: #ECFDF5;
+      --ink-soft: #A7F3D0;
+      --ink-muted: #6EE7B7;
+      --line: #145337;
+      --line-strong: #1E754E;
+      --ok: #34D399;
+      --ok-soft: rgba(52, 211, 153, 0.16);
+      --warn: #FBBF24;
+      --warn-soft: rgba(251, 191, 36, 0.18);
+      --danger: #FB7185;
+      --danger-soft: rgba(251, 113, 133, 0.16);
+      --off: #529475;
+      color-scheme: dark;
+    }
 
-.masthead{
-  position:relative;
-  background:var(--board);
-  color:#F5F5F5;
-  overflow:hidden;
-}
-.traces{position:absolute;inset:0;opacity:.22;pointer-events:none}
-.masthead .wrap{position:relative;padding-top:26px;padding-bottom:34px}
-.brandline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:13px;min-width:0}
-.mono-mark{
-  width:52px;height:52px;flex:none;
-  display:grid;place-items:center;
-  background:var(--copper);
-  color:#fff;
-  border-radius:12px;
-  font-family:'Chivo',sans-serif;font-weight:900;font-size:22px;letter-spacing:-.04em;
-  box-shadow:inset 0 0 0 2px rgba(255,255,255,.18);
-}
-.brand h1{
-  font-family:'Chivo',sans-serif;
-  font-weight:900;letter-spacing:-.035em;
-  font-size:clamp(24px,4.4vw,34px);
-  margin:0;line-height:1.05;
-}
-.brand p{margin:2px 0 0;font-size:13.5px;color:#ADADAD}
-.contact-pill{
-  display:inline-flex;align-items:center;gap:9px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.16);
-  color:#F5F5F5;text-decoration:none;
-  padding:9px 14px;border-radius:999px;font-size:14px;font-weight:500;
-}
-.contact-pill:hover{background:rgba(255,255,255,.15)}
-.contact-pill span{font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.01em}
+    /* ==========================================================================
+       2. RESET Y BASE TIPOGRAFICA
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-.header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.cart-btn{
-  position:relative;flex:none;
-  display:inline-flex;align-items:center;justify-content:center;
-  width:46px;height:46px;border-radius:50%;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.16);
-  color:#F5F5F5;cursor:pointer;
-}
-.cart-btn:hover{background:rgba(255,255,255,.15)}
-.cart-btn:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
-.cart-badge{
-  position:absolute;top:-3px;right:-3px;
-  min-width:19px;height:19px;padding:0 4px;
-  border-radius:999px;background:#E0483B;color:#fff;
-  font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;
-  display:grid;place-items:center;
-  border:2px solid var(--board);
-}
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
-/* ---------- Barra de confianza ---------- */
-.trust-bar{background:var(--card);border-bottom:1px solid var(--line)}
-.trust-bar .wrap{
-  display:flex;flex-wrap:wrap;gap:22px;justify-content:center;
-  padding:14px 20px;
-}
-.trust-item{display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-soft);font-weight:500}
-.trust-item svg{flex:none;color:var(--copper)}
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 15.5px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      transition: background-color var(--transition-base), color var(--transition-base);
+    }
 
-.pitch{
-  margin:26px 0 0;
-  max-width:52ch;
-  font-size:clamp(16px,2.2vw,19px);
-  color:#CFCFCF;
-}
+    img,
+    svg {
+      max-width: 100%;
+      display: block;
+    }
 
-/* ---------- Buscador ---------- */
-.searchbar{
-  margin-top:22px;
-  display:flex;gap:10px;flex-wrap:wrap;
-}
-.field{
-  position:relative;flex:1 1 280px;min-width:0;
-}
-.field svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
-#buscar,#orden{
-  font-family:inherit;font-size:15px;color:var(--ink);
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:13px 14px;
-  width:100%;
-}
-#buscar{padding-left:42px}
-#orden{flex:0 0 auto;width:auto;cursor:pointer}
-#buscar:focus,#orden:focus{outline:3px solid var(--copper);outline-offset:1px}
-#buscar::placeholder{color:var(--ink-soft)}
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
 
-/* ---------- Barra de resultados ---------- */
-.results-bar{
-  display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;
-  padding:26px 0 14px;
-  border-bottom:1px solid var(--line);
-  margin-bottom:22px;
-}
-.results-bar h2{
-  font-family:'Chivo',sans-serif;font-weight:700;letter-spacing:-.02em;
-  font-size:20px;margin:0;
-}
-.count{font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--ink-soft)}
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+      color: inherit;
+    }
 
-/* ---------- Rejilla ---------- */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:18px;
-  padding-bottom:28px;
-}
-.paginacion{
-  display:flex;align-items:center;justify-content:center;gap:16px;
-  padding:4px 0 50px;
-}
-.paginacion button{
-  font:inherit;font-size:14px;font-weight:600;
-  background:var(--card);border:1px solid var(--line);color:var(--ink);
-  padding:9px 16px;border-radius:8px;cursor:pointer;
-}
-.paginacion button:hover:not(:disabled){background:var(--paper)}
-.paginacion button:disabled{opacity:.4;cursor:not-allowed}
-.paginacion button:focus-visible{outline:3px solid var(--copper);outline-offset:2px}
-#pag-indicador{font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--ink-soft)}
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  display:flex;flex-direction:column;
-  overflow:hidden;
-  box-shadow:0 1px 3px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.04);
-  transition:box-shadow .15s ease, transform .15s ease;
-}
-.card:hover{
-  box-shadow:0 8px 20px rgba(0,0,0,.10);
-  transform:translateY(-2px);
-}
-.thumb{
-  position:relative;
-  aspect-ratio:4/3;
-  background:
-    radial-gradient(var(--line) 1px, transparent 1.6px) 0 0/16px 16px,
-    var(--card);
-  border-bottom:1px solid var(--line);
-  display:grid;place-items:center;
-  padding:14px;
-}
-.thumb img{width:100%;height:100%;object-fit:contain}
-.thumb .noimg{display:grid;place-items:center;gap:8px;color:var(--off);font-size:12.5px;text-align:center}
-.chip{
-  position:absolute;top:10px;left:10px;
-  font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:600;
-  padding:4px 8px;border-radius:6px;
-  background:var(--card);border:1px solid var(--line);
-}
-.chip.ok{color:var(--ok)}
-.chip.warn{color:var(--warn)}
-.chip.off{color:var(--off)}
+    button {
+      cursor: pointer;
+    }
 
-.body{padding:15px 16px 16px;display:flex;flex-direction:column;flex:1;gap:8px}
-.body h3{
-  font-family:'Chivo',sans-serif;font-weight:700;letter-spacing:-.015em;
-  font-size:17px;margin:0;line-height:1.25;
-}
-.desc{
-  margin:0;font-size:14px;color:var(--ink-soft);
-  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-}
-.more{
-  align-self:flex-start;
-  background:none;border:none;padding:0;margin:-2px 0 0;
-  font:inherit;font-size:13.5px;font-weight:600;
-  color:var(--copper);cursor:pointer;text-decoration:underline;text-underline-offset:3px;
-}
-.more:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:3px}
-.meta{
-  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
-  margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);
-}
+    code,
+    pre,
+    .mono {
+      font-family: var(--font-mono);
+    }
 
-/* ---------- Ventana de detalle ---------- */
-dialog#detalle{
-  width:min(680px,calc(100vw - 32px));
-  max-height:min(86vh,720px);
-  padding:0;border:1px solid var(--line);border-radius:14px;
-  background:var(--card);color:var(--ink);
-  box-shadow:0 24px 60px rgba(0,0,0,.30);
-  overflow:hidden;
-}
-dialog#detalle::backdrop{background:rgba(0,0,0,.6)}
-.dlg-scroll{max-height:min(86vh,720px);overflow-y:auto;overscroll-behavior:contain}
-.dlg-top{position:relative;background:var(--card);border-bottom:1px solid var(--line);padding:18px;display:grid;place-items:center}
-.dlg-top img{max-height:260px;object-fit:contain}
-.dlg-top .noimg{color:var(--off);font-size:13px;display:grid;place-items:center;gap:8px;padding:40px 0}
-.cerrar{
-  position:absolute;top:12px;right:12px;z-index:2;
-  width:34px;height:34px;border-radius:50%;
-  border:1px solid var(--line);background:var(--card);color:var(--ink);
-  font-size:19px;line-height:1;cursor:pointer;
-}
-.cerrar:hover{background:var(--paper)}
-.dlg-body{padding:20px 22px 24px}
-.dlg-body .chip{position:static;display:inline-block}
-.dlg-body h3{font-family:'Chivo',sans-serif;font-weight:900;letter-spacing:-.02em;font-size:24px;margin:0 0 4px;line-height:1.15}
-.dlg-body .full{margin:14px 0 0;font-size:15px;color:var(--ink-soft);white-space:pre-line;max-width:68ch}
-.dlg-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px dashed var(--line)}
-.dlg-meta .price{font-size:26px}
-.dlg-body .buy{margin-top:16px;display:inline-flex}
-@media (max-width:520px){
-  dialog#detalle{width:100vw;max-width:100vw;max-height:92vh;border-radius:14px 14px 0 0;margin:auto auto 0}
-  .dlg-body h3{font-size:20px}
-}
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-/* ---------- Modal del carrito ---------- */
-dialog#carrito-modal{
-  width:min(480px,calc(100vw - 32px));
-  max-height:min(86vh,660px);
-  padding:0;border:1px solid var(--line);border-radius:14px;
-  background:var(--card);color:var(--ink);
-  box-shadow:0 24px 60px rgba(0,0,0,.30);
-  overflow:hidden;
-}
-dialog#carrito-modal::backdrop{background:rgba(0,0,0,.6)}
-.cart-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 20px;border-bottom:1px solid var(--line);
-}
-.cart-header h3{font-family:'Chivo',sans-serif;font-weight:900;font-size:18px;margin:0}
-.cart-header .cerrar{position:static}
-#carrito-contenido{padding:6px 20px;max-height:min(50vh,380px);overflow-y:auto}
-.carrito-vacio{padding:38px 6px;text-align:center;color:var(--ink-soft);font-size:14.5px}
-.item-carrito{
-  display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;
-  padding:13px 0;border-bottom:1px dashed var(--line);
-}
-.item-carrito:last-child{border-bottom:none}
-.ic-nombre{margin:0;font-weight:600;font-size:14px;line-height:1.3}
-.ic-precio{margin:2px 0 0;font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace}
-.ic-cantidad{display:flex;align-items:center;gap:7px}
-.ic-cantidad button{
-  width:25px;height:25px;border-radius:6px;border:1px solid var(--line);
-  background:var(--paper);color:var(--ink);font-size:15px;line-height:1;cursor:pointer;
-}
-.ic-cantidad button:hover:not(:disabled){background:var(--line)}
-.ic-cantidad button:disabled{opacity:.35;cursor:not-allowed}
-.ic-cantidad span{font-family:'IBM Plex Mono',monospace;min-width:16px;text-align:center;font-size:13.5px}
-.ic-fila-derecha{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
-.ic-subtotal{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13.5px;white-space:nowrap}
-.ic-quitar{background:none;border:none;color:var(--off);cursor:pointer;font-size:12.5px;text-decoration:underline;padding:0}
-.ic-quitar:hover{color:#C0392B}
-.carrito-total{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 0 4px;margin-top:4px;border-top:1px solid var(--line);
-  font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:17px;
-}
-.cart-footer{
-  display:flex;gap:10px;flex-wrap:wrap;padding:16px 20px 20px;border-top:1px solid var(--line);
-}
-.btn-secundario{
-  flex:1;min-width:130px;
-  background:transparent;border:1px solid var(--line);color:var(--ink-soft);
-  padding:11px 12px;border-radius:8px;font-weight:600;font-size:13.5px;cursor:pointer;font-family:inherit;
-}
-.btn-secundario:hover:not(:disabled){background:var(--paper);color:var(--ink)}
-.cart-footer .buy{flex:2;min-width:190px;margin-top:0;border:none;cursor:pointer;font-family:inherit}
-.cart-footer button:disabled{opacity:.45;cursor:not-allowed;pointer-events:none}
-@media (max-width:520px){
-  dialog#carrito-modal{width:100vw;max-width:100vw;max-height:92vh;border-radius:14px 14px 0 0;margin:auto auto 0}
-}
-.price{
-  font-family:'IBM Plex Mono',monospace;font-weight:600;
-  font-size:21px;letter-spacing:-.02em;color:var(--ink);
-}
-.units{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft)}
-.buy{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:12px;padding:11px 14px;
-  background:var(--copper);color:#fff;text-decoration:none;
-  border-radius:8px;font-weight:600;font-size:14.5px;
-  border:1px solid rgba(0,0,0,.06);
-}
-.buy:hover{background:#D6631B}
-.buy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
-.buy.disabled{background:transparent;color:var(--off);border:1px dashed var(--line);pointer-events:none}
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
-/* ---------- Estados ---------- */
-.skeleton .sk-img{aspect-ratio:4/3;background:var(--line)}
-.skeleton .sk-line{height:12px;border-radius:4px;background:var(--line);margin:12px 16px}
-.skeleton .sk-line.short{width:45%}
-.skeleton{animation:pulse 1.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-@media (prefers-reduced-motion:reduce){.skeleton{animation:none}}
+    /* ==========================================================================
+       3. BARRA SUPERIOR (TOPBAR) Y ESTADO DE ATENCIÓN EN VIVO
+       ========================================================================== */
+    .topbar {
+      background: var(--board-deep);
+      color: #D1D5DB;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      z-index: 50;
+    }
 
-.state{
-  grid-column:1/-1;
-  border:1px dashed var(--line);border-radius:var(--radius);
-  padding:40px 24px;text-align:center;color:var(--ink-soft);
-}
-.state strong{display:block;color:var(--ink);font-family:'Chivo',sans-serif;font-size:18px;margin-bottom:6px}
-.state a{color:var(--copper);font-weight:600}
+    .topbar .wrap {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
 
-.demo-note{
-  background:var(--copper-soft);color:var(--ink);
-  border:1px solid var(--line);border-radius:var(--radius);
-  padding:12px 15px;font-size:14px;margin:0 0 20px;
-}
+    .topbar-left,
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
 
-/* ---------- Pie ---------- */
-footer{background:var(--board-deep);color:#B5B5B5;padding:38px 0 46px;font-size:14.5px}
-footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px}
-footer h4{font-family:'Chivo',sans-serif;color:#fff;font-size:15px;margin:0 0 8px;font-weight:700}
-footer a{color:#B5B5B5}
-footer a:hover{color:#fff}
-footer p{margin:0 0 4px}
-.legal{margin-top:30px;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:#8A8A8A}
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 500;
+    }
 
-/* ---------- Botón flotante ---------- */
-.float-wa{
-  position:fixed;right:18px;bottom:18px;z-index:40;
-  width:56px;height:56px;border-radius:50%;
-  background:#25D366;display:grid;place-items:center;
-  box-shadow:0 6px 20px rgba(0,0,0,.25);
-  text-decoration:none;
-}
-.float-wa:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-@media (max-width:520px){
-  .float-wa{width:50px;height:50px}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
-  .body{padding:12px 13px 13px}
-  .body h3{font-size:15.5px}
-  .price{font-size:18px}
-}
-</style>
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ADE80;
+      box-shadow: 0 0 8px #4ADE80;
+      animation: pulse-dot 2s infinite;
+    }
+
+    .status-dot.closed {
+      background: #F59E0B;
+      box-shadow: 0 0 8px #F59E0B;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.25);
+        opacity: 0.65;
+      }
+    }
+
+    .topbar a:hover {
+      color: var(--copper);
+    }
+
+    .theme-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .theme-btn {
+      border: none;
+      background: transparent;
+      color: #9CA3AF;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      transition: all var(--transition-fast);
+    }
+
+    .theme-btn.active {
+      background: var(--copper);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       4. CABECERA PRINCIPAL (MASTHEAD), HERO Y NAVEGACIÓN
+       ========================================================================== */
+    .masthead {
+      position: relative;
+      background: radial-gradient(circle at 85% 20%, rgba(255, 122, 41, 0.16), transparent 45%),
+                  radial-gradient(circle at 15% 80%, rgba(14, 165, 233, 0.12), transparent 45%),
+                  var(--board);
+      color: #F9FAFB;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .traces {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .masthead .wrap {
+      position: relative;
+      z-index: 2;
+      padding-top: 22px;
+      padding-bottom: 28px;
+    }
+
+    .brandline {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .mono-mark {
+      width: 54px;
+      height: 54px;
+      flex: none;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--copper), #D9530F);
+      color: #FFFFFF;
+      border-radius: 14px;
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 22px;
+      letter-spacing: -0.04em;
+      box-shadow: 0 8px 20px rgba(255, 122, 41, 0.35), inset 0 0 0 2px rgba(255, 255, 255, 0.22);
+      position: relative;
+    }
+
+    .mono-mark::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      top: 6px;
+      right: 6px;
+      opacity: 0.8;
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      font-size: clamp(22px, 3.8vw, 32px);
+      margin: 0;
+      line-height: 1.08;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(255, 122, 41, 0.18);
+      border: 1px solid rgba(255, 122, 41, 0.4);
+      color: var(--copper);
+    }
+
+    .brand-text p {
+      margin: 4px 0 0;
+      font-size: 13.5px;
+      color: #9CA3AF;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #F3F4F6;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+
+    .nav-pill-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(37, 211, 102, 0.14);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      color: #E2FBE8;
+      padding: 9px 15px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: all var(--transition-fast);
+    }
+
+    .contact-pill:hover {
+      background: rgba(37, 211, 102, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .contact-pill span {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .icon-action-btn {
+      position: relative;
+      flex: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #F9FAFB;
+      transition: all var(--transition-fast);
+    }
+
+    .icon-action-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: var(--copper);
+      transform: translateY(-1px);
+    }
+
+    .icon-action-btn:focus-visible {
+      outline: 3px solid var(--copper);
+      outline-offset: 2px;
+    }
+
+    .badge-counter {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 5px;
+      border-radius: 999px;
+      background: var(--copper);
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--board);
+    }
+
+    .badge-counter[hidden] {
+      display: none !important;
+    }
+
+    /* ---------- Hero Grid dentro del Masthead ---------- */
+    .hero-banner {
+      display: grid;
+      grid-template-columns: 1.35fr 0.65fr;
+      gap: 24px;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-copy h2 {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      margin: 0 0 10px;
+    }
+
+    .hero-copy h2 .highlight {
+      color: var(--copper);
+    }
+
+    .hero-copy p {
+      margin: 0 0 18px;
+      color: #D1D5DB;
+      font-size: clamp(15px, 1.8vw, 17px);
+      max-width: 60ch;
+    }
+
+    .hero-quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--copper);
+      color: #FFFFFF;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px 18px;
+      border-radius: var(--radius-sm);
+      border: none;
+      box-shadow: var(--shadow-glow);
+      transition: all var(--transition-fast);
+    }
+
+    .hero-btn-primary:hover {
+      background: var(--copper-hover);
+      transform: translateY(-1px);
+    }
+
+    .hero-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #F3F4F6;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .hero-btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-stats-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius);
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .stat-box {
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+    }
+
+    .stat-box .stat-num {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--copper);
+      display: block;
+    }
+
+    .stat-box .stat-label {
+      font-size: 12px;
+      color: #9CA3AF;
+    }
+
+    /* ---------- Barra de Búsqueda Avanzada ---------- */
+    .search-console {
+      margin-top: 22px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius);
+      padding: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-field-wrap {
+      position: relative;
+      flex: 1 1 320px;
+      min-width: 0;
+    }
+
+    .search-field-wrap svg.search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-soft);
+      pointer-events: none;
+    }
+
+    .kbd-hint {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: var(--card-alt);
+      color: var(--ink-soft);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 2px 6px;
+      pointer-events: none;
+    }
+
+    #buscar,
+    #orden,
+    #items-por-pagina {
+      font-family: inherit;
+      font-size: 14.5px;
+      color: var(--ink);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    #buscar {
+      width: 100%;
+      padding-left: 42px;
+      padding-right: 74px;
+    }
+
+    #orden,
+    #items-por-pagina {
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    #buscar:focus,
+    #orden:focus,
+    #items-por-pagina:focus {
+      outline: none;
+      border-color: var(--copper);
+      box-shadow: 0 0 0 3px var(--copper-glow);
+    }
+
+    .quick-tags-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: #9CA3AF;
+    }
+
+    .quick-tag {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #E5E7EB;
+      border-radius: 999px;
+      padding: 3px 10px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      transition: all var(--transition-fast);
+    }
+
+    .quick-tag:hover {
+      background: var(--copper);
+      border-color: var(--copper);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       5. BARRA DE CONFIANZA Y CATEGORÍAS RÁPIDAS
+       ========================================================================== */
+    .trust-bar {
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .trust-bar .wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      padding: 14px 20px;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      font-weight: 500;
+    }
+
+    .trust-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--copper-soft);
+      color: var(--copper);
+      display: grid;
+      place-items: center;
+      flex: none;
+    }
+
+    .trust-item strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13.5px;
+    }
+
+    /* ---------- Tira de Categorías con Iconos ---------- */
+    .category-strip {
+      padding: 20px 0 8px;
+    }
+
+    .category-pills {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: thin;
+    }
+
+    .cat-pill {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-size: 13.5px;
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .cat-pill:hover {
+      border-color: var(--copper);
+      transform: translateY(-1px);
+    }
+
+    .cat-pill.active {
+      background: var(--copper);
+      border-color: var(--copper);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .cat-pill .cat-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: var(--card-alt);
+      color: var(--ink-soft);
+    }
+
+    .cat-pill.active .cat-count {
+      background: rgba(0, 0, 0, 0.25);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       6. LAYOUT PRINCIPAL DE TIENDA: SIDEBAR DE FILTROS + CATÁLOGO
+       ========================================================================== */
+    .store-layout {
+      display: grid;
+      grid-template-columns: 270px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding-top: 16px;
+      padding-bottom: 48px;
+    }
+
+    .filters-sidebar {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px;
+      position: sticky;
+      top: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sidebar-header h3 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 800;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-reset-filters {
+      background: none;
+      border: none;
+      color: var(--copper);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    .filter-group {
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .filter-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .filter-title {
+      font-family: var(--font-display);
+      font-size: 13.5px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-check-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-check {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .filter-check input[type="checkbox"],
+    .filter-check input[type="radio"] {
+      accent-color: var(--copper);
+      width: 16px;
+      height: 16px;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .filter-check:hover {
+      color: var(--ink);
+    }
+
+    .price-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .price-inputs input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xs);
+      background: var(--paper);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .voltage-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip-toggle {
+      padding: 5px 10px;
+      border-radius: var(--radius-xs);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-soft);
+      transition: all var(--transition-fast);
+    }
+
+    .chip-toggle.active {
+      background: var(--copper);
+      border-color: var(--copper);
+      color: #FFFFFF;
+    }
+
+    /* ---------- Barra de Herramientas de Resultados ---------- */
+    .results-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .results-info {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .results-info h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-size: 19px;
+      margin: 0;
+    }
+
+    .count {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .view-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .view-switcher {
+      display: inline-flex;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .view-btn {
+      border: none;
+      background: transparent;
+      color: var(--ink-soft);
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .view-btn.active {
+      background: var(--card);
+      color: var(--copper);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ==========================================================================
+       7. TARJETAS DE PRODUCTO (VISTA GRID, LISTA Y TABLA DATASHEET)
+       ========================================================================== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+      gap: 18px;
+      padding-bottom: 24px;
+    }
+
+    .grid.view-list {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
+      position: relative;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+      border-color: var(--line-strong);
+    }
+
+    .grid.view-list .card {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .thumb {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      background: radial-gradient(var(--line) 1px, transparent 1.6px) 0 0 / 16px 16px,
+                  var(--card-alt);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .grid.view-list .thumb {
+      width: 240px;
+      flex: 0 0 240px;
+      aspect-ratio: auto;
+      border-bottom: none;
+      border-right: 1px solid var(--line);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform var(--transition-base);
+    }
+
+    .card:hover .thumb img {
+      transform: scale(1.04);
+    }
+
+    .thumb .noimg {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--ink-soft);
+      font-size: 12px;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .chip {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 9px;
+      border-radius: 6px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chip.ok {
+      color: var(--ok);
+      border-color: rgba(22, 163, 74, 0.3);
+    }
+
+    .chip.warn {
+      color: var(--warn);
+      border-color: rgba(217, 119, 6, 0.35);
+    }
+
+    .chip.off {
+      color: var(--off);
+    }
+
+    .card-floating-tools {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .mini-tool-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink-soft);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition-fast);
+    }
+
+    .mini-tool-btn:hover,
+    .mini-tool-btn.active {
+      color: var(--copper);
+      border-color: var(--copper);
+      background: var(--copper-soft);
+    }
+
+    .body {
+      padding: 15px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 8px;
+    }
+
+    .sku-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    .cat-tag {
+      color: var(--copper);
+      font-weight: 600;
+    }
+
+    .body h3 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      font-size: 16.5px;
+      margin: 0;
+      line-height: 1.28;
+      cursor: pointer;
+    }
+
+    .body h3:hover {
+      color: var(--copper);
+    }
+
+    .spec-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin: 2px 0;
+    }
+
+    .spec-pill {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--card-alt);
+      color: var(--ink-soft);
+      border: 1px solid var(--line);
+    }
+
+    .desc {
+      margin: 0;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .grid.view-list .desc {
+      -webkit-line-clamp: 4;
+    }
+
+    .more {
+      align-self: flex-start;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: -2px 0 0;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--copper);
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .price-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 21px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .bulk-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ok);
+    }
+
+    .units {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--ink-soft);
+    }
+
+    .card-actions-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .buy {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: var(--copper);
+      color: #FFFFFF;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 13.5px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      transition: all var(--transition-fast);
+    }
+
+    .buy:hover:not(:disabled) {
+      background: var(--copper-hover);
+      transform: translateY(-1px);
+    }
+
+    .buy.disabled {
+      background: transparent;
+      color: var(--off);
+      border: 1px dashed var(--line);
+      pointer-events: none;
+    }
+
+    /* ---------- Vista Tabla Técnica (Datasheet Style) ---------- */
+    .datasheet-table-wrap {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow-x: auto;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .datasheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .datasheet-table th {
+      background: var(--card-alt);
+      color: var(--ink);
+      font-family: var(--font-display);
+      font-weight: 700;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    .datasheet-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+
+    .datasheet-table tr:hover td {
+      background: var(--card-alt);
+    }
+
+    /* ==========================================================================
+       8. SECCIÓN DE KITS DE PROYECTOS MAKER Y ESTUDIANTILES
+       ========================================================================== */
+    .section-block {
+      padding: 44px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin: 0 0 6px;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--ink-soft);
+      max-width: 62ch;
+    }
+
+    .kits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .kit-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--copper), var(--accent-cyan));
+    }
+
+    .kit-badge {
+      align-self: flex-start;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--copper-soft);
+      color: var(--copper);
+    }
+
+    .kit-card h3 {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .kit-items-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .kit-footer {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px dashed var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* ==========================================================================
+       9. LABORATORIO ELECTRÓNICO: 5 CALCULADORAS DE INGENIERÍA
+       ========================================================================== */
+    .lab-container {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .lab-tabs {
+      display: flex;
+      overflow-x: auto;
+      background: var(--card-alt);
+      border-bottom: 1px solid var(--line);
+      padding: 6px 6px 0;
+      gap: 6px;
+    }
+
+    .lab-tab-btn {
+      border: 1px solid transparent;
+      border-bottom: none;
+      background: transparent;
+      color: var(--ink-soft);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 11px 16px;
+      border-radius: 10px 10px 0 0;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all var(--transition-fast);
+    }
+
+    .lab-tab-btn.active {
+      background: var(--card);
+      color: var(--copper);
+      border-color: var(--line);
+    }
+
+    .lab-panel {
+      padding: 24px;
+      display: none;
+    }
+
+    .lab-panel.active {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .calc-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .calc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .calc-field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .calc-field select,
+    .calc-field input {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: var(--paper);
+      font-family: var(--font-mono);
+      font-size: 14px;
+    }
+
+    .calc-result-card {
+      background: var(--card-alt);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .calc-big-value {
+      font-family: var(--font-mono);
+      font-size: clamp(22px, 3.2vw, 32px);
+      font-weight: 700;
+      color: var(--copper);
+    }
+
+    /* ==========================================================================
+       10. PREGUNTAS FRECUENTES (FAQ) Y MÉTODOS DE PAGO / ENVÍO
+       ========================================================================== */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    details.faq-item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    details.faq-item summary {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15.5px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    details.faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.faq-item p {
+      margin: 12px 0 0;
+      color: var(--ink-soft);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       11. MODALES (<dialog>): DETALLE, CARRITO, COMPARADOR Y FAVORITOS
+       ========================================================================== */
+    dialog {
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      color: var(--ink);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+    }
+
+    dialog#detalle {
+      width: min(780px, calc(100vw - 28px));
+      max-height: min(88vh, 780px);
+    }
+
+    dialog#carrito-modal {
+      width: min(560px, calc(100vw - 28px));
+      max-height: min(90vh, 760px);
+    }
+
+    dialog#comparador-modal {
+      width: min(980px, calc(100vw - 28px));
+      max-height: min(88vh, 760px);
+    }
+
+    dialog#favoritos-modal {
+      width: min(540px, calc(100vw - 28px));
+      max-height: min(86vh, 680px);
+    }
+
+    .dlg-scroll {
+      max-height: min(88vh, 780px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+
+    .dlg-top {
+      position: relative;
+      background: radial-gradient(var(--line) 1px, transparent 1.6px) 0 0 / 16px 16px,
+                  var(--card-alt);
+      border-bottom: 1px solid var(--line);
+      padding: 24px;
+      display: grid;
+      place-items: center;
+    }
+
+    .dlg-top img {
+      max-height: 250px;
+      object-fit: contain;
+    }
+
+    .cerrar {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 5;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      font-size: 20px;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .cerrar:hover {
+      background: var(--copper);
+      color: #FFFFFF;
+      border-color: var(--copper);
+    }
+
+    .dlg-body {
+      padding: 22px 24px 26px;
+    }
+
+    .dlg-tabs {
+      display: flex;
+      gap: 6px;
+      border-bottom: 1px solid var(--line);
+      margin: 16px 0;
+      overflow-x: auto;
+    }
+
+    .dlg-tab-btn {
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    .dlg-tab-btn.active {
+      color: var(--copper);
+      border-bottom-color: var(--copper);
+    }
+
+    .code-preview {
+      background: #090D16;
+      color: #E2E8F0;
+      padding: 14px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      overflow-x: auto;
+      line-height: 1.5;
+      border: 1px solid #1E293B;
+    }
+
+    /* ---------- Carrito y Checkout por WhatsApp ---------- */
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line);
+      background: var(--card-alt);
+    }
+
+    .cart-header h3 {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .cart-header .cerrar {
+      position: static;
+    }
+
+    #carrito-contenido {
+      padding: 12px 20px;
+      max-height: min(58vh, 460px);
+      overflow-y: auto;
+    }
+
+    .carrito-vacio {
+      padding: 36px 12px;
+      text-align: center;
+      color: var(--ink-soft);
+      font-size: 14.5px;
+    }
+
+    .item-carrito {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .ic-nombre {
+      margin: 0;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .ic-precio {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--ink-soft);
+      font-family: var(--font-mono);
+    }
+
+    .ic-cantidad {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ic-cantidad button {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .ic-cantidad span {
+      font-family: var(--font-mono);
+      min-width: 20px;
+      text-align: center;
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .ic-fila-derecha {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .ic-subtotal {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 13.5px;
+    }
+
+    .ic-quitar {
+      background: none;
+      border: none;
+      color: var(--danger);
+      font-size: 12px;
+      text-decoration: underline;
+      padding: 0;
+    }
+
+    .checkout-options {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .checkout-options label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ink-soft);
+    }
+
+    .checkout-options input,
+    .checkout-options select {
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      font-size: 13px;
+    }
+
+    .carrito-total {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 14px 0 4px;
+      margin-top: 10px;
+      border-top: 1px solid var(--line);
+      font-family: var(--font-mono);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+
+    .total-row.grand {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      padding-top: 6px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .cart-footer {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 14px 20px 18px;
+      border-top: 1px solid var(--line);
+      background: var(--card-alt);
+    }
+
+    .btn-secundario {
+      flex: 1;
+      min-width: 110px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .btn-secundario:hover:not(:disabled) {
+      border-color: var(--copper);
+      color: var(--copper);
+    }
+
+    /* ==========================================================================
+       12. PAGINACIÓN, ESQUELETOS, TOASTS, FOOTER Y PROFORMA IMPRIMIBLE
+       ========================================================================== */
+    .paginacion {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 10px 0 24px;
+    }
+
+    .paginacion button {
+      font-size: 13.5px;
+      font-weight: 600;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+    }
+
+    .paginacion button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .skeleton .sk-img {
+      aspect-ratio: 4 / 3;
+      background: var(--line);
+    }
+
+    .skeleton .sk-line {
+      height: 12px;
+      border-radius: 4px;
+      background: var(--line);
+      margin: 12px 16px;
+    }
+
+    .skeleton .sk-line.short {
+      width: 45%;
+    }
+
+    .skeleton {
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.45; }
+    }
+
+    .state {
+      grid-column: 1 / -1;
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius);
+      padding: 44px 24px;
+      text-align: center;
+      color: var(--ink-soft);
+      background: var(--card);
+    }
+
+    .demo-note {
+      background: var(--copper-soft);
+      color: var(--ink);
+      border: 1px solid var(--copper);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-size: 13.5px;
+      margin: 14px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* ---------- Notificaciones Toast ---------- */
+    .toast-stack {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: var(--board);
+      color: #FFFFFF;
+      border-left: 4px solid var(--copper);
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 13.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toast-in 0.22s ease-out;
+    }
+
+    @keyframes toast-in {
+      from { transform: translateY(14px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ---------- Pie de Página ---------- */
+    footer {
+      background: var(--board-deep);
+      color: #9CA3AF;
+      padding: 48px 0 54px;
+      font-size: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    footer .cols {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+    }
+
+    footer h4 {
+      font-family: var(--font-display);
+      color: #FFFFFF;
+      font-size: 15.5px;
+      margin: 0 0 10px;
+      font-weight: 800;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    footer a:hover {
+      color: var(--copper);
+    }
+
+    .legal {
+      margin-top: 34px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12.5px;
+      color: #6B7280;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ---------- Botones Flotantes ---------- */
+    .float-wa {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 60;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+      transition: transform var(--transition-fast);
+    }
+
+    .float-wa:hover {
+      transform: scale(1.07);
+    }
+
+    /* ---------- Vista de Impresión para Proforma Formal ---------- */
+    #proforma-print {
+      display: none;
+    }
+
+    @media print {
+      body > *:not(#proforma-print) {
+        display: none !important;
+      }
+      #proforma-print {
+        display: block !important;
+        padding: 20px;
+        color: #000000;
+        background: #FFFFFF;
+        font-family: sans-serif;
+      }
+    }
+
+    /* ---------- Responsividad Móvil y Tablet ---------- */
+    @media (max-width: 960px) {
+      .hero-banner {
+        grid-template-columns: 1fr;
+      }
+      .store-layout {
+        grid-template-columns: 1fr;
+      }
+      .filters-sidebar {
+        position: static;
+      }
+      .lab-panel.active {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(162px, 1fr));
+        gap: 12px;
+      }
+      .grid.view-list .card {
+        flex-direction: column;
+      }
+      .grid.view-list .thumb {
+        width: 100%;
+        flex: none;
+        aspect-ratio: 4 / 3;
+      }
+      .checkout-options {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="wrap">
-    <span>Entregas en Ambato y envíos a todo el Ecuador</span>
-    <a href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20consultar%20disponibilidad" target="_blank" rel="noopener">Escríbenos: 099 832 9213</a>
+  <!-- ========================================================================
+       BARRA SUPERIOR DE INFORMACIÓN Y SELECTOR DE TEMA
+       ======================================================================== -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="topbar-left">
+        <span class="status-pill">
+          <span class="status-dot" id="horario-dot"></span>
+          <span id="horario-texto">Atención en línea</span>
+        </span>
+        <span>📍 Entregas en <strong>Ambato</strong> y envíos seguros a todo el <strong>Ecuador</strong></span>
+      </div>
+      <div class="topbar-right">
+        <a href="#laboratorio">⚡ Calculadoras Electrónicas</a>
+        <a href="#kits-maker">🧰 Kits Maker</a>
+        <a href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20consultar%20disponibilidad" target="_blank" rel="noopener">WhatsApp: 099 832 9213</a>
+        <div class="theme-switcher" role="group" aria-label="Cambiar tema visual">
+          <button type="button" class="theme-btn" data-set-theme="light">Claro</button>
+          <button type="button" class="theme-btn active" data-set-theme="dark">Oscuro</button>
+          <button type="button" class="theme-btn" data-set-theme="pcb">PCB</button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
 
-<header class="masthead">
-  <svg class="traces" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1200 260">
-    <g fill="none" stroke="#FFFFFF" stroke-width="1.6">
-      <path d="M-10 40 H180 L230 90 H420"/>
-      <path d="M-10 150 H120 L170 100 H360 L400 140 H560"/>
-      <path d="M1210 60 H1040 L990 110 H820"/>
-      <path d="M1210 190 H1090 L1040 140 H900 L860 180 H700"/>
-      <path d="M620 -10 V60 L660 100 V270"/>
-      <path d="M980 270 V210 L1020 170 V-10"/>
-    </g>
-    <g fill="#FFFFFF">
-      <circle cx="420" cy="90" r="4.5"/><circle cx="560" cy="140" r="4.5"/>
-      <circle cx="820" cy="110" r="4.5"/><circle cx="700" cy="180" r="4.5"/>
-      <circle cx="660" cy="100" r="4.5"/><circle cx="1020" cy="170" r="4.5"/>
-    </g>
-  </svg>
+  <!-- ========================================================================
+       CABECERA PRINCIPAL (MASTHEAD) CON TRAZAS PCB Y BUSCADOR INTELIGENTE
+       ======================================================================== -->
+  <header class="masthead">
+    <svg class="traces" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1200 320">
+      <g fill="none" stroke="currentColor" stroke-width="1.6">
+        <path d="M-10 40 H180 L230 90 H420"/>
+        <path d="M-10 150 H120 L170 100 H360 L400 140 H560"/>
+        <path d="M1210 60 H1040 L990 110 H820"/>
+        <path d="M1210 190 H1090 L1040 140 H900 L860 180 H700"/>
+        <path d="M620 -10 V60 L660 100 V330"/>
+        <path d="M980 330 V210 L1020 170 V-10"/>
+        <path d="M260 330 V240 L310 190 H490"/>
+      </g>
+      <g fill="currentColor">
+        <circle cx="420" cy="90" r="4.5"/>
+        <circle cx="560" cy="140" r="4.5"/>
+        <circle cx="820" cy="110" r="4.5"/>
+        <circle cx="700" cy="180" r="4.5"/>
+        <circle cx="660" cy="100" r="4.5"/>
+        <circle cx="1020" cy="170" r="4.5"/>
+        <circle cx="490" cy="190" r="4.5"/>
+      </g>
+    </svg>
 
-  <div class="wrap">
-    <div class="brandline">
-      <div class="brand">
-        <div class="mono-mark" aria-hidden="true">KD</div>
+    <div class="wrap">
+      <div class="brandline">
+        <div class="brand">
+          <div class="mono-mark" aria-hidden="true">KD</div>
+          <div class="brand-text">
+            <h1>
+              KD Tech Electronics
+              <span class="brand-badge">PRO STORE</span>
+            </h1>
+            <p>Módulos ESP32, Arduino, sensores, robótica y componentes electrónicos</p>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <a class="contact-pill" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/>
+            </svg>
+            <span>+593 99 832 9213</span>
+          </a>
+
+          <button class="icon-action-btn" id="btn-comparador" type="button" title="Comparar componentes" aria-label="Comparar componentes">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>
+            </svg>
+            <span class="badge-counter" id="compare-badge" hidden>0</span>
+          </button>
+
+          <button class="icon-action-btn" id="btn-favoritos" type="button" title="Mis favoritos" aria-label="Ver favoritos">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <span class="badge-counter" id="fav-badge" hidden>0</span>
+          </button>
+
+          <button class="icon-action-btn" id="btn-carrito" type="button" title="Ver carrito de compras" aria-label="Ver carrito de compras">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="21" r="1"/>
+              <circle cx="20" cy="21" r="1"/>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span class="badge-counter" id="cart-badge" hidden>0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="hero-copy">
+          <h2>Hardware confiable para <span class="highlight">ingeniería, IoT y robótica</span></h2>
+          <p>Consulta stock en tiempo real conectado a nuestro inventario, revisa fichas técnicas, calcula resistencias en línea y genera tu pedido o proforma formal en segundos.</p>
+          <div class="hero-quick-links">
+            <a href="#catalogo-principal" class="hero-btn-primary">Explorar Catálogo</a>
+            <a href="#kits-maker" class="hero-btn-secondary">Ver Kits de Proyectos</a>
+            <a href="#laboratorio" class="hero-btn-secondary">Calculadoras de Lab</a>
+          </div>
+        </div>
+        <div class="hero-stats-card">
+          <div class="stat-box">
+            <span class="stat-num" id="stat-total-prod">100%</span>
+            <span class="stat-label">Stock verificado en línea</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">24h - 48h</span>
+            <span class="stat-label">Envíos a todo el Ecuador</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">3.3V / 5V</span>
+            <span class="stat-label">Ecosistema Arduino y ESP32</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-num">Proforma</span>
+            <span class="stat-label">Cotización PDF instantánea</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Consola de Búsqueda -->
+      <div class="search-console" id="catalogo-principal">
+        <div class="search-field-wrap">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="m20 20-3.5-3.5"/>
+          </svg>
+          <input id="buscar" type="search" placeholder="Buscar por nombre, chip, interfaz (ej. ESP32, Arduino, I2C, HC-SR04, LM2596)…" aria-label="Buscar productos">
+          <span class="kbd-hint">Ctrl+K</span>
+        </div>
+
+        <select id="orden" aria-label="Ordenar productos">
+          <option value="nombre">Ordenar: Nombre (A–Z)</option>
+          <option value="precio-asc">Precio: menor a mayor</option>
+          <option value="precio-desc">Precio: mayor a menor</option>
+          <option value="stock">Mayor stock disponible</option>
+        </select>
+
+        <select id="items-por-pagina" aria-label="Productos por página">
+          <option value="10">10 por página</option>
+          <option value="20">20 por página</option>
+          <option value="50">Mostrar 50</option>
+        </select>
+      </div>
+
+      <div class="quick-tags-bar">
+        <span>Búsquedas rápidas:</span>
+        <button type="button" class="quick-tag" data-quick-search="ESP32">ESP32</button>
+        <button type="button" class="quick-tag" data-quick-search="Arduino">Arduino</button>
+        <button type="button" class="quick-tag" data-quick-search="Sensor">Sensores</button>
+        <button type="button" class="quick-tag" data-quick-search="I2C">Módulos I2C</button>
+        <button type="button" class="quick-tag" data-quick-search="Relé">Relés</button>
+        <button type="button" class="quick-tag" data-quick-search="LM2596">Fuentes DC-DC</button>
+        <button type="button" class="quick-tag" data-quick-search="">Ver Todo</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       BARRA DE CONFIANZA
+       ======================================================================== -->
+  <div class="trust-bar">
+    <div class="wrap">
+      <div class="trust-item">
+        <div class="trust-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="3" width="15" height="13"/>
+            <path d="M16 8h4l3 3v5h-7V8Z"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+        </div>
         <div>
-          <h1>KD Tech Electronics</h1>
-          <p>Módulos, placas y componentes para tus proyectos</p>
+          <strong>Envíos a todo el Ecuador</strong>
+          <span>Servientrega, Tramaco y entregas en Ambato</span>
         </div>
       </div>
-      <div class="header-actions">
-        <a class="contact-pill" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
-          <span>+593 99 832 9213</span>
-        </a>
-        <button class="cart-btn" id="btn-carrito" type="button" aria-label="Ver carrito de compras" aria-haspopup="dialog">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span class="cart-badge" id="cart-badge" hidden>0</span>
-        </button>
-      </div>
-    </div>
 
-    <p class="pitch">Busca lo que necesitas, revisa el stock real y haz tu pedido por WhatsApp en un mensaje.</p>
-
-    <div class="searchbar">
-      <div class="field">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="buscar" type="search" placeholder="Buscar: ESP32, Arduino, sensor, resistencia…" aria-label="Buscar productos">
-      </div>
-      <select id="orden" aria-label="Ordenar productos">
-        <option value="nombre">Ordenar: A–Z</option>
-        <option value="precio-asc">Precio: menor a mayor</option>
-        <option value="precio-desc">Precio: mayor a menor</option>
-        <option value="stock">Más disponibles</option>
-      </select>
-    </div>
-  </div>
-</header>
-
-<div class="trust-bar">
-  <div class="wrap">
-    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8Z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Envíos a todo el Ecuador</span>
-    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg>Pedidos y pagos por WhatsApp</span>
-    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/></svg>Garantía en todos los productos</span>
-    <span class="trust-item"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>Atención personalizada</span>
-  </div>
-</div>
-
-<main class="wrap">
-  <div id="aviso"></div>
-
-  <div class="results-bar">
-    <h2>Catálogo</h2>
-    <span class="count" id="contador">Cargando…</span>
-  </div>
-
-  <div class="grid" id="lista-productos"></div>
-
-  <div class="paginacion" id="paginacion" hidden>
-    <button type="button" id="pag-anterior">← Anterior</button>
-    <span id="pag-indicador">Página 1 de 1</span>
-    <button type="button" id="pag-siguiente">Siguiente →</button>
-  </div>
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="cols">
-      <div>
-        <h4>KD Tech Electronics</h4>
-        <p>Componentes, módulos de desarrollo y sensores para estudiantes, técnicos y makers.</p>
-      </div>
-      <div>
-        <h4>Pedidos</h4>
-        <p><a href="https://wa.me/593998329213" target="_blank" rel="noopener">WhatsApp +593 99 832 9213</a></p>
-        <p>Lunes a sábado, 9:00 – 19:00</p>
-      </div>
-      <div>
-        <h4>Cómo comprar</h4>
-        <p>Elige el producto, toca “Pedir por WhatsApp” y confirmamos disponibilidad, pago y envío por el chat.</p>
-      </div>
-    </div>
-    <p class="legal">© <span id="anio"></span> KD Tech Electronics · Precios en dólares (USD) · Stock sujeto a disponibilidad</p>
-  </div>
-</footer>
-
-<dialog id="detalle" aria-label="Detalle del producto">
-  <div class="dlg-scroll" id="detalle-contenido"></div>
-</dialog>
-
-<dialog id="carrito-modal" aria-label="Carrito de compras">
-  <div class="cart-header">
-    <h3>Tu carrito</h3>
-    <button class="cerrar" type="button" id="cerrar-carrito" aria-label="Cerrar">&times;</button>
-  </div>
-  <div id="carrito-contenido"></div>
-  <div class="cart-footer">
-    <button class="btn-secundario" type="button" id="btn-vaciar">Vaciar carrito</button>
-    <button class="buy" type="button" id="btn-pedido-wa">Generar pedido por WhatsApp</button>
-  </div>
-</dialog>
-
-<a class="float-wa" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>
-</a>
-
-<script>
-const TELEFONO = '593998329213';
-const supabaseUrl = 'https://odxdplbpzjntlejufpyu.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9keGRwbGJwempudGxlanVmcHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTQ5MzUsImV4cCI6MjEwNTE3MDkzNX0.aXOZKInAkWO2R6ktxYY4kUqNnXNCWSEiI-RUiDE5lcM';
-
-const $lista = document.getElementById('lista-productos');
-const $contador = document.getElementById('contador');
-const $buscar = document.getElementById('buscar');
-const $orden = document.getElementById('orden');
-const $aviso = document.getElementById('aviso');
-document.getElementById('anio').textContent = new Date().getFullYear();
-
-const $detalle = document.getElementById('detalle');
-const $carritoModal = document.getElementById('carrito-modal');
-const $btnCarrito = document.getElementById('btn-carrito');
-const $cerrarCarrito = document.getElementById('cerrar-carrito');
-const $carritoContenido = document.getElementById('carrito-contenido');
-const $badge = document.getElementById('cart-badge');
-const $btnVaciar = document.getElementById('btn-vaciar');
-const $btnPedidoWa = document.getElementById('btn-pedido-wa');
-const $paginacion = document.getElementById('paginacion');
-const $pagAnterior = document.getElementById('pag-anterior');
-const $pagSiguiente = document.getElementById('pag-siguiente');
-const $pagIndicador = document.getElementById('pag-indicador');
-
-const ITEMS_POR_PAGINA = 10;
-const CARRITO_KEY = 'kd-tech-carrito';
-let paginaActual = 1;
-let carrito = [];
-
-let PRODUCTOS = [];
-let VISIBLES = [];
-
-const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const num = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
-const precio = v => num(v).toFixed(2);
-const normalizar = t => String(t ?? '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-const idDe = p => String(p.id ?? p.nombre);
-const buscarProducto = id => PRODUCTOS.find(p => idDe(p) === id);
-
-function esqueletos(n = 8){
-  $lista.innerHTML = Array.from({length:n}, () => `
-    <div class="card skeleton" aria-hidden="true">
-      <div class="sk-img"></div>
-      <div class="sk-line"></div>
-      <div class="sk-line short"></div>
-    </div>`).join('');
-}
-
-const ICONO_WA = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/></svg>';
-const ICONO_CARRITO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
-const SIN_FOTO = `<div class="noimg">
-  <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M7 7V5h10v2M8 12h8M8 15h5"/></svg>
-  Sin foto
-</div>`;
-
-const stockDe = p => Math.max(0, parseInt(p.stock, 10) || 0);
-
-function chipDe(stock){
-  if (stock === 0) return '<span class="chip off">Agotado</span>';
-  if (stock <= 3)  return `<span class="chip warn">Últimas ${stock}</span>`;
-  return '<span class="chip ok">En stock</span>';
-}
-
-function imagenDe(p){
-  return p.imagen
-    ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'noimg',textContent:'Sin foto'}))">`
-    : SIN_FOTO;
-}
-
-function botonDe(p, stock){
-  if (stock === 0) return '<span class="buy disabled">Sin stock por ahora</span>';
-  return `<button class="buy" type="button" data-add="${esc(idDe(p))}">${ICONO_CARRITO} Agregar al carrito</button>`;
-}
-
-function tarjeta(p, i){
-  const stock = stockDe(p);
-  return `
-    <article class="card">
-      <div class="thumb">${chipDe(stock)}${imagenDe(p)}</div>
-      <div class="body">
-        <h3>${esc(p.nombre)}</h3>
-        ${p.descripcion ? `<p class="desc">${esc(p.descripcion)}</p>` : ''}
-        <button class="more" type="button" data-i="${i}" hidden>Leer más</button>
-        <div class="meta">
-          <span class="price">$${precio(p.precio)}</span>
-          <span class="units">${stock} ${stock === 1 ? 'unidad' : 'unidades'}</span>
+      <div class="trust-item">
+        <div class="trust-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3Z"/>
+          </svg>
         </div>
-        ${botonDe(p, stock)}
-      </div>
-    </article>`;
-}
-
-/* Muestra "Leer más" solo cuando la descripción no cabe en las 3 líneas de la tarjeta */
-function marcarRecortadas(){
-  $lista.querySelectorAll('.card').forEach(card => {
-    const desc = card.querySelector('.desc');
-    const btn = card.querySelector('.more');
-    if (!btn) return;
-    btn.hidden = !(desc && desc.scrollHeight > desc.clientHeight + 2);
-  });
-}
-
-/* ---------- Carrito de compras ---------- */
-function cargarCarrito(){
-  try{
-    const guardado = JSON.parse(localStorage.getItem(CARRITO_KEY) || '[]');
-    carrito = Array.isArray(guardado) ? guardado : [];
-  }catch(e){
-    carrito = [];
-  }
-}
-
-function guardarCarrito(){
-  try{ localStorage.setItem(CARRITO_KEY, JSON.stringify(carrito)); }catch(e){ /* almacenamiento no disponible */ }
-}
-
-function actualizarBadge(){
-  const total = carrito.reduce((s, i) => s + i.cantidad, 0);
-  $badge.textContent = total;
-  $badge.hidden = total === 0;
-}
-
-function agregarAlCarrito(p){
-  const id = idDe(p);
-  const stock = stockDe(p);
-  const item = carrito.find(i => i.id === id);
-  if (item){
-    if (item.cantidad < stock) item.cantidad++;
-  } else if (stock > 0){
-    carrito.push({ id, nombre: p.nombre, precio: num(p.precio), cantidad: 1 });
-  }
-  guardarCarrito();
-  actualizarBadge();
-  pintarCarrito();
-}
-
-function cambiarCantidad(id, delta){
-  const item = carrito.find(i => i.id === id);
-  if (!item) return;
-  const prod = buscarProducto(id);
-  const max = prod ? stockDe(prod) : 99;
-  item.cantidad = Math.min(max, item.cantidad + delta);
-  if (item.cantidad <= 0) carrito = carrito.filter(i => i.id !== id);
-  guardarCarrito();
-  actualizarBadge();
-  pintarCarrito();
-}
-
-function quitarDelCarrito(id){
-  carrito = carrito.filter(i => i.id !== id);
-  guardarCarrito();
-  actualizarBadge();
-  pintarCarrito();
-}
-
-function vaciarCarrito(){
-  carrito = [];
-  guardarCarrito();
-  actualizarBadge();
-  pintarCarrito();
-}
-
-const totalCarrito = () => carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
-
-function pintarCarrito(){
-  if (!carrito.length){
-    $carritoContenido.innerHTML = '<p class="carrito-vacio">Tu carrito está vacío.<br>Agrega productos para armar tu pedido.</p>';
-    $btnVaciar.disabled = true;
-    $btnPedidoWa.disabled = true;
-    return;
-  }
-
-  const filas = carrito.map(i => {
-    const prod = buscarProducto(i.id);
-    const tope = prod ? stockDe(prod) : 99;
-    return `
-      <div class="item-carrito">
         <div>
-          <p class="ic-nombre">${esc(i.nombre)}</p>
-          <p class="ic-precio">$${i.precio.toFixed(2)} c/u</p>
+          <strong>Garantía Técnica</strong>
+          <span>Módulos verificados y soporte para tus proyectos</span>
         </div>
-        <div class="ic-cantidad">
-          <button type="button" data-accion="menos" data-id="${esc(i.id)}" aria-label="Quitar una unidad de ${esc(i.nombre)}">−</button>
-          <span>${i.cantidad}</span>
-          <button type="button" data-accion="mas" data-id="${esc(i.id)}" aria-label="Agregar una unidad de ${esc(i.nombre)}" ${i.cantidad >= tope ? 'disabled' : ''}>+</button>
-        </div>
-        <div class="ic-fila-derecha">
-          <span class="ic-subtotal">$${(i.precio * i.cantidad).toFixed(2)}</span>
-          <button class="ic-quitar" type="button" data-accion="quitar" data-id="${esc(i.id)}">Quitar</button>
-        </div>
-      </div>`;
-  }).join('');
-
-  $carritoContenido.innerHTML = filas + `<div class="carrito-total"><span>Total</span><span>$${totalCarrito().toFixed(2)}</span></div>`;
-  $btnVaciar.disabled = false;
-  $btnPedidoWa.disabled = false;
-}
-
-function generarPedidoWhatsApp(){
-  if (!carrito.length) return;
-  const lineas = carrito.map(i => `- ${i.cantidad}x ${i.nombre} ($${(i.precio * i.cantidad).toFixed(2)})`).join('\n');
-  const mensaje =
-    `Hola KD Tech Electronics, deseo realizar este pedido:\n${lineas}\n-----------------------\nTotal a pagar: $${totalCarrito().toFixed(2)}`;
-  window.open(`https://wa.me/${TELEFONO}?text=${encodeURIComponent(mensaje)}`, '_blank');
-}
-
-function abrirDetalle(p){
-  const stock = stockDe(p);
-  document.getElementById('detalle-contenido').innerHTML = `
-    <div class="dlg-top">
-      <button class="cerrar" type="button" aria-label="Cerrar">&times;</button>
-      ${imagenDe(p)}
-    </div>
-    <div class="dlg-body">
-      <h3>${esc(p.nombre)}</h3>
-      ${chipDe(stock)}
-      ${p.descripcion ? `<p class="full">${esc(p.descripcion)}</p>` : '<p class="full">Este producto todavía no tiene descripción. Pregúntanos por WhatsApp y te contamos las especificaciones.</p>'}
-      <div class="dlg-meta">
-        <span class="price">$${precio(p.precio)}</span>
-        <span class="units">${stock} ${stock === 1 ? 'unidad disponible' : 'unidades disponibles'}</span>
       </div>
-      ${botonDe(p, stock)}
-    </div>`;
-  $detalle.showModal();
-}
 
-function pintar(){
-  const palabras = normalizar($buscar.value.trim()).split(/\s+/).filter(Boolean);
-  const modo = $orden.value;
-  const compararOrden = (a, b) =>
-    modo === 'precio-asc'  ? num(a.precio) - num(b.precio) :
-    modo === 'precio-desc' ? num(b.precio) - num(a.precio) :
-    modo === 'stock'       ? num(b.stock) - num(a.stock)   :
-    String(a.nombre ?? '').localeCompare(String(b.nombre ?? ''), 'es');
+      <div class="trust-item">
+        <div class="trust-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Pagos Rápidos y Seguros</strong>
+          <span>Transferencia Pichincha / Produbanco, Deuna y Efectivo</span>
+        </div>
+      </div>
 
-  const frase = normalizar($buscar.value.trim());
-  const fraseCompacta = frase.replace(/\s+/g, '');
+      <div class="trust-item">
+        <div class="trust-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Proformas al Instante</strong>
+          <span>Descarga cotizaciones formales listas para imprimir</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  let items = PRODUCTOS.map(p => {
-    if (!palabras.length) return { p, pts: 1 };
-    const nombre = normalizar(p.nombre ?? '').replace(/\s+/g, ' ');
-    const nombreCompacto = nombre.replace(/\s+/g, '');
-    const desc = normalizar(p.descripcion ?? '');
-    let pts = 0;
-    if (fraseCompacta && nombreCompacto.startsWith(fraseCompacta)) pts += 100;
-    else if (fraseCompacta && nombreCompacto.includes(fraseCompacta)) pts += 60;
-    palabras.forEach(w => {
-      if (nombre.includes(w)) pts += 10;
-      if (desc.includes(w)) pts += 1;
-    });
-    return { p, pts };
-  }).filter(x => x.pts > 0);
+  <!-- ========================================================================
+       CONTENIDO PRINCIPAL DE LA TIENDA
+       ======================================================================== -->
+  <main class="wrap">
+    <div id="aviso"></div>
 
-  items.sort((a, b) => (b.pts - a.pts) || compararOrden(a.p, b.p));
-  items = items.map(x => x.p);
+    <!-- Tira de Categorías Dinámicas -->
+    <div class="category-strip">
+      <div class="category-pills" id="barra-categorias" role="tablist" aria-label="Filtrar por categoría"></div>
+    </div>
 
-  $contador.textContent = `${items.length} de ${PRODUCTOS.length} productos`;
+    <!-- Layout de 2 Columnas: Sidebar de Filtros + Catálogo -->
+    <div class="store-layout">
+      <aside class="filters-sidebar" aria-label="Filtros técnicos">
+        <div class="sidebar-header">
+          <h3>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+            </svg>
+            Filtros Técnicos
+          </h3>
+          <button type="button" class="btn-reset-filters" id="btn-limpiar-filtros">Limpiar</button>
+        </div>
 
-  if (!items.length){
-    $lista.innerHTML = `
-      <div class="state">
-        <strong>No encontramos “${esc($buscar.value.trim())}”</strong>
-        Prueba con otra palabra o
-        <a href="https://wa.me/${TELEFONO}?text=${encodeURIComponent('Hola, busco: ' + $buscar.value.trim())}" target="_blank" rel="noopener">pídelo por WhatsApp</a>: lo conseguimos.
-      </div>`;
-    $paginacion.hidden = true;
-    return;
-  }
+        <div class="filter-group">
+          <div class="filter-title">Disponibilidad</div>
+          <div class="filter-check-list">
+            <label class="filter-check">
+              <input type="checkbox" id="filtro-solo-stock">
+              <span>Solo productos en stock</span>
+            </label>
+          </div>
+        </div>
 
-  const totalPaginas = Math.max(1, Math.ceil(items.length / ITEMS_POR_PAGINA));
-  paginaActual = Math.min(Math.max(paginaActual, 1), totalPaginas);
-  const inicio = (paginaActual - 1) * ITEMS_POR_PAGINA;
-  const pagina = items.slice(inicio, inicio + ITEMS_POR_PAGINA);
+        <div class="filter-group">
+          <div class="filter-title">Rango de Precio (USD)</div>
+          <div class="price-inputs">
+            <input type="number" id="precio-min" placeholder="Mín $0" min="0" step="0.5">
+            <input type="number" id="precio-max" placeholder="Máx $99" min="0" step="0.5">
+          </div>
+        </div>
 
-  VISIBLES = pagina;
-  $lista.innerHTML = pagina.map((p, i) => tarjeta(p, i)).join('');
-  marcarRecortadas();
+        <div class="filter-group">
+          <div class="filter-title">Voltaje de Operación</div>
+          <div class="voltage-chips" id="filtro-voltaje">
+            <button type="button" class="chip-toggle" data-volt="3.3V">3.3V</button>
+            <button type="button" class="chip-toggle" data-volt="5V">5V</button>
+            <button type="button" class="chip-toggle" data-volt="12V">12V+</button>
+          </div>
+        </div>
 
-  $paginacion.hidden = totalPaginas <= 1;
-  $pagIndicador.textContent = `Página ${paginaActual} de ${totalPaginas}`;
-  $pagAnterior.disabled = paginaActual <= 1;
-  $pagSiguiente.disabled = paginaActual >= totalPaginas;
-}
+        <div class="filter-group">
+          <div class="filter-title">Interfaz / Protocolo</div>
+          <div class="voltage-chips" id="filtro-interfaz">
+            <button type="button" class="chip-toggle" data-intf="I2C">I2C</button>
+            <button type="button" class="chip-toggle" data-intf="SPI">SPI</button>
+            <button type="button" class="chip-toggle" data-intf="UART">UART</button>
+            <button type="button" class="chip-toggle" data-intf="PWM">PWM</button>
+            <button type="button" class="chip-toggle" data-intf="WiFi">WiFi/BT</button>
+            <button type="button" class="chip-toggle" data-intf="ADC">Analógico</button>
+          </div>
+        </div>
+      </aside>
 
-// Datos de muestra: solo se usan si la base de datos no responde (por ejemplo, en una vista previa sin conexión).
-const MUESTRA = [
-  {nombre:'ESP32 DevKit V1', descripcion:'Placa de desarrollo con WiFi 802.11 b/g/n y Bluetooth 4.2 integrados, basada en el chip ESP32-WROOM-32 de doble núcleo a 240 MHz. Incluye 30 pines, 4 MB de memoria flash, 520 KB de SRAM, 15 canales ADC de 12 bits, 2 DAC, interfaces SPI, I2C, I2S, UART y salida PWM en casi todos los pines. Se programa por USB desde el IDE de Arduino, PlatformIO o MicroPython, sin necesidad de programador externo. Ideal para proyectos de IoT, domótica, estaciones meteorológicas y control remoto de dispositivos.', precio:10, stock:1, imagen:''},
-  {nombre:'Arduino Uno R3', descripcion:'Placa clásica con ATmega328P. Perfecta para empezar en electrónica y automatización.', precio:12, stock:2, imagen:''},
-  {nombre:'Sensor ultrasónico HC-SR04', descripcion:'Medición de distancia de 2 cm a 4 m. Compatible con Arduino y ESP32.', precio:3.5, stock:14, imagen:''},
-  {nombre:'Módulo relé 2 canales 5V', descripcion:'Control de cargas AC/DC con optoacoplador incluido.', precio:4.25, stock:6, imagen:''},
-  {nombre:'Protoboard 830 puntos', descripcion:'Placa de pruebas sin soldadura con buses de alimentación.', precio:5, stock:9, imagen:''},
-  {nombre:'Kit de 120 cables Dupont', descripcion:'Macho-macho, macho-hembra y hembra-hembra de 20 cm.', precio:4, stock:3, imagen:''},
-  {nombre:'Módulo Bluetooth HC-05', descripcion:'Comunicación serial inalámbrica para Arduino, alcance de hasta 10 m.', precio:5.5, stock:7, imagen:''},
-  {nombre:'Pantalla LCD 16x2 con I2C', descripcion:'Módulo de visualización con adaptador I2C, requiere solo 2 pines de datos.', precio:6.5, stock:5, imagen:''},
-  {nombre:'Servomotor SG90', descripcion:'Micro servo de 180°, ideal para robótica y proyectos con Arduino.', precio:3, stock:12, imagen:''},
-  {nombre:'Sensor de temperatura DHT22', descripcion:'Mide temperatura y humedad con buena precisión.', precio:5, stock:8, imagen:''},
-  {nombre:'Módulo cargador de batería TP4056', descripcion:'Carga baterías de litio 3.7V vía USB-C con protección incluida.', precio:1.5, stock:20, imagen:''},
-  {nombre:'Potenciómetro rotativo 10K', descripcion:'Control analógico para volumen, brillo o velocidad.', precio:0.6, stock:30, imagen:''},
-  {nombre:'Regulador de voltaje LM2596', descripcion:'Módulo step-down ajustable, entrada hasta 40V.', precio:2.2, stock:10, imagen:''}
-];
+      <section aria-label="Listado de productos">
+        <div class="results-bar">
+          <div class="results-info">
+            <h2 id="titulo-catalogo">Catálogo Completo</h2>
+            <span class="count" id="contador">Cargando inventario…</span>
+          </div>
 
-async function cargarProductos(){
-  esqueletos();
-  try{
-    const cliente = supabase.createClient(supabaseUrl, supabaseKey);
-    const { data, error } = await cliente.from('productos').select('*');
-    if (error) throw error;
+          <div class="view-controls">
+            <div class="view-switcher" role="group" aria-label="Cambiar vista">
+              <button type="button" class="view-btn active" data-view="grid" title="Vista Cuadrícula">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                  <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                </svg>
+                 Tarjetas
+              </button>
+              <button type="button" class="view-btn" data-view="list" title="Vista Lista">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+                  <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+                </svg>
+                Lista
+              </button>
+              <button type="button" class="view-btn" data-view="table" title="Vista Tabla Técnica">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/>
+                </svg>
+                Datasheet
+              </button>
+            </div>
+          </div>
+        </div>
 
-    PRODUCTOS = data || [];
-    if (!PRODUCTOS.length){
-      $contador.textContent = '0 productos';
-      $lista.innerHTML = `
-        <div class="state">
-          <strong>El catálogo está vacío</strong>
-          Agrega productos en la tabla <code>productos</code> de Supabase y aparecerán aquí.
-        </div>`;
-      return;
+        <div class="grid" id="lista-productos"></div>
+        <div id="tabla-productos-wrap" class="datasheet-table-wrap" hidden></div>
+
+        <div class="paginacion" id="paginacion" hidden>
+          <button type="button" id="pag-anterior">← Anterior</button>
+          <span id="pag-indicador">Página 1 de 1</span>
+          <button type="button" id="pag-siguiente">Siguiente →</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- ======================================================================
+         SECCIÓN: ARMADOR DE KITS MAKER Y PROYECTOS UNIVERSITARIOS
+         ====================================================================== -->
+    <section class="section-block" id="kits-maker">
+      <div class="section-head">
+        <div>
+          <h2>🧰 Kits Recomendados para Proyectos y Laboratorios</h2>
+          <p>Paquetes armados con los componentes esenciales para prácticas universitarias, domótica IoT y robótica. Agrégalos todos al carrito con un clic.</p>
+        </div>
+      </div>
+
+      <div class="kits-grid" id="contenedor-kits"></div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN: LABORATORIO ELECTRÓNICO (5 CALCULADORAS INTERACTIVAS)
+         ====================================================================== -->
+    <section class="section-block" id="laboratorio">
+      <div class="section-head">
+        <div>
+          <h2>⚡ Herramientas de Laboratorio KD Tech</h2>
+          <p>Calculadoras de ingeniería integradas para dimensionar tus circuitos antes de armar tu pedido.</p>
+        </div>
+      </div>
+
+      <div class="lab-container">
+        <div class="lab-tabs" role="tablist">
+          <button type="button" class="lab-tab-btn active" data-lab-tab="resistor">🎨 Código de Resistencias</button>
+          <button type="button" class="lab-tab-btn" data-lab-tab="led">💡 Resistencia para LED</button>
+          <button type="button" class="lab-tab-btn" data-lab-tab="divisor">🔌 Divisor 5V a 3.3V (ESP32)</button>
+          <button type="button" class="lab-tab-btn" data-lab-tab="ohm">📐 Ley de Ohm y Potencia</button>
+          <button type="button" class="lab-tab-btn" data-lab-tab="bateria">🔋 Autonomía Batería IoT</button>
+        </div>
+
+        <!-- Panel 1: Código de colores de resistencias -->
+        <div class="lab-panel active" id="lab-resistor">
+          <div class="calc-form">
+            <div class="calc-field">
+              <label for="res-b1">1ra Banda (Primera cifra)</label>
+              <select id="res-b1">
+                <option value="1">Marrón (1)</option>
+                <option value="2">Rojo (2)</option>
+                <option value="3">Naranja (3)</option>
+                <option value="4">Amarillo (4)</option>
+                <option value="5">Verde (5)</option>
+                <option value="6">Azul (6)</option>
+                <option value="7">Violeta (7)</option>
+                <option value="8">Gris (8)</option>
+                <option value="9">Blanco (9)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label for="res-b2">2da Banda (Segunda cifra)</label>
+              <select id="res-b2">
+                <option value="0" selected>Negro (0)</option>
+                <option value="1">Marrón (1)</option>
+                <option value="2">Rojo (2)</option>
+                <option value="3">Naranja (3)</option>
+                <option value="4">Amarillo (4)</option>
+                <option value="5">Verde (5)</option>
+                <option value="6">Azul (6)</option>
+                <option value="7">Violeta (7)</option>
+                <option value="8">Gris (8)</option>
+                <option value="9">Blanco (9)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label for="res-mult">3ra Banda (Multiplicador)</label>
+              <select id="res-mult">
+                <option value="1">Negro (×1 Ω)</option>
+                <option value="10">Marrón (×10 Ω)</option>
+                <option value="100" selected>Rojo (×100 Ω)</option>
+                <option value="1000">Naranja (×1 kΩ)</option>
+                <option value="10000">Amarillo (×10 kΩ)</option>
+                <option value="100000">Verde (×100 kΩ)</option>
+                <option value="1000000">Azul (×1 MΩ)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label for="res-tol">4ta Banda (Tolerancia)</label>
+              <select id="res-tol">
+                <option value="5" selected>Dorado (±5%)</option>
+                <option value="1">Marrón (±1% Precisión)</option>
+                <option value="2">Rojo (±2%)</option>
+                <option value="10">Plateado (±10%)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-result-card">
+            <span class="mono" style="font-size:12px;color:var(--ink-soft)">VISTA PREVIA DEL COMPONENTE</span>
+            <div id="resistor-svg-wrap"></div>
+            <div>
+              <div style="font-size:13px;color:var(--ink-soft)">Valor nominal calculado:</div>
+              <div class="calc-big-value" id="res-valor-final">1.0 kΩ ±5%</div>
+              <div class="mono" style="font-size:12.5px;color:var(--ink-soft)" id="res-rango-final">Rango: 950 Ω – 1,050 Ω</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel 2: Calculadora de Resistencia para LED -->
+        <div class="lab-panel" id="lab-led">
+          <div class="calc-form">
+            <div class="calc-field">
+              <label for="led-vcc">Voltaje de la Fuente Vcc (V)</label>
+              <input type="number" id="led-vcc" value="5" min="1.5" max="48" step="0.1">
+            </div>
+            <div class="calc-field">
+              <label for="led-color">Color / Tipo de LED (Voltaje Directo Vf)</label>
+              <select id="led-color">
+                <option value="1.8">Rojo / Infrarrojo (~1.8V)</option>
+                <option value="2.0" selected>Amarillo / Naranja (~2.0V)</option>
+                <option value="2.2">Verde Estándar (~2.2V)</option>
+                <option value="3.2">Azul / Blanco Brillante (~3.2V)</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label for="led-ma">Corriente deseada (mA)</label>
+              <input type="number" id="led-ma" value="15" min="1" max="100" step="1">
+            </div>
+          </div>
+          <div class="calc-result-card">
+            <div style="font-size:13px;color:var(--ink-soft)">Resistencia comercial E12 recomendada:</div>
+            <div class="calc-big-value" id="led-res-comercial">220 Ω</div>
+            <p class="mono" style="margin:0;font-size:13px" id="led-res-exacta">Cálculo exacto: 200.0 Ω · Potencia disipada: 0.045 W (Usa resistencia de 1/4 W)</p>
+          </div>
+        </div>
+
+        <!-- Panel 3: Divisor de Voltaje 5V a 3.3V -->
+        <div class="lab-panel" id="lab-divisor">
+          <div class="calc-form">
+            <div class="calc-field">
+              <label for="div-vin">Voltaje de Entrada Vin (ej. Sensor 5V)</label>
+              <input type="number" id="div-vin" value="5.0" step="0.1">
+            </div>
+            <div class="calc-field">
+              <label for="div-r1">Resistencia R1 (Conectada a Vin) en Ω</label>
+              <input type="number" id="div-r1" value="1000" step="100">
+            </div>
+            <div class="calc-field">
+              <label for="div-r2">Resistencia R2 (Conectada a GND) en Ω</label>
+              <input type="number" id="div-r2" value="2000" step="100">
+            </div>
+          </div>
+          <div class="calc-result-card">
+            <div style="font-size:13px;color:var(--ink-soft)">Voltaje de Salida Vout hacia pin GPIO:</div>
+            <div class="calc-big-value" id="div-vout">3.33 V</div>
+            <p class="mono" style="margin:0;font-size:13px" id="div-estado">✓ Seguro para pines lógicos de 3.3V (ESP32 / Raspberry Pi Pico)</p>
+          </div>
+        </div>
+
+        <!-- Panel 4: Ley de Ohm -->
+        <div class="lab-panel" id="lab-ohm">
+          <div class="calc-form">
+            <div class="calc-field">
+              <label for="ohm-v">Voltaje V (Voltios)</label>
+              <input type="number" id="ohm-v" value="12" step="0.5">
+            </div>
+            <div class="calc-field">
+              <label for="ohm-r">Resistencia R (Ohmios Ω)</label>
+              <input type="number" id="ohm-r" value="100" step="1">
+            </div>
+          </div>
+          <div class="calc-result-card">
+            <div style="font-size:13px;color:var(--ink-soft)">Corriente y Potencia Resultante:</div>
+            <div class="calc-big-value" id="ohm-result">120.0 mA · 1.44 W</div>
+            <p class="mono" style="margin:0;font-size:13px" id="ohm-detalle">I = V / R = 0.12 A | P = V × I = 1.44 W</p>
+          </div>
+        </div>
+
+        <!-- Panel 5: Autonomía Batería IoT -->
+        <div class="lab-panel" id="lab-bateria">
+          <div class="calc-form">
+            <div class="calc-field">
+              <label for="bat-cap">Capacidad de Batería (mAh, ej. 18650 = 2600)</label>
+              <input type="number" id="bat-cap" value="2600" step="100">
+            </div>
+            <div class="calc-field">
+              <label for="bat-consumo">Consumo promedio del circuito (mA)</label>
+              <input type="number" id="bat-consumo" value="45" step="1">
+            </div>
+          </div>
+          <div class="calc-result-card">
+            <div style="font-size:13px;color:var(--ink-soft)">Autonomía estimada (con factor de eficiencia 85%):</div>
+            <div class="calc-big-value" id="bat-horas">49.1 Horas (~2.0 días)</div>
+            <p class="mono" style="margin:0;font-size:13px">Tip: Usa el modo Deep Sleep del ESP32 para extender tu batería a varios meses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN: PREGUNTAS FRECUENTES (FAQ)
+         ====================================================================== -->
+    <section class="section-block" id="faq">
+      <div class="section-head">
+        <div>
+          <h2>Preguntas Frecuentes sobre Envíos y Compras</h2>
+          <p>Todo lo que necesitas saber para recibir tus componentes en Ambato o en cualquier ciudad del Ecuador.</p>
+        </div>
+      </div>
+
+      <div class="faq-grid">
+        <details class="faq-item" open>
+          <summary>¿Cómo realizo un pedido y cómo se coordina el pago?</summary>
+          <p>Agrega todos los módulos y componentes que necesites al carrito, selecciona tu modalidad de entrega y pulsa <strong>“Generar pedido por WhatsApp”</strong>. Se abrirá el chat con el detalle exacto y el total calculado para confirmar stock inmediato y datos de pago (Banco Pichincha, Produbanco, Deuna o efectivo en Ambato).</p>
+        </details>
+
+        <details class="faq-item" open>
+          <summary>¿Hacen entregas en Ambato y envíos a otras provincias?</summary>
+          <p>Sí. Realizamos entregas rápidas en Ambato y despachamos todos los días a Quito, Guayaquil, Cuenca, Riobamba, Latacunga, Loja, Manta y todo el Ecuador mediante Servientrega, Tramaco Express o transporte interprovincial.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Puedo generar una proforma o cotización en PDF para mi universidad o empresa?</summary>
+          <p>¡Claro! Dentro de la ventana del carrito encontrarás el botón <strong>“Imprimir / Guardar Proforma PDF”</strong>, que genera una hoja de cotización formal con tus datos, desglose de componentes, códigos SKU y precios unitarios.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>¿Qué pasa si busco un sensor o integrado que no aparece en el catálogo?</summary>
+          <p>Escríbenos directamente a nuestro WhatsApp <strong>+593 99 832 9213</strong>. Contamos con stock adicional en bodega y traemos módulos específicos bajo pedido para tesis y proyectos industriales.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       PIE DE PÁGINA (FOOTER)
+       ======================================================================== -->
+  <footer>
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <h4>KD Tech Electronics</h4>
+          <p>Tu aliado en componentes electrónicos, placas de desarrollo ESP32/Arduino, sensores e instrumentación para estudiantes, técnicos, laboratorios y makers en todo el Ecuador.</p>
+        </div>
+        <div>
+          <h4>Navegación Rápida</h4>
+          <ul>
+            <li><a href="#catalogo-principal">Catálogo de Productos</a></li>
+            <li><a href="#kits-maker">Kits de Proyectos Maker</a></li>
+            <li><a href="#laboratorio">Calculadoras de Ingeniería</a></li>
+            <li><a href="#faq">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Atención y Pedidos</h4>
+          <ul>
+            <li><a href="https://wa.me/593998329213" target="_blank" rel="noopener">WhatsApp: +593 99 832 9213</a></li>
+            <li>Horario: Lunes a sábado, 09:00 – 19:00</li>
+            <li>Ubicación: Ambato, Ecuador (Envíos nacionales)</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Cómo Comprar</h4>
+          <p>Arma tu lista de materiales en el carrito, descarga tu proforma si lo requieres o envíanos el pedido en un clic por WhatsApp para despacho inmediato.</p>
+        </div>
+      </div>
+
+      <div class="legal">
+        <span>© <span id="anio"></span> KD Tech Electronics · Todos los derechos reservados</span>
+        <span>Precios en dólares (USD) · Stock conectado en tiempo real</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       MODALES INTERACTIVOS (<dialog>)
+       ======================================================================== -->
+  <!-- 1. Modal de Detalle de Producto con Pestañas Técnicas -->
+  <dialog id="detalle" aria-label="Detalle del producto">
+    <div class="dlg-scroll" id="detalle-contenido"></div>
+  </dialog>
+
+  <!-- 2. Modal del Carrito, Cotizador de Envío y Proforma -->
+  <dialog id="carrito-modal" aria-label="Carrito de compras">
+    <div class="cart-header">
+      <h3>🛒 Tu Carrito y Cotizador</h3>
+      <button class="cerrar" type="button" id="cerrar-carrito" aria-label="Cerrar">&times;</button>
+    </div>
+    <div id="carrito-contenido"></div>
+    <div class="cart-footer">
+      <button class="btn-secundario" type="button" id="btn-vaciar">Vaciar</button>
+      <button class="btn-secundario" type="button" id="btn-proforma">📄 Proforma PDF</button>
+      <button class="buy" type="button" id="btn-pedido-wa">Enviar pedido por WhatsApp</button>
+    </div>
+  </dialog>
+
+  <!-- 3. Modal Comparador de Componentes -->
+  <dialog id="comparador-modal" aria-label="Comparador de componentes">
+    <div class="cart-header">
+      <h3>⚖️ Comparador Técnico de Componentes</h3>
+      <button class="cerrar" type="button" id="cerrar-comparador" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="dlg-scroll" id="comparador-contenido" style="padding:20px"></div>
+  </dialog>
+
+  <!-- 4. Modal de Favoritos -->
+  <dialog id="favoritos-modal" aria-label="Productos favoritos">
+    <div class="cart-header">
+      <h3>❤️ Tus Componentes Guardados</h3>
+      <button class="cerrar" type="button" id="cerrar-favoritos" aria-label="Cerrar">&times;</button>
+    </div>
+    <div class="dlg-scroll" id="favoritos-contenido" style="padding:20px"></div>
+  </dialog>
+
+  <!-- Contenedor Oculto para Impresión de Proforma Formal -->
+  <div id="proforma-print"></div>
+
+  <!-- Pila de Notificaciones Toast -->
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+  <!-- Botón Flotante de WhatsApp -->
+  <a class="float-wa" href="https://wa.me/593998329213?text=Hola%20KD%20Tech%2C%20quiero%20hacer%20un%20pedido" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.5.05-.96.23-3.23-.67-2.72-1.07-4.45-3.84-4.58-4.02-.13-.18-1.09-1.45-1.09-2.77s.69-1.97.94-2.24c.24-.27.53-.34.71-.34.18 0 .35 0 .51.01.16.01.38-.06.6.46.23.55.77 1.9.84 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.35-.4.47-.13.13-.27.28-.12.55.15.27.66 1.09 1.42 1.77.97.87 1.79 1.14 2.06 1.27.27.14.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.23.6-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.64-.17 1.32Z"/>
+    </svg>
+  </a>
+
+  <!-- ========================================================================
+       LÓGICA DE LA APLICACIÓN (SUPABASE + CATÁLOGO + CARRITO + LAB TOOLS)
+       ======================================================================== -->
+  <script>
+    /* ---------- 1. CONFIGURACIÓN Y CREDENCIALES ORIGINALES ---------- */
+    const TELEFONO = '593998329213';
+    const supabaseUrl = 'https://odxdplbpzjntlejufpyu.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9keGRwbGJwempudGxlanVmcHl1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk1OTQ5MzUsImV4cCI6MjEwNTE3MDkzNX0.aXOZKInAkWO2R6ktxYY4kUqNnXNCWSEiI-RUiDE5lcM';
+
+    /* ---------- 2. REFERENCIAS AL DOM ---------- */
+    const $lista = document.getElementById('lista-productos');
+    const $tablaWrap = document.getElementById('tabla-productos-wrap');
+    const $contador = document.getElementById('contador');
+    const $tituloCatalogo = document.getElementById('titulo-catalogo');
+    const $buscar = document.getElementById('buscar');
+    const $orden = document.getElementById('orden');
+    const $itemsPorPagina = document.getElementById('items-por-pagina');
+    const $aviso = document.getElementById('aviso');
+    const $barraCategorias = document.getElementById('barra-categorias');
+    const $detalle = document.getElementById('detalle');
+    const $carritoModal = document.getElementById('carrito-modal');
+    const $comparadorModal = document.getElementById('comparador-modal');
+    const $favoritosModal = document.getElementById('favoritos-modal');
+    const $btnCarrito = document.getElementById('btn-carrito');
+    const $btnComparador = document.getElementById('btn-comparador');
+    const $btnFavoritos = document.getElementById('btn-favoritos');
+    const $cerrarCarrito = document.getElementById('cerrar-carrito');
+    const $cerrarComparador = document.getElementById('cerrar-comparador');
+    const $cerrarFavoritos = document.getElementById('cerrar-favoritos');
+    const $carritoContenido = document.getElementById('carrito-contenido');
+    const $badge = document.getElementById('cart-badge');
+    const $favBadge = document.getElementById('fav-badge');
+    const $compareBadge = document.getElementById('compare-badge');
+    const $btnVaciar = document.getElementById('btn-vaciar');
+    const $btnProforma = document.getElementById('btn-proforma');
+    const $btnPedidoWa = document.getElementById('btn-pedido-wa');
+    const $paginacion = document.getElementById('paginacion');
+    const $pagAnterior = document.getElementById('pag-anterior');
+    const $pagSiguiente = document.getElementById('pag-siguiente');
+    const $pagIndicador = document.getElementById('pag-indicador');
+    const $toastStack = document.getElementById('toast-stack');
+
+    document.getElementById('anio').textContent = new Date().getFullYear();
+
+    /* ---------- 3. ESTADO GLOBAL DE LA TIENDA ---------- */
+    const CARRITO_KEY = 'kd-tech-carrito';
+    const FAV_KEY = 'kd-tech-favoritos';
+    const COMPARE_KEY = 'kd-tech-comparar';
+    const THEME_KEY = 'kd-tech-theme';
+
+    let itemsPorPagina = 10;
+    let paginaActual = 1;
+    let vistaActual = 'grid'; // 'grid' | 'list' | 'table'
+    let categoriaActiva = 'Todas';
+    let voltajesActivos = new Set();
+    let interfacesActivas = new Set();
+
+    let carrito = [];
+    let favoritos = [];
+    let comparador = [];
+    let PRODUCTOS = [];
+    let VISIBLES = [];
+
+    let checkoutDatos = {
+      nombreCliente: '',
+      ciudadCliente: 'Ambato',
+      metodoEnvio: 'ambato', // 'ambato' ($0) | 'servientrega' ($5.50) | 'cooperativa' ($4.00)
+      metodoPago: 'Transferencia Bancaria / Deuna'
+    };
+
+    /* ---------- 4. FUNCIONES UTILITARIAS ---------- */
+    const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    }[c]));
+
+    const num = v => {
+      const n = parseFloat(v);
+      return isNaN(n) ? 0 : n;
+    };
+
+    const precio = v => num(v).toFixed(2);
+
+    const normalizar = t => String(t ?? '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+
+    const idDe = p => String(p.id ?? p.nombre);
+    const stockDe = p => Math.max(0, parseInt(p.stock, 10) || 0);
+    const buscarProducto = id => PRODUCTOS.find(p => idDe(p) === String(id));
+
+    function mostrarToast(mensaje) {
+      const div = document.createElement('div');
+      div.className = 'toast';
+      div.innerHTML = `<span>⚡</span><span>${esc(mensaje)}</span>`;
+      $toastStack.appendChild(div);
+      setTimeout(() => {
+        div.style.opacity = '0';
+        div.style. transition = 'opacity 0.25s ease';
+        setTimeout(() => div.remove(), 260);
+      }, 2400);
     }
-    pintar();
-  }catch(e){
-    PRODUCTOS = MUESTRA;
-    $aviso.innerHTML = '<p class="demo-note">Vista de demostración: no se pudo conectar con la base de datos, así que se muestran productos de ejemplo. Al subir esta página a tu hosting cargará tu inventario real.</p>';
-    pintar();
-  }
-}
 
-$lista.addEventListener('click', e => {
-  const btn = e.target.closest('.more');
-  if (btn) abrirDetalle(VISIBLES[+btn.dataset.i]);
-});
+    /* ---------- 5. MOTOR DE ENRIQUECIMIENTO AUTOMÁTICO DE COMPONENTES ---------- */
+    function enriquecerProducto(p, idx) {
+      const texto = normalizar(`${p.nombre ?? ''} ${p.descripcion ?? ''}`);
 
-$detalle.addEventListener('click', e => {
-  // Cierra con el botón × o al tocar fuera de la ventana
-  if (e.target.closest('.cerrar') || e.target === $detalle) $detalle.close();
-});
+      // 1. Inferir Categoría si no viene en la base de datos
+      let categoria = p.categoria || 'Componentes';
+      if (!p.categoria) {
+        if (/esp32|arduino|nodemcu|raspberry|stm32|nano|mega|uno|placa de desarrollo/.test(texto)) {
+          categoria = 'Placas y MCU';
+        } else if (/sensor|dht|hc-sr04|ultrasonic|pir|mq-|bmp|bme|ds18b20|temperatura|humedad|proximidad/.test(texto)) {
+          categoria = 'Sensores';
+        } else if (/servo|motor|rele|relay|l298n|puente h|paso a paso|bomba|actuador/.test(texto)) {
+          categoria = 'Robótica y Control';
+        } else if (/lcd|oled|pantalla|display|matriz|7 segmentos|tft|nextion/.test(texto)) {
+          categoria = 'Pantallas y Displays';
+        } else if (/tp4056|lm2596|bateria|cargador|fuente|regulador|step-down|step-up|18650|ams1117/.test(texto)) {
+          categoria = 'Energía y Fuentes';
+        } else if (/bluetooth|hc-05|hc-06|nrf24|lora|rfid|sim800|wifi|antena/.test(texto)) {
+          categoria = 'Conectividad RF';
+        } else if (/protoboard|dupont|cable|jumper|baquelita|soldador|estano|multimetro/.test(texto)) {
+          categoria = 'Prototipado y Lab';
+        } else if (/resistencia|potenciometro|led|capacitor|condensador|transistor|diodo|pulsador/.test(texto)) {
+          categoria = 'Pasivos y Discretos';
+        }
+      }
 
-// Agregar al carrito: funciona tanto en las tarjetas como en la ventana de detalle
-document.body.addEventListener('click', e => {
-  const addBtn = e.target.closest('[data-add]');
-  if (!addBtn) return;
-  const producto = buscarProducto(addBtn.dataset.add);
-  if (!producto) return;
-  agregarAlCarrito(producto);
-  const original = addBtn.innerHTML;
-  addBtn.innerHTML = '✓ Agregado';
-  addBtn.disabled = true;
-  setTimeout(() => { addBtn.innerHTML = original; addBtn.disabled = false; }, 900);
-});
+      // 2. Inferir Voltaje Operativo
+      const voltajes = [];
+      if (/3\.3v|esp32|bmp|oled|nrf24|3,3v/.test(texto)) voltajes.push('3.3V');
+      if (/5v|arduino|hc-sr04|rele|lcd|servo|sg90|dht|hc-05|tp4056/.test(texto)) voltajes.push('5V');
+      if (/12v|24v|40v|lm2596|l298n|ac\/dc/.test(texto)) voltajes.push('12V');
+      if (!voltajes.length) voltajes.push('5V');
 
-$btnCarrito.addEventListener('click', () => { pintarCarrito(); $carritoModal.showModal(); });
-$cerrarCarrito.addEventListener('click', () => $carritoModal.close());
-$carritoModal.addEventListener('click', e => {
-  if (e.target === $carritoModal) $carritoModal.close();
-});
-$carritoContenido.addEventListener('click', e => {
-  const btn = e.target.closest('button[data-accion]');
-  if (!btn) return;
-  const { accion, id } = btn.dataset;
-  if (accion === 'mas') cambiarCantidad(id, 1);
-  if (accion === 'menos') cambiarCantidad(id, -1);
-  if (accion === 'quitar') quitarDelCarrito(id);
-});
-$btnVaciar.addEventListener('click', vaciarCarrito);
-$btnPedidoWa.addEventListener('click', generarPedidoWhatsApp);
+      // 3. Inferir Interfaces
+      const interfaces = [];
+      if (/i2c|iic|oled|lcd/.test(texto)) interfaces.push('I2C');
+      if (/spi|nrf24|rfid|sd/.test(texto)) interfaces.push('SPI');
+      if (/uart|serial|hc-05|bluetooth|usb/.test(texto)) interfaces.push('UART');
+      if (/pwm|servo|sg90|motor/.test(texto)) interfaces.push('PWM');
+      if (/wifi|bluetooth|esp32|iot/.test(texto)) interfaces.push('WiFi');
+      if (/analog|adc|potenciometro|resistencia/.test(texto)) interfaces.push('ADC');
 
-$pagAnterior.addEventListener('click', () => {
-  paginaActual--; pintar();
-  document.querySelector('.results-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
-$pagSiguiente.addEventListener('click', () => {
-  paginaActual++; pintar();
-  document.querySelector('.results-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
+      // 4. Generar SKU limpio
+      const prefijo = categoria.slice(0, 3).toUpperCase();
+      const sku = p.sku || `KD-${prefijo}-${String(p.id ?? (idx + 101)).padStart(3, '0')}`;
 
-window.addEventListener('resize', () => { if (VISIBLES.length) marcarRecortadas(); });
-$buscar.addEventListener('input', () => { paginaActual = 1; pintar(); });
-$orden.addEventListener('change', () => { paginaActual = 1; pintar(); });
-if (document.fonts && document.fonts.ready){
-  document.fonts.ready.then(() => { if (VISIBLES.length) marcarRecortadas(); });
-}
+      // 5. Generar snippet de código Arduino orientativo según el tipo de componente
+      let codigoEjemplo = `// Ejemplo base de prueba en Arduino / ESP32 para: ${p.nombre}\nvoid setup() {\n  Serial.begin(115200);\n  Serial.println("Iniciando módulo ${p.nombre}...");\n}\n\nvoid loop() {\n  // Lógica principal del módulo\n  delay(1000);\n}`;
+      if (/hc-sr04|ultrason/.test(texto)) {
+        codigoEjemplo = `// Lectura de distancia con Sensor Ultrasónico HC-SR04\nconst int TRIG = 5;\nconst int ECHO = 18;\n\nvoid setup() {\n  Serial.begin(115200);\n  pinMode(TRIG, OUTPUT);\n  pinMode(ECHO, INPUT);\n}\n\nvoid loop() {\n  digitalWrite(TRIG, LOW); delayMicroseconds(2);\n  digitalWrite(TRIG, HIGH); delayMicroseconds(10);\n  digitalWrite(TRIG, LOW);\n  long duracion = pulseIn(ECHO, HIGH);\n  float distanciaCm = duracion * 0.034 / 2;\n  Serial.print("Distancia: "); Serial.print(distanciaCm); Serial.println(" cm");\n  delay(500);\n}`;
+      } else if (/dht/.test(texto)) {
+        codigoEjemplo = `// Lectura de Temperatura y Humedad con DHT22 / DHT11\n#include "DHT.h"\n#define DHTPIN 4\n#define DHTTYPE DHT22\nDHT dht(DHTPIN, DHTTYPE);\n\nvoid setup() {\n  Serial.begin(115200);\n  dht.begin();\n}\n\nvoid loop() {\n  float h = dht.readHumidity();\n  float t = dht.readTemperature();\n  Serial.print("Temp: "); Serial.print(t); Serial.print(" °C | Hum: "); Serial.println(h);\n  delay(2000);\n}`;
+      } else if (/lcd|i2c/.test(texto)) {
+        codigoEjemplo = `// Pantalla LCD 16x2 por interfaz I2C (Dirección 0x27)\n#include <Wire.h>\n#include <LiquidCrystal_I2C.h>\nLiquidCrystal_I2C lcd(0x27, 16, 2);\n\nvoid setup() {\n  lcd.init();\n  lcd.backlight();\n  lcd.setCursor(0, 0);\n  lcd.print("KD Tech Ecuador");\n}\n\nvoid loop() {}`;
+      } else if (/servo|sg90/.test(texto)) {
+        codigoEjemplo = `// Control de Servomotor SG90 (0 a 180 grados)\n#include <Servo.h>\nServo miServo;\n\nvoid setup() {\n  miServo.attach(9);\n}\n\nvoid loop() {\n  miServo.write(0);   delay(1000);\n  miServo.write(90);  delay(1000);\n  miServo.write(180); delay(1000);\n}`;
+      }
 
-cargarCarrito();
-actualizarBadge();
-cargarProductos();
-</script>
+      return {
+        ...p,
+        _categoria: categoria,
+        _voltajes: voltajes,
+        _interfaces: interfaces,
+        _sku: sku,
+        _codigo: codigoEjemplo
+      };
+    }
+
+    /* ---------- 6. ILUSTRACIONES VECTORIALES SVG PARA PRODUCTOS SIN FOTO ---------- */
+    function svgPorCategoria(p) {
+      const cat = p._categoria || 'Componentes';
+      if (cat === 'Placas y MCU') {
+        return `<div class="noimg">
+          <svg width="68" height="68" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="10" y="12" width="44" height="40" rx="4" stroke="var(--copper)"/>
+            <rect x="22" y="22" width="20" height="20" rx="2"/>
+            <path d="M6 18h4M6 26h4M6 34h4M6 42h4M54 18h4M54 26h4M54 34h4M54 42h4"/>
+            <circle cx="16" cy="18" r="1.5" fill="currentColor"/>
+          </svg>
+          <span>${esc(cat)}</span>
+        </div>`;
+      }
+      if (cat === 'Sensores') {
+        return `<div class="noimg">
+          <svg width="68" height="68" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="8" y="18" width="48" height="28" rx="4"/>
+            <circle cx="22" cy="32" r="8" stroke="var(--copper)"/>
+            <circle cx="42" cy="32" r="8" stroke="var(--copper)"/>
+            <path d="M26 46v8M32 46v8M38 46v8"/>
+          </svg>
+          <span>${esc(cat)}</span>
+        </div>`;
+      }
+      return `<div class="noimg">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3" y="6" width="18" height="12" rx="2" stroke="var(--copper)"/>
+          <path d="M7 6V4M12 6V4M17 6V4M7 20v-2M12 20v-2M17 20v-2M7 11h10M7 14h6"/>
+        </svg>
+        <span>${esc(cat)}</span>
+      </div>`;
+    }
+
+    const ICONO_CARRITO = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+
+    function chipDe(stock) {
+      if (stock === 0) return '<span class="chip off">Agotado</span>';
+      if (stock <= 3)  return `<span class="chip warn">¡Últimas ${stock}!</span>`;
+      return '<span class="chip ok">En stock</span>';
+    }
+
+    function imagenDe(p) {
+      if (p.imagen) {
+        return `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'noimg',textContent:'Sin foto'}))">`;
+      }
+      return svgPorCategoria(p);
+    }
+
+    function botonDe(p, stock) {
+      if (stock === 0) {
+        return '<span class="buy disabled">Sin stock por ahora</span>';
+      }
+      return `<button class="buy" type="button" data-add="${esc(idDe(p))}">${ICONO_CARRITO} Agregar al carrito</button>`;
+    }
+
+    /* ---------- 7. RENDERIZADO DE TARJETAS Y TABLA DATASHEET ---------- */
+    function tarjeta(p, i) {
+      const stock = stockDe(p);
+      const id = idDe(p);
+      const esFav = favoritos.includes(id);
+      const esComp = comparador.includes(id);
+      const specsHtml = [
+        ...(p._voltajes || []).map(v => `<span class="spec-pill">${esc(v)}</span>`),
+        ...(p._interfaces || []).map(intf => `<span class="spec-pill">${esc(intf)}</span>`)
+      ].join('');
+
+      return `
+        <article class="card">
+          <div class="thumb">
+            ${chipDe(stock)}
+            <div class="card-floating-tools">
+              <button type="button" class="mini-tool-btn ${esFav ? 'active' : ''}" data-fav="${esc(id)}" title="Guardar en favoritos" aria-label="Guardar en favoritos">♥</button>
+              <button type="button" class="mini-tool-btn ${esComp ? 'active' : ''}" data-comp="${esc(id)}" title="Comparar componente" aria-label="Comparar componente">⇄</button>
+            </div>
+            ${imagenDe(p)}
+          </div>
+          <div class="body">
+            <div class="sku-line">
+              <span>${esc(p._sku)}</span>
+              <span class="cat-tag">${esc(p._categoria)}</span>
+            </div>
+            <h3 data-i="${i}">${esc(p.nombre)}</h3>
+            <div class="spec-pills">${specsHtml}</div>
+            ${p.descripcion ? `<p class="desc">${esc(p.descripcion)}</p>` : ''}
+            <button class="more" type="button" data-i="${i}">Ver ficha técnica y detalles →</button>
+            <div class="meta">
+              <div class="price-block">
+                <span class="price">$${precio(p.precio)}</span>
+              </div>
+              <span class="units">${stock} ${stock === 1 ? 'unidad' : 'unidades'}</span>
+            </div>
+            <div class="card-actions-row">
+              ${botonDe(p, stock)}
+            </div>
+          </div>
+        </article>`;
+    }
+
+    function pintarTablaDatasheet(items) {
+      const filas = items.map((p, i) => {
+        const stock = stockDe(p);
+        const specs = [...(p._voltajes || []), ...(p._interfaces || [])].join(' · ');
+        return `
+          <tr>
+            <td class="mono" style="font-size:12px">${esc(p._sku)}</td>
+            <td>
+              <strong style="cursor:pointer;color:var(--copper)" data-i="${i}">${esc(p.nombre)}</strong>
+              <div style="font-size:12px;color:var(--ink-soft)">${esc(p._categoria)}</div>
+            </td>
+            <td class="mono" style="font-size:12px">${esc(specs || 'Estándar')}</td>
+            <td class="mono">${stock > 0 ? `<span style="color:var(--ok)">${stock} disp.</span>` : '<span style="color:var(--off)">Agotado</span>'}</td>
+            <td class="mono" style="font-weight:700;font-size:15px">$${precio(p.precio)}</td>
+            <td>
+              ${stock > 0
+                ? `<button class="buy" style="padding:7px 12px;font-size:12.5px" type="button" data-add="${esc(idDe(p))}">+ Carrito</button>`
+                : '<span class="mono" style="font-size:12px;color:var(--off)">Sin stock</span>'}
+            </td>
+          </tr>`;
+      }).join('');
+
+      $tablaWrap.innerHTML = `
+        <table class="datasheet-table">
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Componente / Categoría</th>
+              <th>Voltaje / Interfaz</th>
+              <th>Stock</th>
+              <th>Precio Unit.</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>${filas}</tbody>
+        </table>`;
+    }
+
+    function pintarBarraCategorias() {
+      const conteo = { Todas: PRODUCTOS.length };
+      PRODUCTOS.forEach(p => {
+        const c = p._categoria || 'Componentes';
+        conteo[c] = (conteo[c] || 0) + 1;
+      });
+
+      $barraCategorias.innerHTML = Object.entries(conteo).map(([cat, total]) => `
+        <button type="button" class="cat-pill ${categoriaActiva === cat ? 'active' : ''}" data-cat="${esc(cat)}">
+          <span>${esc(cat)}</span>
+          <span class="cat-count">${total}</span>
+        </button>
+      `).join('');
+    }
+
+    /* ---------- 8. FILTRADO, ORDENAMIENTO Y PAGINACIÓN ---------- */
+    function pintar() {
+      const palabras = normalizar($buscar.value.trim()).split(/\s+/).filter(Boolean);
+      const modo = $orden.value;
+      const soloStock = document.getElementById('filtro-solo-stock').checked;
+      const minP = parseFloat(document.getElementById('precio-min').value);
+      const maxP = parseFloat(document.getElementById('precio-max').value);
+
+      const compararOrden = (a, b) =>
+        modo === 'precio-asc'  ? num(a.precio) - num(b.precio) :
+        modo === 'precio-desc' ? num(b.precio) - num(a.precio) :
+        modo === 'stock'       ? num(b.stock) - num(a.stock)   :
+        String(a.nombre ?? '').localeCompare(String(b.nombre ?? ''), 'es');
+
+      const frase = normalizar($buscar.value.trim());
+      const fraseCompacta = frase.replace(/\s+/g, '');
+
+      let items = PRODUCTOS.map(p => {
+        // Filtro por categoría
+        if (categoriaActiva !== 'Todas' && p._categoria !== categoriaActiva) {
+          return { p, pts: 0 };
+        }
+        // Filtro por stock
+        if (soloStock && stockDe(p) <= 0) {
+          return { p, pts: 0 };
+        }
+        // Filtro por precio
+        const pr = num(p.precio);
+        if (!isNaN(minP) && pr < minP) return { p, pts: 0 };
+        if (!isNaN(maxP) && pr > maxP) return { p, pts: 0 };
+
+        // Filtro por voltaje
+        if (voltajesActivos.size > 0) {
+          const tieneVolt = (p._voltajes || []).some(v => voltajesActivos.has(v));
+          if (!tieneVolt) return { p, pts: 0 };
+        }
+        // Filtro por interfaz
+        if (interfacesActivas.size > 0) {
+          const tieneIntf = (p._interfaces || []).some(i => interfacesActivas.has(i));
+          if (!tieneIntf) return { p, pts: 0 };
+        }
+
+        if (!palabras.length) return { p, pts: 1 };
+
+        const nombre = normalizar(p.nombre ?? '').replace(/\s+/g, ' ');
+        const nombreCompacto = nombre.replace(/\s+/g, '');
+        const desc = normalizar(`${p.descripcion ?? ''} ${p._sku ?? ''} ${p._categoria ?? ''}`);
+        let pts = 0;
+        if (fraseCompacta && nombreCompacto.startsWith(fraseCompacta)) pts += 100;
+        else if (fraseCompacta && nombreCompacto.includes(fraseCompacta)) pts += 60;
+        palabras.forEach(w => {
+          if (nombre.includes(w)) pts += 10;
+          if (desc.includes(w)) pts += 2;
+        });
+        return { p, pts };
+      }).filter(x => x.pts > 0);
+
+      items.sort((a, b) => (b.pts - a.pts) || compararOrden(a.p, b.p));
+      items = items.map(x => x.p);
+
+      $tituloCatalogo.textContent = categoriaActiva === 'Todas' ? 'Catálogo Completo' : categoriaActiva;
+      $contador.textContent = `${items.length} de ${PRODUCTOS.length} productos`;
+
+      if (!items.length) {
+        $lista.hidden = false;
+        $tablaWrap.hidden = true;
+        $lista.innerHTML = `
+          <div class="state">
+            <strong>No encontramos resultados con esos filtros</strong>
+            Prueba limpiando los filtros laterales o
+            <a href="https://wa.me/${TELEFONO}?text=${encodeURIComponent('Hola KD Tech, busco el componente: ' + $buscar.value.trim())}" target="_blank" rel="noopener">pregúntanos directamente por WhatsApp</a>.
+          </div>`;
+        $paginacion.hidden = true;
+        return;
+      }
+
+      const totalPaginas = Math.max(1, Math.ceil(items.length / itemsPorPagina));
+      paginaActual = Math.min(Math.max(paginaActual, 1), totalPaginas);
+      const inicio = (paginaActual - 1) * itemsPorPagina;
+      const pagina = items.slice(inicio, inicio + itemsPorPagina);
+
+      VISIBLES = pagina;
+
+      if (vistaActual === 'table') {
+        $lista.hidden = true;
+        $tablaWrap.hidden = false;
+        pintarTablaDatasheet(pagina);
+      } else {
+        $lista.hidden = false;
+        $tablaWrap.hidden = true;
+        $lista.className = vistaActual === 'list' ? 'grid view-list' : 'grid';
+        $lista.innerHTML = pagina.map((p, i) => tarjeta(p, i)).join('');
+      }
+
+      $paginacion.hidden = totalPaginas <= 1;
+      $pagIndicador.textContent = `Página ${paginaActual} de ${totalPaginas}`;
+      $pagAnterior.disabled = paginaActual <= 1;
+      $pagSiguiente.disabled = paginaActual >= totalPaginas;
+    }
+
+    /* ---------- 9. CARRITO DE COMPRAS, COTIZADOR DE ENVÍO Y PROFORMA ---------- */
+    function cargarEstadoLocal() {
+      try {
+        carrito = JSON.parse(localStorage.getItem(CARRITO_KEY) || '[]');
+        if (!Array.isArray(carrito)) carrito = [];
+      } catch (e) { carrito = []; }
+
+      try {
+        favoritos = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+        if (!Array.isArray(favoritos)) favoritos = [];
+      } catch (e) { favoritos = []; }
+
+      try {
+        comparador = JSON.parse(localStorage.getItem(COMPARE_KEY) || '[]');
+        if (!Array.isArray(comparador)) comparador = [];
+      } catch (e) { comparador = []; }
+    }
+
+    function guardarCarrito() {
+      try { localStorage.setItem(CARRITO_KEY, JSON.stringify(carrito)); } catch (e) {}
+    }
+
+    function actualizarBadges() {
+      const totalCart = carrito.reduce((s, i) => s + i.cantidad, 0);
+      $badge.textContent = totalCart;
+      $badge.hidden = totalCart === 0;
+
+      $favBadge.textContent = favoritos.length;
+      $favBadge.hidden = favoritos.length === 0;
+
+      $compareBadge.textContent = comparador.length;
+      $compareBadge.hidden = comparador.length === 0;
+    }
+
+    function agregarAlCarrito(p) {
+      const id = idDe(p);
+      const stock = stockDe(p);
+      const item = carrito.find(i => i.id === id);
+      if (item) {
+        if (item.cantidad < stock) {
+          item.cantidad++;
+          mostrarToast(`+1 ${p.nombre} en el carrito`);
+        } else {
+          mostrarToast(`Stock máximo alcanzado (${stock} u.)`);
+        }
+      } else if (stock > 0) {
+        carrito.push({ id, nombre: p.nombre, precio: num(p.precio), cantidad: 1, sku: p._sku || '' });
+        mostrarToast(`${p.nombre} agregado al carrito`);
+      }
+      guardarCarrito();
+      actualizarBadges();
+      pintarCarrito();
+    }
+
+    function cambiarCantidad(id, delta) {
+      const item = carrito.find(i => i.id === id);
+      if (!item) return;
+      const prod = buscarProducto(id);
+      const max = prod ? stockDe(prod) : 99;
+      item.cantidad = Math.min(max, item.cantidad + delta);
+      if (item.cantidad <= 0) carrito = carrito.filter(i => i.id !== id);
+      guardarCarrito();
+      actualizarBadges();
+      pintarCarrito();
+    }
+
+    function quitarDelCarrito(id) {
+      carrito = carrito.filter(i => i.id !== id);
+      guardarCarrito();
+      actualizarBadges();
+      pintarCarrito();
+    }
+
+    function vaciarCarrito() {
+      carrito = [];
+      guardarCarrito();
+      actualizarBadges();
+      pintarCarrito();
+    }
+
+    const subtotalCarrito = () => carrito.reduce((s, i) => s + i.precio * i.cantidad, 0);
+
+    function costoEnvioActual() {
+      if (!carrito.length) return 0;
+      if (checkoutDatos.metodoEnvio === 'servientrega') return 5.50;
+      if (checkoutDatos.metodoEnvio === 'cooperativa') return 4.00;
+      return 0;
+    }
+
+    function pintarCarrito() {
+      if (!carrito.length) {
+        $carritoContenido.innerHTML = '<p class="carrito-vacio">Tu carrito está vacío.<br>Agrega placas, sensores o kits para armar tu pedido o proforma.</p>';
+        $btnVaciar.disabled = true;
+        $btnProforma.disabled = true;
+        $btnPedidoWa.disabled = true;
+        return;
+      }
+
+      const filas = carrito.map(i => {
+        const prod = buscarProducto(i.id);
+        const tope = prod ? stockDe(prod) : 99;
+        return `
+          <div class="item-carrito">
+            <div>
+              <p class="ic-nombre">${esc(i.nombre)}</p>
+              <p class="ic-precio">$${i.precio.toFixed(2)} c/u</p>
+            </div>
+            <div class="ic-cantidad">
+              <button type="button" data-accion="menos" data-id="${esc(i.id)}">−</button>
+              <span>${i.cantidad}</span>
+              <button type="button" data-accion="mas" data-id="${esc(i.id)}" ${i.cantidad >= tope ? 'disabled' : ''}>+</button>
+            </div>
+            <div class="ic-fila-derecha">
+              <span class="ic-subtotal">$${(i.precio * i.cantidad).toFixed(2)}</span>
+              <button class="ic-quitar" type="button" data-accion="quitar" data-id="${esc(i.id)}">Quitar</button>
+            </div>
+          </div>`;
+      }).join('');
+
+      const sub = subtotalCarrito();
+      const env = costoEnvioActual();
+      const total = sub + env;
+
+      $carritoContenido.innerHTML = `
+        <div>${filas}</div>
+        <div class="checkout-options">
+          <label>
+            Tu Nombre / Institución (Opcional)
+            <input type="text" id="chk-nombre" placeholder="Ej. Kevin Díaz / UNEMI" value="${esc(checkoutDatos.nombreCliente)}">
+          </label>
+          <label>
+            Ciudad de destino
+            <input type="text" id="chk-ciudad" placeholder="Ej. Ambato, Quito, Milagro..." value="${esc(checkoutDatos.ciudadCliente)}">
+          </label>
+          <label>
+            Modalidad de Entrega
+            <select id="chk-envio">
+              <option value="ambato" ${checkoutDatos.metodoEnvio === 'ambato' ? 'selected' : ''}>Entrega / Retiro en Ambato ($0.00)</option>
+              <option value="servientrega" ${checkoutDatos.metodoEnvio === 'servientrega' ? 'selected' : ''}>Servientrega Nacional (+$5.50)</option>
+              <option value="cooperativa" ${checkoutDatos.metodoEnvio === 'cooperativa' ? 'selected' : ''}>Envío por Cooperativa (+$4.00)</option>
+            </select>
+          </label>
+          <label>
+            Método de Pago Preferido
+            <select id="chk-pago">
+              <option value="Transferencia Bancaria / Deuna" ${checkoutDatos.metodoPago.includes('Transferencia') ? 'selected' : ''}>Transferencia Pichincha / Produbanco / Deuna</option>
+              <option value="Efectivo (Solo entregas en Ambato)" ${checkoutDatos.metodoPago.includes('Efectivo') ? 'selected' : ''}>Efectivo (Entregas en Ambato)</option>
+            </select>
+          </label>
+        </div>
+        <div class="carrito-total">
+          <div class="total-row"><span>Subtotal componentes:</span><span>$${sub.toFixed(2)}</span></div>
+          <div class="total-row"><span>Costo estimado de envío:</span><span>$${env.toFixed(2)}</span></div>
+          <div class="total-row grand"><span>Total a pagar:</span><span>$${total.toFixed(2)}</span></div>
+        </div>`;
+
+      $btnVaciar.disabled = false;
+      $btnProforma.disabled = false;
+      $btnPedidoWa.disabled = false;
+    }
+
+    function generarPedidoWhatsApp() {
+      if (!carrito.length) return;
+      const lineas = carrito.map(i => `• ${i.cantidad}x ${i.nombre} ($${(i.precio * i.cantidad).toFixed(2)})`).join('\n');
+      const envTexto = checkoutDatos.metodoEnvio === 'ambato'
+        ? 'Entrega en Ambato ($0.00)'
+        : checkoutDatos.metodoEnvio === 'servientrega'
+          ? 'Envío por Servientrega (+$5.50)'
+          : 'Envío por Cooperativa (+$4.00)';
+      const total = (subtotalCarrito() + costoEnvioActual()).toFixed(2);
+      const clienteLinea = checkoutDatos.nombreCliente ? `Cliente: ${checkoutDatos.nombreCliente}\n` : '';
+
+      const mensaje =
+        `Hola *KD Tech Electronics*, deseo realizar el siguiente pedido:\n\n` +
+        `${lineas}\n` +
+        `-----------------------\n` +
+        `${clienteLinea}` +
+        `Ciudad: ${checkoutDatos.ciudadCliente || 'Por confirmar'}\n` +
+        `Entrega: ${envTexto}\n` +
+        `Pago: ${checkoutDatos.metodoPago}\n` +
+        `*Total estimado: $${total} USD*`;
+
+      window.open(`https://wa.me/${TELEFONO}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+
+    function imprimirProforma() {
+      if (!carrito.length) return;
+      const fecha = new Date().toLocaleDateString('es-EC');
+      const numProforma = 'PRO-' + Date.now().toString().slice(-6);
+      const sub = subtotalCarrito();
+      const env = costoEnvioActual();
+      const total = sub + env;
+
+      const filasHtml = carrito.map((i, idx) => `
+        <tr>
+          <td style="padding:8px;border:1px solid #ccc">${idx + 1}</td>
+          <td style="padding:8px;border:1px solid #ccc">${esc(i.nombre)}</td>
+          <td style="padding:8px;border:1px solid #ccc;text-align:center">${i.cantidad}</td>
+          <td style="padding:8px;border:1px solid #ccc;text-align:right">$${i.precio.toFixed(2)}</td>
+          <td style="padding:8px;border:1px solid #ccc;text-align:right">$${(i.precio * i.cantidad).toFixed(2)}</td>
+        </tr>`).join('');
+
+      const contenedor = document.getElementById('proforma-print');
+      contenedor.innerHTML = `
+        <div style="max-width:750px;margin:0 auto">
+          <div style="display:flex;justify-content:space-between;border-bottom:2px solid #111;padding-bottom:12px;margin-bottom:18px">
+            <div>
+              <h1 style="margin:0;font-size:24px">KD TECH ELECTRONICS</h1>
+              <p style="margin:4px 0;font-size:13px">Módulos, placas de desarrollo, sensores y componentes electrónicos</p>
+              <p style="margin:2px 0;font-size:13px">WhatsApp: +593 99 832 9213 · Ambato - Ecuador</p>
+            </div>
+            <div style="text-align:right">
+              <h2 style="margin:0;color:#FF7A29">PROFORMA #${numProforma}</h2>
+              <p style="margin:4px 0;font-size:13px">Fecha: ${fecha}</p>
+              <p style="margin:2px 0;font-size:13px">Validez: 8 días</p>
+            </div>
+          </div>
+          <p style="font-size:14px"><strong>Cliente / Institución:</strong> ${esc(checkoutDatos.nombreCliente || 'Consumidor Final')} &nbsp;|&nbsp; <strong>Ciudad:</strong> ${esc(checkoutDatos.ciudadCliente || 'Ecuador')}</p>
+          <table style="width:100%;border-collapse:collapse;font-size:13.5px;margin-top:12px">
+            <thead>
+              <tr style="background:#f3f4f6">
+                <th style="padding:8px;border:1px solid #ccc">#</th>
+                <th style="padding:8px;border:1px solid #ccc;text-align:left">Descripción del Componente</th>
+                <th style="padding:8px;border:1px solid #ccc">Cant.</th>
+                <th style="padding:8px;border:1px solid #ccc;text-align:right">P. Unitario</th>
+                <th style="padding:8px;border:1px solid #ccc;text-align:right">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>${filasHtml}</tbody>
+          </table>
+          <div style="margin-top:16px;text-align:right;font-size:14px">
+            <p style="margin:4px 0">Subtotal: <strong>$${sub.toFixed(2)} USD</strong></p>
+            <p style="margin:4px 0">Envío estimado: <strong>$${env.toFixed(2)} USD</strong></p>
+            <p style="margin:6px 0;font-size:18px">TOTAL: <strong>$${total.toFixed(2)} USD</strong></p>
+          </div>
+        </div>`;
+
+      window.print();
+    }
+
+    /* ---------- 10. VENTANA DE DETALLE CON FICHAS TÉCNICAS Y CÓDIGO ---------- */
+    function abrirDetalle(p) {
+      if (!p) return;
+      const stock = stockDe(p);
+      document.getElementById('detalle-contenido').innerHTML = `
+        <div class="dlg-top">
+          <button class="cerrar" type="button" aria-label="Cerrar">&times;</button>
+          ${imagenDe(p)}
+        </div>
+        <div class="dlg-body">
+          <div class="sku-line" style="margin-bottom:6px">
+            <span>SKU: ${esc(p._sku)}</span>
+            <span class="cat-tag">${esc(p._categoria)}</span>
+          </div>
+          <h3>${esc(p.nombre)}</h3>
+          ${chipDe(stock)}
+
+          <div class="dlg-tabs">
+            <button type="button" class="dlg-tab-btn active" data-dtab="info">Descripción y Especificaciones</button>
+            <button type="button" class="dlg-tab-btn" data-dtab="code">Código Ejemplo (Arduino / ESP32)</button>
+          </div>
+
+          <div id="dpanel-info">
+            <p class="full" style="margin:10px 0;color:var(--ink-soft);line-height:1.6">${esc(p.descripcion || 'Módulo electrónico verificado por KD Tech Electronics.')}</p>
+            <div class="spec-pills" style="margin-top:12px">
+              <span class="spec-pill">Voltaje: ${esc((p._voltajes || []).join(' / '))}</span>
+              <span class="spec-pill">Interfaces: ${esc((p._interfaces || []).join(', ') || 'Estándar')}</span>
+            </div>
+          </div>
+
+          <div id="dpanel-code" hidden>
+            <pre class="code-preview"><code>${esc(p._codigo)}</code></pre>
+          </div>
+
+          <div class="meta" style="margin-top:18px;padding-top:14px">
+            <span class="price" style="font-size:26px">$${precio(p.precio)}</span>
+            <span class="units">${stock} ${stock === 1 ? 'unidad disponible' : 'unidades disponibles'}</span>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+            ${botonDe(p, stock)}
+          </div>
+        </div>`;
+      $detalle.showModal();
+    }
+
+    /* ---------- 11. KITS MAKER PRECONFIGURADOS ---------- */
+    const KITS_MAKER = [
+      {
+        titulo: 'Kit Domótica IoT WiFi con ESP32',
+        etiqueta: 'IoT & Smart Home',
+        componentes: ['ESP32', 'Relé', 'DHT22', 'Dupont'],
+        desc: 'Ideal para controlar luces y monitorear clima desde el celular o servidor web.'
+      },
+      {
+        titulo: 'Kit Robot / Medidor Ultrasónico Arduino',
+        etiqueta: 'Robótica Educativa',
+        componentes: ['Arduino', 'HC-SR04', 'SG90', 'Protoboard'],
+        desc: 'Paquete clásico para proyectos universitarios de detección de obstáculos y servocontrol.'
+      },
+      {
+        titulo: 'Kit Fuente y Laboratorio de Pruebas',
+        etiqueta: 'Potencia & Prototipado',
+        componentes: ['LM2596', 'TP4056', 'Protoboard', 'Potenciómetro'],
+        desc: 'Regulación de voltaje DC-DC, carga de baterías de litio 18650 y pruebas en protoboard.'
+      }
+    ];
+
+    function pintarKits() {
+      const $cont = document.getElementById('contenedor-kits');
+      $cont.innerHTML = KITS_MAKER.map((kit, idx) => {
+        const encontrados = kit.componentes
+          .map(palabra => PRODUCTOS.find(p => normalizar(p.nombre).includes(normalizar(palabra))))
+          .filter(Boolean);
+
+        const totalKit = encontrados.reduce((s, p) => s + num(p.precio), 0);
+        const listaHtml = encontrados.length
+          ? encontrados.map(p => `<li>${esc(p.nombre)} <span class="mono">($${precio(p.precio)})</span></li>`).join('')
+          : kit.componentes.map(c => `<li>Módulo ${esc(c)}</li>`).join('');
+
+        return `
+          <article class="kit-card">
+            <span class="kit-badge">${esc(kit.etiqueta)}</span>
+            <h3>${esc(kit.titulo)}</h3>
+            <p style="margin:0;font-size:13.5px;color:var(--ink-soft)">${esc(kit.desc)}</p>
+            <ul class="kit-items-list">${listaHtml}</ul>
+            <div class="kit-footer">
+              <span class="price">$${precio(totalKit || 22.50)}</span>
+              <button type="button" class="buy" style="flex:0 0 auto" data-add-kit="${idx}">Agregar Kit al Carrito</button>
+            </div>
+          </article>`;
+      }).join('');
+    }
+
+    /* ---------- 12. LÓGICA DE LAS 5 CALCULADORAS DE INGENIERÍA ---------- */
+    function actualizarCalcResistencia() {
+      const b1 = parseInt(document.getElementById('res-b1').value, 10);
+      const b2 = parseInt(document.getElementById('res-b2').value, 10);
+      const mult = parseFloat(document.getElementById('res-mult').value);
+      const tol = parseFloat(document.getElementById('res-tol').value);
+
+      const ohms = (b1 * 10 + b2) * mult;
+      const formatearOhm = v => {
+        if (v >= 1e6) return (v / 1e6).toFixed(2).replace(/\.00$/, '') + ' MΩ';
+        if (v >= 1e3) return (v / 1e3).toFixed(2).replace(/\.00$/, '') + ' kΩ';
+        return v + ' Ω';
+      };
+
+      const minOhm = ohms * (1 - tol / 100);
+      const maxOhm = ohms * (1 + tol / 100);
+
+      document.getElementById('res-valor-final').textContent = `${formatearOhm(ohms)} ±${tol}%`;
+      document.getElementById('res-rango-final').textContent = `Rango real: ${formatearOhm(minOhm)} – ${formatearOhm(maxOhm)}`;
+
+      const mapaColores = {
+        0: '#111111', 1: '#795548', 2: '#E53935', 3: '#FB8C00', 4: '#FDD835',
+        5: '#43A047', 6: '#1E88E5', 7: '#8E24AA', 8: '#757575', 9: '#F5F5F5',
+        10: '#795548', 100: '#E53935', 1000: '#FB8C00', 10000: '#FDD835', 100000: '#43A047', 1000000: '#1E88E5'
+      };
+      const colTol = tol === 1 ? '#795548' : tol === 2 ? '#E53935' : tol === 5 ? '#D4AF37' : '#B0BEC5';
+
+      document.getElementById('resistor-svg-wrap').innerHTML = `
+        <svg viewBox="0 0 300 70" width="100%" height="64">
+          <line x1="10" y1="35" x2="70" y2="35" stroke="#94A3B8" stroke-width="6"/>
+          <line x1="230" y1="35" x2="290" y2="35" stroke="#94A3B8" stroke-width="6"/>
+          <rect x="70" y="15" width="160" height="40" rx="14" fill="#E6C994" stroke="#B79563" stroke-width="2"/>
+          <rect x="95" y="15" width="14" height="40" fill="${mapaColores[b1]}"/>
+          <rect x="125" y="15" width="14" height="40" fill="${mapaColores[b2]}"/>
+          <rect x="155" y="15" width="14" height="40" fill="${mapaColores[mult] || '#E53935'}"/>
+          <rect x="195" y="15" width="14" height="40" fill="${colTol}"/>
+        </svg>`;
+    }
+
+    function actualizarCalcLed() {
+      const vcc = Math.max(0, num(document.getElementById('led-vcc').value));
+      const vf = num(document.getElementById('led-color').value);
+      const ma = Math.max(1, num(document.getElementById('led-ma').value));
+
+      if (vcc <= vf) {
+        document.getElementById('led-res-comercial').textContent = 'Vcc insuficiente';
+        document.getElementById('led-res-exacta').textContent = 'El voltaje de la fuente debe ser mayor al voltaje del LED.';
+        return;
+      }
+
+      const rExacta = (vcc - vf) / (ma / 1000);
+      const serieE12 = [10, 12, 15, 18, 22, 27, 33, 39, 47, 56, 68, 82, 100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820, 1000, 1200, 1500, 2200, 3300, 4700, 10000];
+      const rComercial = serieE12.find(r => r >= rExacta) || Math.ceil(rExacta);
+      const pot = (vcc - vf) * (ma / 1000);
+
+      document.getElementById('led-res-comercial').textContent = `${rComercial} Ω`;
+      document.getElementById('led-res-exacta').textContent = `Cálculo exacto: ${rExacta.toFixed(1)} Ω · Potencia disipada: ${pot.toFixed(3)} W`;
+    }
+
+    function actualizarCalcDivisor() {
+      const vin = num(document.getElementById('div-vin').value);
+      const r1 = Math.max(1, num(document.getElementById('div-r1').value));
+      const r2 = Math.max(1, num(document.getElementById('div-r2').value));
+      const vout = vin * (r2 / (r1 + r2));
+
+      document.getElementById('div-vout').textContent = `${vout.toFixed(2)} V`;
+      const $est = document.getElementById('div-estado');
+      if (vout <= 3.6 && vout >= 2.8) {
+        $est.textContent = '✓ Nivel lógico ideal y seguro para pines de 3.3V (ESP32)';
+        $est.style.color = 'var(--ok)';
+      } else if (vout > 3.6) {
+        $est.textContent = '⚠️ ¡Cuidado! Supera 3.6V y puede dañar un pin GPIO de 3.3V';
+        $est.style.color = 'var(--danger)';
+      } else {
+        $est.textContent = 'ℹ️ Voltaje bajo (verifica que supere el umbral lógico HIGH de 2.4V)';
+        $est.style.color = 'var(--warn)';
+      }
+    }
+
+    function actualizarCalcOhm() {
+      const v = num(document.getElementById('ohm-v').value);
+      const r = Math.max(0.1, num(document.getElementById('ohm-r').value));
+      const amp = v / r;
+      const watts = v * amp;
+      document.getElementById('ohm-result').textContent = `${(amp * 1000).toFixed(1)} mA · ${watts.toFixed(2)} W`;
+      document.getElementById('ohm-detalle').textContent = `I = ${amp.toFixed(3)} A | P = ${watts.toFixed(3)} W`;
+    }
+
+    function actualizarCalcBateria() {
+      const cap = Math.max(10, num(document.getElementById('bat-cap').value));
+      const cons = Math.max(0.1, num(document.getElementById('bat-consumo').value));
+      const horas = (cap * 0.85) / cons;
+      const dias = horas / 24;
+      document.getElementById('bat-horas').textContent = `${horas.toFixed(1)} Horas (~${dias.toFixed(1)} días)`;
+    }
+
+    /* ---------- 13. DATOS DE MUESTRA Y CARGA DESDE SUPABASE ---------- */
+    const MUESTRA = [
+      { nombre: 'ESP32 DevKit V1', descripcion: 'Placa de desarrollo con WiFi 802.11 b/g/n y Bluetooth 4.2 integrados, basada en el chip ESP32-WROOM-32 de doble núcleo a 240 MHz. Incluye 30 pines, 4 MB de memoria flash, 520 KB de SRAM, 15 canales ADC de 12 bits, interfaces SPI, I2C, UART y PWM.', precio: 10, stock: 6, imagen: '' },
+      { nombre: 'Arduino Uno R3', descripcion: 'Placa clásica con microcontrolador ATmega328P. Perfecta para empezar en electrónica, robótica y automatización.', precio: 12, stock: 5, imagen: '' },
+      { nombre: 'Sensor ultrasónico HC-SR04', descripcion: 'Medición de distancia sin contacto de 2 cm a 4 m con alta precisión. Compatible con Arduino y ESP32.', precio: 3.5, stock: 14, imagen: '' },
+      { nombre: 'Módulo relé 2 canales 5V', descripcion: 'Control de cargas AC/DC de hasta 250V/10A con aislamiento por optoacoplador incluido.', precio: 4.25, stock: 6, imagen: '' },
+      { nombre: 'Protoboard 830 puntos', descripcion: 'Placa de pruebas sin soldadura de 830 tie-points con buses laterales de alimentación.', precio: 5, stock: 9, imagen: '' },
+      { nombre: 'Kit de 120 cables Dupont', descripcion: 'Incluye tiras macho-macho, macho-hembra y hembra-hembra de 20 cm para prototipado.', precio: 4, stock: 3, imagen: '' },
+      { nombre: 'Módulo Bluetooth HC-05', descripcion: 'Comunicación serial inalámbrica Maestro/Esclavo por UART para Arduino, alcance de hasta 10 m.', precio: 5.5, stock: 7, imagen: '' },
+      { nombre: 'Pantalla LCD 16x2 con I2C', descripcion: 'Módulo de visualización con adaptador I2C soldado, requiere solo 2 pines de datos (SDA y SCL).', precio: 6.5, stock: 5, imagen: '' },
+      { nombre: 'Servomotor SG90', descripcion: 'Micro servo de 180° controlado por PWM, ideal para brazos robóticos y mecanismos con Arduino.', precio: 3, stock: 12, imagen: '' },
+      { nombre: 'Sensor de temperatura DHT22', descripcion: 'Sensor digital calibrado que mide temperatura y humedad relativa con alta precisión.', precio: 5, stock: 8, imagen: '' },
+      { nombre: 'Módulo cargador de batería TP4056', descripcion: 'Carga baterías de litio 3.7V 18650 vía USB-C con protección BMS contra descarga y cortocircuito.', precio: 1.5, stock: 20, imagen: '' },
+      { nombre: 'Potenciómetro rotativo 10K', descripcion: 'Resistencia variable lineal de 10 kΩ para entradas ADC, control de brillo o velocidad.', precio: 0.6, stock: 30, imagen: '' },
+      { nombre: 'Regulador de voltaje LM2596', descripcion: 'Módulo convertidor DC-DC step-down ajustable de alta eficiencia, entrada hasta 40V.', precio: 2.2, stock: 10, imagen: '' }
+    ];
+
+    function esqueletos(n = 8) {
+      $lista.innerHTML = Array.from({ length: n }, () => `
+        <div class="card skeleton" aria-hidden="true">
+          <div class="sk-img"></div>
+          <div class="sk-line"></div>
+          <div class="sk-line short"></div>
+        </div>`).join('');
+    }
+
+    async function cargarProductos() {
+      esqueletos();
+      try {
+        const cliente = supabase.createClient(supabaseUrl, supabaseKey);
+        const { data, error } = await cliente.from('productos').select('*');
+        if (error) throw error;
+
+        const crudos = (data && data.length) ? data : MUESTRA;
+        PRODUCTOS = crudos.map((p, i) => enriquecerProducto(p, i));
+        document.getElementById('stat-total-prod').textContent = `${PRODUCTOS.length}+`;
+        pintarBarraCategorias();
+        pintarKits();
+        pintar();
+      } catch (e) {
+        PRODUCTOS = MUESTRA.map((p, i) => enriquecerProducto(p, i));
+        $aviso.innerHTML = `
+          <div class="demo-note">
+            <span><strong>Modo Vista Previa:</strong> Mostrando catálogo demostrativo local. Al estar en línea se sincroniza automáticamente con tu tabla <code>productos</code> en Supabase.</span>
+          </div>`;
+        pintarBarraCategorias();
+        pintarKits();
+        pintar();
+      }
+    }
+
+    /* ---------- 14. EVENT LISTENERS E INTERACTIVIDAD ---------- */
+    // Cambio de tema visual
+    document.querySelectorAll('[data-set-theme]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = btn.dataset.setTheme;
+        document.documentElement.setAttribute('data-theme', t);
+        document.querySelectorAll('[data-set-theme]').forEach(b => b.classList.toggle('active', b === btn));
+        try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+      });
+    });
+
+    // Atajo de teclado Ctrl+K para buscar
+    window.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        $buscar.focus();
+      }
+    });
+
+    // Búsquedas rápidas
+    document.querySelectorAll('[data-quick-search]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        $buscar.value = btn.dataset.quickSearch;
+        paginaActual = 1;
+        pintar();
+      });
+    });
+
+    // Categorías
+    $barraCategorias.addEventListener('click', e => {
+      const btn = e.target.closest('[data-cat]');
+      if (!btn) return;
+      categoriaActiva = btn.dataset.cat;
+      paginaActual = 1;
+      pintarBarraCategorias();
+      pintar();
+    });
+
+    // Filtros laterales
+    document.getElementById('filtro-solo-stock').addEventListener('change', () => { paginaActual = 1; pintar(); });
+    document.getElementById('precio-min').addEventListener('input', () => { paginaActual = 1; pintar(); });
+    document.getElementById('precio-max').addEventListener('input', () => { paginaActual = 1; pintar(); });
+
+    document.getElementById('filtro-voltaje').addEventListener('click', e => {
+      const btn = e.target.closest('[data-volt]');
+      if (!btn) return;
+      const v = btn.dataset.volt;
+      if (voltajesActivos.has(v)) voltajesActivos.delete(v);
+      else voltajesActivos.add(v);
+      btn.classList.toggle('active', voltajesActivos.has(v));
+      paginaActual = 1;
+      pintar();
+    });
+
+    document.getElementById('filtro-interfaz').addEventListener('click', e => {
+      const btn = e.target.closest('[data-intf]');
+      if (!btn) return;
+      const intf = btn.dataset.intf;
+      if (interfacesActivas.has(intf)) interfacesActivas.delete(intf);
+      else interfacesActivas.add(intf);
+      btn.classList.toggle('active', interfacesActivas.has(intf));
+      paginaActual = 1;
+      pintar();
+    });
+
+    document.getElementById('btn-limpiar-filtros').addEventListener('click', () => {
+      categoriaActiva = 'Todas';
+      voltajesActivos.clear();
+      interfacesActivas.clear();
+      document.getElementById('filtro-solo-stock').checked = false;
+      document.getElementById('precio-min').value = '';
+      document.getElementById('precio-max').value = '';
+      $buscar.value = '';
+      document.querySelectorAll('.chip-toggle').forEach(b => b.classList.remove('active'));
+      paginaActual = 1;
+      pintarBarraCategorias();
+      pintar();
+    });
+
+    // Cambiar modo de vista (Grid / List / Datasheet Table)
+    document.querySelectorAll('[data-view]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        vistaActual = btn.dataset.view;
+        document.querySelectorAll('[data-view]').forEach(b => b.classList.toggle('active', b === btn));
+        pintar();
+      });
+    });
+
+    // Clics en tarjetas, tabla, favoritos, comparador y carrito
+    document.body.addEventListener('click', e => {
+      const itemTrigger = e.target.closest('[data-i]');
+      if (itemTrigger) {
+        abrirDetalle(VISIBLES[+itemTrigger.dataset.i]);
+        return;
+      }
+
+      const dtab = e.target.closest('[data-dtab]');
+      if (dtab) {
+        const mode = dtab.dataset.dtab;
+        document.querySelectorAll('[data-dtab]').forEach(b => b.classList.toggle('active', b === dtab));
+        document.getElementById('dpanel-info').hidden = mode !== 'info';
+        document.getElementById('dpanel-code').hidden = mode !== 'code';
+        return;
+      }
+
+      const addBtn = e.target.closest('[data-add]');
+      if (addBtn) {
+        const producto = buscarProducto(addBtn.dataset.add);
+        if (!producto) return;
+        agregarAlCarrito(producto);
+        const original = addBtn.innerHTML;
+        addBtn.innerHTML = '✓ Agregado';
+        addBtn.disabled = true;
+        setTimeout(() => { addBtn.innerHTML = original; addBtn.disabled = false; }, 850);
+        return;
+      }
+
+      const kitBtn = e.target.closest('[data-add-kit]');
+      if (kitBtn) {
+        const kit = KITS_MAKER[+kitBtn.dataset.addKit];
+        if (!kit) return;
+        kit.componentes.forEach(palabra => {
+          const prod = PRODUCTOS.find(p => normalizar(p.nombre).includes(normalizar(palabra)));
+          if (prod && stockDe(prod) > 0) agregarAlCarrito(prod);
+        });
+        mostrarToast(`Kit "${kit.titulo}" agregado al carrito`);
+        return;
+      }
+
+      const favBtn = e.target.closest('[data-fav]');
+      if (favBtn) {
+        const id = favBtn.dataset.fav;
+        if (favoritos.includes(id)) favoritos = favoritos.filter(x => x !== id);
+        else favoritos.push(id);
+        try { localStorage.setItem(FAV_KEY, JSON.stringify(favoritos)); } catch (err) {}
+        actualizarBadges();
+        pintar();
+        return;
+      }
+
+      const compBtn = e.target.closest('[data-comp]');
+      if (compBtn) {
+        const id = compBtn.dataset.comp;
+        if (comparador.includes(id)) {
+          comparador = comparador.filter(x => x !== id);
+        } else {
+          if (comparador.length >= 4) {
+            mostrarToast('Puedes comparar hasta 4 componentes a la vez');
+            return;
+          }
+          comparador.push(id);
+          mostrarToast('Agregado al comparador');
+        }
+        try { localStorage.setItem(COMPARE_KEY, JSON.stringify(comparador)); } catch (err) {}
+        actualizarBadges();
+        pintar();
+      }
+    });
+
+    // Cerrar modales
+    $detalle.addEventListener('click', e => {
+      if (e.target.closest('.cerrar') || e.target === $detalle)$detalle.close();
+    });
+    $btnCarrito.addEventListener('click', () => { pintarCarrito(); $carritoModal.showModal(); });$cerrarCarrito.addEventListener('click', () => $carritoModal.close());$carritoModal.addEventListener('click', e => { if (e.target === $carritoModal)$carritoModal.close(); });
+
+    // Eventos dentro del carrito
+    $carritoContenido.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-accion]');
+      if (!btn) return;
+      const { accion, id } = btn.dataset;
+      if (accion === 'mas') cambiarCantidad(id, 1);
+      if (accion === 'menos') cambiarCantidad(id, -1);
+      if (accion === 'quitar') quitarDelCarrito(id);
+    });
+
+    $carritoContenido.addEventListener('input', e => {
+      if (e.target.id === 'chk-nombre') checkoutDatos.nombreCliente = e.target.value;
+      if (e.target.id === 'chk-ciudad') checkoutDatos.ciudadCliente = e.target.value;
+      if (e.target.id === 'chk-envio') { checkoutDatos.metodoEnvio = e.target.value; pintarCarrito(); }
+      if (e.target.id === 'chk-pago') checkoutDatos.metodoPago = e.target.value;
+    });
+
+    $btnVaciar.addEventListener('click', vaciarCarrito);
+    $btnProforma.addEventListener('click', imprimirProforma);$btnPedidoWa.addEventListener('click', generarPedidoWhatsApp);
+
+    // Modal de Comparador
+    $btnComparador.addEventListener('click', () => {
+      const prods = comparador.map(id => buscarProducto(id)).filter(Boolean);
+      const $cont = document.getElementById('comparador-contenido');
+      if (!prods.length) {
+        $cont.innerHTML = '<p class="carrito-vacio">Aún no has seleccionado componentes para comparar. Pulsa el botón <strong>⇄</strong> en cualquier tarjeta.</p>';
+      } else {
+        $cont.innerHTML = `
+          <div class="datasheet-table-wrap">
+            <table class="datasheet-table">
+              <thead>
+                <tr>
+                  <th>Atributo</th>
+                  ${prods.map(p => `<th>${esc(p.nombre)}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>SKU</strong></td>${prods.map(p => `<td class="mono">${esc(p._sku)}</td>`).join('')}</tr>
+                <tr><td><strong>Categoría</strong></td>${prods.map(p => `<td>${esc(p._categoria)}</td>`).join('')}</tr>
+                <tr><td><strong>Precio</strong></td>${prods.map(p => `<td class="mono"><strong>$${precio(p.precio)}</strong></td>`).join('')}</tr>
+                <tr><td><strong>Voltaje</strong></td>${prods.map(p => `<td class="mono">${esc((p._voltajes || []).join(', '))}</td>`).join('')}</tr>
+                <tr><td><strong>Interfaces</strong></td>${prods.map(p => `<td class="mono">${esc((p._interfaces || []).join(', ') || 'Estándar')}</td>`).join('')}</tr>
+                <tr><td><strong>Stock</strong></td>${prods.map(p => `<td class="mono">${stockDe(p)} u.</td>`).join('')}</tr>
+              </tbody>
+            </table>
+          </div>`;
+      }
+      $comparadorModal.showModal();
+    });
+    $cerrarComparador.addEventListener('click', () =>$comparadorModal.close());
+
+    // Modal de Favoritos
+    $btnFavoritos.addEventListener('click', () => {
+      const prods = favoritos.map(id => buscarProducto(id)).filter(Boolean);
+      const $cont = document.getElementById('favoritos-contenido');
+      if (!prods.length) {
+        $cont.innerHTML = '<p class="carrito-vacio">No tienes componentes guardados en favoritos todavía.</p>';
+      } else {
+        $cont.innerHTML = prods.map(p => `
+          <div class="item-carrito">
+            <div>
+              <p class="ic-nombre">${esc(p.nombre)}</p>
+              <p class="ic-precio">$${precio(p.precio)} · Stock: ${stockDe(p)}</p>
+            </div>
+            <button class="buy" style="flex:0 0 auto;padding:7px 12px" type="button" data-add="${esc(idDe(p))}">+ Carrito</button>
+          </div>`).join('');
+      }
+      $favoritosModal.showModal();
+    });
+    $cerrarFavoritos.addEventListener('click', () =>$favoritosModal.close());
+
+    // Pestañas del Laboratorio de Calculadoras
+    document.querySelectorAll('[data-lab-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.labTab;
+        document.querySelectorAll('[data-lab-tab]').forEach(b => b.classList.toggle('active', b === btn));
+        document.querySelectorAll('.lab-panel').forEach(p => p.classList.toggle('active', p.id === `lab-${target}`));
+      });
+    });
+
+    ['res-b1', 'res-b2', 'res-mult', 'res-tol'].forEach(id => {
+      document.getElementById(id).addEventListener('change', actualizarCalcResistencia);
+    });
+    ['led-vcc', 'led-color', 'led-ma'].forEach(id => {
+      document.getElementById(id).addEventListener('input', actualizarCalcLed);
+    });
+    ['div-vin', 'div-r1', 'div-r2'].forEach(id => {
+      document.getElementById(id).addEventListener('input', actualizarCalcDivisor);
+    });
+    ['ohm-v', 'ohm-r'].forEach(id => {
+      document.getElementById(id).addEventListener('input', actualizarCalcOhm);
+    });
+    ['bat-cap', 'bat-consumo'].forEach(id => {
+      document.getElementById(id).addEventListener('input', actualizarCalcBateria);
+    });
+
+    // Paginación y ordenamiento
+    $pagAnterior.addEventListener('click', () => {
+      paginaActual--;
+      pintar();
+      document.querySelector('.results-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    $pagSiguiente.addEventListener('click', () => { paginaActual++; pintar(); document.querySelector('.results-bar').scrollIntoView({ behavior: 'smooth', block: 'start' }); });$buscar.addEventListener('input', () => { paginaActual = 1; pintar(); });
+    $orden.addEventListener('change', () => { paginaActual = 1; pintar(); });$itemsPorPagina.addEventListener('change', () => {
+      itemsPorPagina = parseInt($itemsPorPagina.value, 10) || 10;
+      paginaActual = 1;
+      pintar();
+    });
+
+    /* ---------- 15. INICIALIZACIÓN ---------- */
+    cargarEstadoLocal();
+    actualizarBadges();
+    actualizarCalcResistencia();
+    actualizarCalcLed();
+    actualizarCalcDivisor();
+    actualizarCalcOhm();
+    actualizarCalcBateria();
+    cargarProductos();
+  </script>
 </body>
 </html>
